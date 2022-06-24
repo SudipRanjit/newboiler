@@ -1,0 +1,374 @@
+.add__btn{
+  text-align: right;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  border-top: 1px solid #f4f4f4;
+  vertical-align: middle;
+}
+.widget-user-image{
+  display:inline;
+}
+.widget-user-image>img{
+  width:32px;
+}
+
+.files input {
+  outline: 2px dashed #92b0b3;
+  outline-offset: -10px;
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  padding-top:120px;
+  padding-bottom:120px;
+  padding-left:43%;
+  text-align: center !important;
+  margin: 0 auto;
+  width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+}
+.files{ position:relative}
+.files:after {  pointer-events: none;
+  position: absolute;
+  top: 40px;
+  bottom: 30px;
+  left: 0;
+  width: 50px;
+  right: 0;
+  height: 56px;
+  content: "";
+  background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+  display: block;
+  margin: 0 auto;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+  position: absolute;
+  bottom: 10px;
+  left: 0;  pointer-events: none;
+  width: 100%;
+  right: 0;
+  height: 57px;
+  content: " or drag it here. ";
+  display: block;
+  margin: 0 auto;
+  color: #2ea591;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.upload-content{
+  display:none;
+}
+
+.image-box{
+  margin: 4px 0px;
+  padding: 5px;
+}
+
+.image-box>img{
+  width:100%;
+  object-fit: contain;
+}
+
+.media-detail-image>img{width:240px;}
+
+.search-row{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: right;
+}
+.search-box {
+  display: block;
+  margin-bottom: 20px;
+  position: absolute;
+  left: 0;
+}
+.clear__btn{
+  margin-left:20px;
+}
+.width__400{
+  width:400px !important;
+}
+
+
+.media-list>.form-box{
+  border: #CCC solid 1px;
+  padding: 10px 18px 10px 10px;
+  height: 700px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-bottom: 30px;
+}
+
+.delete-img{
+  float:right;
+}
+
+.media-detail-image>img{
+  width:60%;
+}
+.media-detail-image{
+  text-align: center;
+}
+
+.author-btn{
+  text-align: right;
+  float: right;
+  cursor: pointer;
+  color: #3d9970;
+}
+/* width */
+.media-list>.form-box::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.media-list>.form-box::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.media-list>.form-box::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.media-list>.form-box::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.image-border{
+  box-shadow: 0px 0px 0px 2px #007bff;
+}
+
+.loader{
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  z-index: 999999;
+  background: #f0f1f2;
+  height: 660px;
+}
+.loader>img{
+  padding-top: 50%;
+  width: 60px;
+}
+#fileupload{
+  height: 400px;
+  overflow: auto;
+}
+.author-image{
+  width: 50px;
+  border-radius: 100px;
+}
+.select2-container--default .select2-selection--single {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  height: 40px;
+  padding-top: 10px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 40px;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 20px;
+}
+
+/*-- Switch box --*/
+.switch-box{
+  height:60px;
+}
+.switch-label{
+  font-weight:700;
+}
+/* The switch - the box around the slider */
+.switch {
+  position: absolute;
+  right:16px;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.author-frame{
+  width:100%;
+  height: 90vh;
+  overflow: auto;
+}
+
+.banner-image{
+  padding:3px;
+}
+
+.featured_video, .featured_video iframe{
+  width: 100%;
+}
+
+.ck-content .blockquote {
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.success{
+  background-color: rgb(232 249 234);
+}
+
+.danger{
+  background-color: rgb(251 226 226);
+}
+
+.table td, .table th{
+  border:none !important;
+}
+
+.quick__edit{
+  display:none;
+}
+
+.img__btn{
+  margin-top:30px;
+}
+.img-body{
+  text-align: center;
+}
+
+.mt-30{
+  margin-top:30px;
+}
+
+.custom-file{
+  width:100%;
+}
+.img-circle-form{
+  width:200px;
+}
+
+.action-form{
+  display:inline;
+}
+
+.widget-image{
+  text-align: center;
+}
+.widget-image>img{
+  width:120px;
+}
+
+.search__icon{
+  cursor: pointer;
+}
+
+.cancel__search {
+  padding: 10px;
+  color: #F00;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.widget-image-brand>img{
+  width:100%;
+}
+
+#addMedia{
+  margin-bottom: 15px;
+}
+.textarea{
+  height:380px;
+}
+.ck-editor__editable_inline {
+  min-height: 400px;
+}
+
+.ff_fileupload_hidden{
+  display:none !important;
+}
+.library-scroll{
+  width: 100%;
+  padding: 0px;
+  margin: 0 auto;
+}
+#featured_image>img{
+  padding:30px;
+}
+.table_image{
+  width:300px;
+}
+
+.dimension-box{
+  width:31%;
+  display: inline;
+}
+
+@media only screen and (max-width: 768px) {
+  .files input {
+    padding-left:30%;
+  }
+  
+  .media-list>.form-box{
+    height:300px;
+  }
+}
