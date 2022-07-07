@@ -81,7 +81,8 @@
             </div>
         </div>
     </div>
-</div><div class="modal fade" id="see-everything" tabindex="-1" aria-labelledby="see-everythingLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="see-everything" tabindex="-1" aria-labelledby="see-everythingLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-4 p-lg-5">
@@ -129,61 +130,6 @@
                                         We'll install your new boiler and won't leave until it's working and tested. We know every job is different so we include all pipework alterations to accommodate your new boiler within your fixed price. We will also install your condensate pipe, and upgrade the pipe from your gas meter to boiler, if required.
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div><div class="modal fade" id="edit-answer" tabindex="-1" aria-labelledby="edit-answerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body p-4 p-lg-5">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-10 text-center">
-                        <h2 class="modal-title mb-4" id="edit-answerLabel">Edit your answers</h2>
-                        <p class="mb-5">Edit your answers below to adjust your results</p>
-                    </div>
-                </div>
-                <div class="row justify-content-center edit-answer">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="edit-answer-container">
-                            <div class="select-boiler d-flex flex-wrap flex-column flex-sm-row justify-content-center mb-5">
-                                <div class="edit-answer-item col-sm-4 text-center mb-4">
-                                    <span class="select-boiler-item mx-auto">
-                                        <img src="{!! asset('assets/img/icon-bed.png') !!}" alt="Bed">
-                                        <span class="text-primary"><span class="item-count">2</span> Bed</span>
-                                        <input type="number" class="bed-count d-none" name="bed-count" value="2">
-                                    </span>
-
-                                    <button class="btn btn-outline-secondary decrease" type="button"><span class="fa fa-minus"></span></button>
-                                    <button class="btn btn-outline-secondary increase" type="button"><span class="fa fa-plus"></span></button>
-                                </div>
-                                <div class="edit-answer-item col-sm-4 text-center mb-4">
-                                    <span class="select-boiler-item mx-auto">
-                                        <img src="{!! asset('assets/img/icon-bath.png') !!}" alt="bath">
-                                        <span class="text-primary"><span class="item-count">1</span> Bath</span>
-                                        <input type="number" class="bath-count d-none" name="bath-count" value="1">
-                                    </span>
-
-                                    <button class="btn btn-outline-secondary decrease" type="button"><span class="fa fa-minus"></button>
-                                    <button class="btn btn-outline-secondary increase" type="button"><span class="fa fa-plus"></button>
-                                </div>
-                                <div class="edit-answer-item col-sm-4 text-center mb-4">
-                                    <span class="select-boiler-item mx-auto">
-                                        <img src="{!! asset('assets/img/icon-shower.png') !!}" alt="shower">
-                                        <span class="text-primary"><span class="item-count">1</span> Shower</span>
-                                        <input type="number" class="shower-count d-none" name="shower-count" value="1">
-                                    </span>
-
-                                    <button class="btn btn-outline-secondary decrease" type="button"><span class="fa fa-minus"></button>
-                                    <button class="btn btn-outline-secondary increase" type="button"><span class="fa fa-plus"></button>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <button class="btn btn-secondary btn-lg save-answer">Save</button>
                             </div>
                         </div>
                     </div>
