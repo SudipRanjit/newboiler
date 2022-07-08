@@ -52,6 +52,6 @@
         </div>
 </div>
 
-{{-- @include ('pages.questions.include-questions') --}}
+@include ('pages.questions.include-questions')
 
 @endsection
