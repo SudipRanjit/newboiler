@@ -57,5 +57,5 @@
     </div>
   </div>
 
-  <div class="nav-wrapper back__btn" id="back__1" alt="question__1" cur="question__2"><</div>
+  <div class="nav-wrapper back__btn" id="back__1" alt="question__1" cur="question__2"><i class="fa-solid fa-arrow-left"></i></div>
 </div>

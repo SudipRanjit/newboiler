@@ -628,3 +628,222 @@
 <!--  End edit answer modal -->
 
 @endsection
+
+@section('custom-scripts')
+<script>
+function listProductsFromAPI_new(selection) {
+    jQuery(".loader").show();
+    var all = apiBase + "all";
+    var beds = selection.beds;
+    var baths = selection.baths;
+    var boiler = selection.boiler;
+    var bConvert = selection.bConvert;
+
+    var bedPower = "";
+    var bathPower = "";
+
+    var finalBoiler = "";
+    finalBoiler = boiler;
+    if (boiler === "Combi") {
+      finalBoiler = "Combi";
+    }
+
+    if (boiler !== "Combi" && bConvert === "YES") {
+      finalBoiler = "Combi";
+    }
+
+    if (finalBoiler === "Combi") {
+      switch (beds) {
+        case 1:
+          bedPower = "24-28";
+          break;
+        case 2:
+          bedPower = "24-28";
+          break;
+        case 3:
+          bedPower = "28-35";
+          break;
+        case 4:
+          bedPower = "28-35";
+          break;
+        case 5:
+          bedPower = "35-43";
+          break;
+        case 6:
+          bedPower = "35-43";
+          break;
+        default:
+          bedPower = "35-43";
+          break;
+      }
+      switch (baths) {
+        case 1:
+          bathPower = "24-28";
+          break;
+        case 2:
+          bathPower = "28-35";
+          break;
+        default:
+          bathPower = "35-43";
+          break;
+      }
+    } else if (finalBoiler === "System") {
+      switch (beds) {
+        case 1:
+          bedPower = "12-15";
+          break;
+        case 2:
+          bedPower = "12-15";
+          break;
+        case 3:
+          bedPower = "15-30";
+          break;
+        case 4:
+          bedPower = "15-30";
+          break;
+        case 5:
+          bedPower = "30-100";
+          break;
+        case 6:
+          bedPower = "30-100";
+          break;
+        default:
+          bedPower = "30-100";
+          break;
+      }
+
+      switch (baths) {
+        case 1:
+          bathPower = "12-15";
+          break;
+        case 2:
+          bathPower = "15-30";
+          break;
+        default:
+          bathPower = "30-100";
+          break;
+      }
+    } else {
+      switch (beds) {
+        case 1:
+          bedPower = "10-18";
+          break;
+        case 2:
+          bedPower = "10-18";
+          break;
+        case 3:
+          bedPower = "18-26";
+          break;
+        case 4:
+          bedPower = "18-26";
+          break;
+        case 5:
+          bedPower = "27-40";
+          break;
+        case 6:
+          bedPower = "27-40";
+          break;
+        default:
+          bedPower = "27-40";
+          break;
+      }
+
+      switch (baths) {
+        case 1:
+          bathPower = "10-18";
+          break;
+        case 2:
+          bathPower = "18-26";
+          break;
+        default:
+          bathPower = "27-40";
+          break;
+      }
+    }
+    var boilerAPI = apiBase + "boilers/" + finalBoiler + "/" + bedPower;
+    var i = 0;
+    jQuery.get(boilerAPI, function(data, status) {
+      console.log(data);
+      return false;
+      var content = "";
+      var dPrice = 0;
+      jQuery.each([data], function(i, objects) {
+
+        jQuery.each(objects.boiler, function(key, value) {
+
+          dPrice = parseFloat(value.price) - parseFloat(value.discount);
+          content += "<div class='row mt-30 product__box'>";
+          content += "<div class='col-md-4 no-padding'>";
+          content += "<div class='product__image' style='background-image:url(" + value.image + ");'>";
+          content += "</div>";
+          content += "</div>";
+          content += "<div class='col-md-8 no-padding'>";
+          content += "<div class='product__description'>";
+          content += "<h3>" + value.boiler_name + "</h3>";
+          if (value.summary !== null)
+            content += "<p class='product__summary'>" + value.summary + "</p>";
+          content += "</div>";
+          content += "<div class='product__tags'>";
+          content += "<div class='row'>";
+          content += "<div class='col-md-4'><span class='btn btn-model full-width'>Latest Model</span></div>";
+          content += "<div class='col-md-4'><span class='btn btn-choice full-width'>Popular Choice</span></div>";
+          content += "</div>";
+          content += "</div>";
+          content += "<div class='product__attributes'>";
+          content += "<div class='table__block'><span class='block__title'>Hot water flow rate</span> <span class='block__value'>" + value.flow_rate + "</span></div>";
+          content += "<div class='table__block'><span class='block__title'>Central heating output</span> <span class='block__value'>" + value.central_heating_output + "</span></div>";
+          content += "<div class='table__block'><span class='block__title'>Warranty</span> <span class='block__value'>" + value.warranty + "</span></div>";
+          content += "<div class='table__block'><span class='block__title'>Dimension</span> <span class='block__value'>" + value.measurements + "</span></div>";
+          content += "</div>";
+          content += "<div class='product__price'>";
+          content += "<p>Your fix price including installation</p>";
+          content += "<div class='price__block'><span class='price__discount'>£" + value.price + "</span> £" + dPrice + "</div>";
+          content += "</div>";
+          content += "<div class='proceed__btns'>";
+          content += "<div class='row'>";
+          content += "<div class='col-md-4'><span class='choice__btn __proceed' id='" + value.id + "'>Choose</span></div>";
+          content += "<div class='col-md-4'><span class='add__radiators __proceed'>Add Radiators</span></div>";
+          //content += "<div class='col-md-4'><span class='save__quote __proceed'>Save This Quote</span></div>";
+          content += "</div>";
+          content += "</div>";
+          content += "</div>";
+          content += "</div>";
+        });
+      });
+      jQuery(".loader").hide();
+
+      jQuery("#all__products").html(content);
+      jQuery(".choice__btn").click(function() {
+        selectedBoiler = jQuery(this).attr("id");
+        var boilerAPI = apiBase + "boiler/" + selectedBoiler;
+        var i = 0;
+        var dPrice = 0;
+        jQuery(".loader").show();
+
+        jQuery.get(boilerAPI, function(data, status) {
+          jQuery("#products").fadeOut(0);
+          jQuery("#controls").fadeIn(400);
+          dPrice = parseFloat(data.boiler.price) - parseFloat(data.boiler.discount);
+          jQuery("#selected__boiler").html(data.boiler.boiler_name);
+          jQuery("#selected__summary").html(data.boiler.summary);
+          totalPrice = totalPrice + dPrice;
+          jQuery(".total__price").html("£" + totalPrice.toString());
+          jQuery("#step-1").removeClass("step__active");
+          jQuery("#step-2").addClass("step__active");
+          jQuery(".loader").hide();
+
+        });
+      });
+
+    });
+  }
+
+var selection = JSON.parse('{!! $selection !!}');
+console.log(selection);  
+
+var apiBase = "https://new-boiler.gasking.co.uk/api/";
+listProductsFromAPI_new(selection);
+
+</script> 
+@endsection
+

@@ -1309,6 +1309,39 @@
       return str.replace(new RegExp(find, 'g'), replace);
     }
   </script>
+
+  <script>
+   
+   function saveAnswer()
+   {
+    $.ajax({
+                url:"{{ route('save-answer') }}", 
+                type: "POST",
+                data:{beds:2,
+                      baths:1,
+                      showers:3,
+                      boiler:'Combi',
+                      bConvert:'YES'},
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                    console.log(data);
+                }
+
+            });
+   } 
+
+   saveAnswer();
+   
+ </script> 
 @endsection
 
 
