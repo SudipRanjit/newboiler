@@ -268,416 +268,8 @@
         jQuery(".close__btn_wrapper").dequeue();
       });
   
-      /** Questions Logic **/
-      jQuery("#question__1").fadeIn(200);
-      jQuery(".progress-bar").show();
-  
-      jQuery(".option-wrapper").click(function() {
-        progress = progress + 0.5;
-        jQuery(".progress-bar").css("transform", "scaleX(" + progress.toString() + ")");
-      });
-      jQuery(".q1").click(function(event) {
-        jQuery(".loader").show();
-        if (screenWidth < 768) {
-  
-        }
-        answers.current = "question__2";
-        answers.question1.option = jQuery(this).attr("id");
-        answers.question1.optionTxt = jQuery("#" + answers.question1.option + " > .figure > .option-title").html();
-        jQuery("#question__1").fadeOut(0);
-        jQuery("#question__2").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q2").click(function() {
-        jQuery(".loader").show();
-        answers.question2.option = jQuery(this).attr("id");
-        answers.question2.optionTxt = jQuery("#" + answers.question2.option + " > .figure > .option-title").html();
-        if (answers.question2.option === "q2o1") {
-          jQuery("#question__2").fadeOut(0);
-          jQuery("#question__3").fadeIn(400);
-          jQuery("#back__3").attr("alt", "question__2");
-          answers.current = "question__3";
-  
-        } else {
-          jQuery("#question__2").fadeOut(0);
-          jQuery("#question__2a").fadeIn(400);
-          answers.current = "question__2a";
-          jQuery("#back__3").attr("alt", "question__2b");
-        }
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q2a").click(function() {
-        jQuery(".loader").show();
-        answers.question2a.option = jQuery(this).attr("id");
-        answers.question2a.optionTxt = jQuery("#" + answers.question2a.option + " > .figure > .option-title").html();
-        answers.current = "question__2b";
-        jQuery("#question__2a").fadeOut(0);
-        jQuery("#question__2b").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q2b").click(function() {
-        jQuery(".loader").show();
-        answers.question2b.option = jQuery(this).attr("id");
-        answers.question2b.optionTxt = jQuery("#" + answers.question2b.option + " > .figure > .option-title").html();
-        answers.current = "question__3";
-        jQuery("#question__2b").fadeOut(0);
-        jQuery("#question__3").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q3").click(function() {
-        jQuery(".loader").show();
-        answers.question3.option = jQuery(this).attr("id");
-        answers.question3.optionTxt = jQuery("#" + answers.question3.option + " > .figure > .option-title").html();
-        answers.current = "question__4";
-        jQuery("#question__3").fadeOut(0);
-        jQuery("#question__4").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q4").click(function() {
-        jQuery(".loader").show();
-        answers.question4.option = jQuery(this).attr("id");
-        answers.question4.optionTxt = jQuery("#" + answers.question4.option + " > .figure > .option-title").html();
-        if (answers.question4.option === "q4o1") {
-          answers.current = "question__4a";
-          jQuery("#question__4").fadeOut(0);
-          jQuery("#question__4a").fadeIn(400);
-        } else {
-          answers.current = "question__5";
-          jQuery("#question__4").fadeOut(0);
-          jQuery("#question__5").fadeIn(400);
-        }
-  
-        jQuery(".loader").hide();
-      });
-  
-      jQuery(".q4a").click(function() {
-        jQuery(".loader").show();
-        answers.question4a.option = jQuery(this).attr("id");
-        answers.question4a.optionTxt = jQuery("#" + answers.question4a.option + " > .figure > .option-title").html();
-        if (answers.question4a.option === "q4ao1") {
-          loft_attic = false;
-          bedroom = false;
-          airing_cupboard = false;
-          garage = false;
-          kitchen = false;
-          utility_room = false;
-          same_room = true;
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao2") {
-          loft_attic = false;
-          bedroom = false;
-          airing_cupboard = false;
-          garage = false;
-          kitchen = false;
-          utility_room = true;
-          same_room = false;
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao3") {
-          loft_attic = false;
-          bedroom = false;
-          airing_cupboard = false;
-          garage = false;
-          kitchen = true;
-          utility_room = false;
-          same_room = false;
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao4") {
-          loft_attic = false;
-          bedroom = false;
-          airing_cupboard = false;
-          garage = true;
-          kitchen = false;
-          utility_room = false;
-          same_room = false;
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao5") {
-          loft_attic = false;
-          bedroom = false;
-          airing_cupboard = true;
-          garage = false;
-          kitchen = false;
-          utility_room = false;
-          same_room = false;
-          answers.current = "question__4a1";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4a1").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao6") {
-          loft_attic = false;
-          bedroom = true;
-          airing_cupboard = false;
-          garage = false;
-          kitchen = false;
-          utility_room = false;
-          same_room = false;
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else if (answers.question4a.option === "q4ao7") {
-          loft_attic = true;
-          bedroom = false;
-          airing_cupboard = false;
-          garage = false;
-          kitchen = false;
-          utility_room = false;
-          same_room = false;
-  
-          answers.current = "question__4b";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#question__4b").fadeIn(400);
-        } else {
-          answers.current = "contact__us";
-          jQuery("#question__4a").fadeOut(0);
-          jQuery("#contact__us").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q4a1").click(function() {
-        jQuery(".loader").show();
-        answers.question4a1.option = jQuery(this).attr("id");
-        answers.question4a1.optionTxt = jQuery("#" + answers.question4a1.option + " > .figure > .option-title").html();
-        answers.current = "question__4b";
-        jQuery("#question__4a1").fadeOut(0);
-        jQuery("#question__4b").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q4b").click(function() {
-        jQuery(".loader").show();
-        answers.question4b.option = jQuery(this).attr("id");
-        answers.question4b.optionTxt = jQuery("#" + answers.question4b.option + " > .figure > .option-title").html();
-        answers.current = "question__5";
-        jQuery("#question__4b").fadeOut(0);
-        jQuery("#question__5").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q5").click(function() {
-        jQuery(".loader").show();
-        answers.question5.option = jQuery(this).attr("id");
-        answers.question5.optionTxt = jQuery("#" + answers.question5.option + " > .figure > .option-title").html();
-        if (answers.question5.option === "q5o4") {
-          answers.current = "question__5a";
-          jQuery("#question__5").fadeOut(0);
-          jQuery("#question__5a").fadeIn(400);
-        } else if (answers.question5.option === "q5o5") {
-          answers.current = "question__5c";
-          jQuery("#question__5").fadeOut(0);
-          jQuery("#question__5c").fadeIn(400);
-        } else {
-          answers.current = "question__6";
-          jQuery("#question__5").fadeOut(0);
-          jQuery("#question__6").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q5a").click(function() {
-        jQuery(".loader").show();
-        answers.question5a.option = jQuery(this).attr("id");
-        answers.question5a.optionTxt = jQuery("#" + answers.question5a.option + " > .figure > .option-title").html();
-        if (answers.question5a.option === "q5ao1") {
-          answers.current = "question__5b";
-          jQuery("#question__5a").fadeOut(0);
-          jQuery("#question__5b").fadeIn(400);
-        } else {
-          answers.current = "question__6";
-          jQuery("#question__5b").fadeOut(0);
-          jQuery("#question__6").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q5b").click(function() {
-        jQuery(".loader").show();
-        answers.question5b.option = jQuery(this).attr("id");
-        answers.question5b.optionTxt = jQuery("#" + answers.question5b.option + " > .figure > .option-title").html();
-        answers.current = "question__6";
-        jQuery("#question__5b").fadeOut(0);
-        jQuery("#question__6").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q5c").click(function() {
-        jQuery(".loader").show();
-        answers.question5c.option = jQuery(this).attr("id");
-        answers.question5c.optionTxt = jQuery("#" + answers.question5c.option + " > .figure > .option-title").html();
-        answers.current = "question__6";
-        jQuery("#question__5c").fadeOut(0);
-        jQuery("#question__6").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q6").click(function() {
-        jQuery(".loader").show();
-        answers.question6.option = jQuery(this).attr("id");
-        answers.question6.optionTxt = jQuery("#" + answers.question6.option + " > .figure > .option-title").html();
-        answers.current = "question__7";
-        jQuery("#question__6").fadeOut(0);
-        jQuery("#question__7").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q7").click(function() {
-        jQuery(".loader").show();
-        answers.question7.option = jQuery(this).attr("id");
-        answers.question7.optionTxt = jQuery("#" + answers.question7.option + " > .figure > .option-title").html();
-        if (answers.question5a.option === "q7o1") {
-          answers.current = "question__8";
-          jQuery("#question__7").fadeOut(0);
-          jQuery("#question__8").fadeIn(400);
-        } else {
-          answers.current = "question__7a";
-          jQuery("#question__7").fadeOut(0);
-          jQuery("#question__7a").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q7a").click(function() {
-        jQuery(".loader").show();
-        answers.question7a.option = jQuery(this).attr("id");
-        answers.question7a.optionTxt = jQuery("#" + answers.question7a.option + " > .figure > .option-title").html();
-        answers.current = "question__8";
-        jQuery("#question__7a").fadeOut(0);
-        jQuery("#question__8").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q8").click(function() {
-        jQuery(".loader").show();
-        answers.question8.option = jQuery(this).attr("id");
-        answers.question8.optionTxt = jQuery("#" + answers.question8.option + " > .figure > .option-title").html();
-        answers.current = "question__8b";
-        jQuery("#question__8").fadeOut(0);
-        jQuery("#question__8b").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q8a").click(function() {
-        jQuery(".loader").show();
-        answers.question8a.option = jQuery(this).attr("id");
-        answers.question8a.optionTxt = jQuery("#" + answers.question8a.option + " > .figure > .option-title").html();
-        answers.current = "question__8b";
-        jQuery("#question__8a").fadeOut(0);
-        jQuery("#question__8b").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q8b").click(function() {
-        jQuery(".loader").show();
-        answers.question8b.option = jQuery(this).attr("id");
-        answers.question8b.optionTxt = jQuery("#" + answers.question8b.option + " > .figure > .option-title").html();
-        answers.current = "question__8c";
-        jQuery("#question__8b").fadeOut(0);
-        jQuery("#question__8c").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q8c").click(function() {
-        jQuery(".loader").show();
-        answers.question8c.option = jQuery(this).attr("id");
-        answers.question8c.optionTxt = jQuery("#" + answers.question8c.option + " > .figure > .option-title").html();
-        answers.current = "question__9";
-        jQuery("#question__8c").fadeOut(0);
-        jQuery("#question__9").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q9").click(function() {
-        jQuery(".loader").show();
-        answers.question9.option = jQuery(this).attr("id");
-        answers.question9.optionTxt = jQuery("#" + answers.question9.option + " > .figure > .option-title").html();
-        answers.current = "question__10";
-        jQuery("#question__9").fadeOut(0);
-        jQuery("#question__10").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10").click(function() {
-        jQuery(".loader").show();
-        answers.question10.option = jQuery(this).attr("id");
-        answers.question10.optionTxt = jQuery("#" + answers.question10.option + " > .figure > .option-title").html();
-        /////////////////////////////////////////////////
-        if (answers.question10.option === "q10o1") {
-          answers.current = "question__10b";
-          jQuery("#question__10").fadeOut(0);
-          jQuery("#question__10b").fadeIn(400);
-        } else {
-          answers.current = "question__10a";
-          jQuery("#question__10").fadeOut(0);
-          jQuery("#question__10a").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10a").click(function() {
-        jQuery(".loader").show();
-        answers.question10a.option = jQuery(this).attr("id");
-        answers.question10a.optionTxt = jQuery("#" + answers.question10a.option + " > .figure > .option-title").html();
-        answers.current = "question__10d";
-        jQuery("#question__10a").fadeOut(0);
-        jQuery("#question__10d").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10b").click(function() {
-        jQuery(".loader").show();
-        answers.question10b.option = jQuery(this).attr("id");
-        answers.question10b.optionTxt = jQuery("#" + answers.question10b.option + " > .figure > .option-title").html();
-        if(answers.question10b.option === "q10bo1"){
-          answers.current = "question__10c";
-          jQuery("#question__10b").fadeOut(0);
-          jQuery("#question__10c").fadeIn(400);
-        }else{
-          answers.current = "postal__code";
-          jQuery("#question__10b").fadeOut(0);
-          jQuery("#postal__code").fadeIn(400);
-        }
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10c").click(function() {
-        jQuery(".loader").show();
-        answers.question10c.option = jQuery(this).attr("id");
-        answers.question10c.optionTxt = jQuery("#" + answers.question10c.option + " > .figure > .option-title").html();
-        answers.current = "postal__code";
-        jQuery("#question__10c").fadeOut(0);
-        jQuery("#postal__code").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10d").click(function() {
-        jQuery(".loader").show();
-        answers.question10d.option = jQuery(this).attr("id");
-        answers.question10d.optionTxt = jQuery("#" + answers.question10d.option + " > .figure > .option-title").html();
-        answers.current = "question__10e";
-        jQuery("#question__10d").fadeOut(0);
-        jQuery("#question__10e").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10e").click(function() {
-        jQuery(".loader").show();
-        answers.question10e.option = jQuery(this).attr("id");
-        answers.question10e.optionTxt = jQuery("#" + answers.question10e.option + " > .figure > .option-title").html();
-        answers.current = "question__10f";
-        jQuery("#question__10e").fadeOut(0);
-        jQuery("#question__10f").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10f").click(function() {
-        jQuery(".loader").show();
-        answers.question10f.option = jQuery(this).attr("id");
-        answers.question10f.optionTxt = jQuery("#" + answers.question10f.option + " > .figure > .option-title").html();
-        answers.current = "question__10g";
-        jQuery("#question__10f").fadeOut(0);
-        jQuery("#question__10g").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery(".q10g").click(function() {
-        jQuery(".loader").show();
-        answers.question10g.option = jQuery(this).attr("id");
-        answers.question10g.optionTxt = jQuery("#" + answers.question10g.option + " > .figure > .option-title").html();
-        answers.current = "postal__code";
-        jQuery("#question__10g").fadeOut(0);
-        jQuery("#postal__code").fadeIn(400);
-        jQuery(".loader").hide();
-      });
-      jQuery("#show__products").click(function() {
+      
+      jQuery("#show__products_old").click(function() {
         jQuery(".loader").show();
         postalCode = jQuery("#postal_code").val();
         if (postalCode !== "") {
@@ -1311,17 +903,458 @@
   </script>
 
   <script>
-   
-   function saveAnswer()
+
+  /** Questions Logic **/
+      jQuery("#question__1").fadeIn(200);
+      //jQuery(".progress-bar").show();
+  
+      /*jQuery(".option-wrapper").click(function() {
+        progress = progress + 0.5;
+        jQuery(".progress-bar").css("transform", "scaleX(" + progress.toString() + ")");
+      });*/
+      jQuery(".q1").click(function(event) {
+        jQuery(".loader").show();
+        answers.current = "question__2";
+        answers.question1.option = jQuery(this).attr("id");
+        answers.question1.optionTxt = jQuery("#" + answers.question1.option + " > .figure > .option-title").html();
+        jQuery("#question__1").fadeOut(0);
+        jQuery("#question__2").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q2").click(function() {
+        jQuery(".loader").show();
+        answers.question2.option = jQuery(this).attr("id");
+        answers.question2.optionTxt = jQuery("#" + answers.question2.option + " > .figure > .option-title").html();
+        if (answers.question2.option === "q2o1") {
+          jQuery("#question__2").fadeOut(0);
+          jQuery("#question__3").fadeIn(400);
+          jQuery("#back__3").attr("alt", "question__2");
+          answers.current = "question__3";
+  
+        } else {
+          jQuery("#question__2").fadeOut(0);
+          jQuery("#question__2a").fadeIn(400);
+          answers.current = "question__2a";
+          jQuery("#back__3").attr("alt", "question__2b");
+        }
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q2a").click(function() {
+        jQuery(".loader").show();
+        answers.question2a.option = jQuery(this).attr("id");
+        answers.question2a.optionTxt = jQuery("#" + answers.question2a.option + " > .figure > .option-title").html();
+        answers.current = "question__2b";
+        jQuery("#question__2a").fadeOut(0);
+        jQuery("#question__2b").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q2b").click(function() {
+        jQuery(".loader").show();
+        answers.question2b.option = jQuery(this).attr("id");
+        answers.question2b.optionTxt = jQuery("#" + answers.question2b.option + " > .figure > .option-title").html();
+        answers.current = "question__3";
+        jQuery("#question__2b").fadeOut(0);
+        jQuery("#question__3").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q3").click(function() {
+        jQuery(".loader").show();
+        answers.question3.option = jQuery(this).attr("id");
+        answers.question3.optionTxt = jQuery("#" + answers.question3.option + " > .figure > .option-title").html();
+        answers.current = "question__4";
+        jQuery("#question__3").fadeOut(0);
+        jQuery("#question__4").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q4").click(function() {
+        jQuery(".loader").show();
+        answers.question4.option = jQuery(this).attr("id");
+        answers.question4.optionTxt = jQuery("#" + answers.question4.option + " > .figure > .option-title").html();
+        if (answers.question4.option === "q4o1") {
+          answers.current = "question__4a";
+          jQuery("#question__4").fadeOut(0);
+          jQuery("#question__4a").fadeIn(400);
+        } else {
+          answers.current = "question__5";
+          jQuery("#question__4").fadeOut(0);
+          jQuery("#question__5").fadeIn(400);
+        }
+  
+        jQuery(".loader").hide();
+      });
+  
+      jQuery(".q4a").click(function() {
+        jQuery(".loader").show();
+        answers.question4a.option = jQuery(this).attr("id");
+        answers.question4a.optionTxt = jQuery("#" + answers.question4a.option + " > .figure > .option-title").html();
+        if (answers.question4a.option === "q4ao1") {
+          loft_attic = false;
+          bedroom = false;
+          airing_cupboard = false;
+          garage = false;
+          kitchen = false;
+          utility_room = false;
+          same_room = true;
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao2") {
+          loft_attic = false;
+          bedroom = false;
+          airing_cupboard = false;
+          garage = false;
+          kitchen = false;
+          utility_room = true;
+          same_room = false;
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao3") {
+          loft_attic = false;
+          bedroom = false;
+          airing_cupboard = false;
+          garage = false;
+          kitchen = true;
+          utility_room = false;
+          same_room = false;
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao4") {
+          loft_attic = false;
+          bedroom = false;
+          airing_cupboard = false;
+          garage = true;
+          kitchen = false;
+          utility_room = false;
+          same_room = false;
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao5") {
+          loft_attic = false;
+          bedroom = false;
+          airing_cupboard = true;
+          garage = false;
+          kitchen = false;
+          utility_room = false;
+          same_room = false;
+          answers.current = "question__4a1";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4a1").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao6") {
+          loft_attic = false;
+          bedroom = true;
+          airing_cupboard = false;
+          garage = false;
+          kitchen = false;
+          utility_room = false;
+          same_room = false;
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else if (answers.question4a.option === "q4ao7") {
+          loft_attic = true;
+          bedroom = false;
+          airing_cupboard = false;
+          garage = false;
+          kitchen = false;
+          utility_room = false;
+          same_room = false;
+  
+          answers.current = "question__4b";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#question__4b").fadeIn(400);
+        } else {
+          answers.current = "contact__us";
+          jQuery("#question__4a").fadeOut(0);
+          jQuery("#contact__us").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q4a1").click(function() {
+        jQuery(".loader").show();
+        answers.question4a1.option = jQuery(this).attr("id");
+        answers.question4a1.optionTxt = jQuery("#" + answers.question4a1.option + " > .figure > .option-title").html();
+        answers.current = "question__4b";
+        jQuery("#question__4a1").fadeOut(0);
+        jQuery("#question__4b").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q4b").click(function() {
+        jQuery(".loader").show();
+        answers.question4b.option = jQuery(this).attr("id");
+        answers.question4b.optionTxt = jQuery("#" + answers.question4b.option + " > .figure > .option-title").html();
+        answers.current = "question__5";
+        jQuery("#question__4b").fadeOut(0);
+        jQuery("#question__5").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q5").click(function() {
+        jQuery(".loader").show();
+        answers.question5.option = jQuery(this).attr("id");
+        answers.question5.optionTxt = jQuery("#" + answers.question5.option + " > .figure > .option-title").html();
+        if (answers.question5.option === "q5o4") {
+          answers.current = "question__5a";
+          jQuery("#question__5").fadeOut(0);
+          jQuery("#question__5a").fadeIn(400);
+        } else if (answers.question5.option === "q5o5") {
+          answers.current = "question__5c";
+          jQuery("#question__5").fadeOut(0);
+          jQuery("#question__5c").fadeIn(400);
+        } else {
+          answers.current = "question__6";
+          jQuery("#question__5").fadeOut(0);
+          jQuery("#question__6").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q5a").click(function() {
+        jQuery(".loader").show();
+        answers.question5a.option = jQuery(this).attr("id");
+        answers.question5a.optionTxt = jQuery("#" + answers.question5a.option + " > .figure > .option-title").html();
+        if (answers.question5a.option === "q5ao1") {
+          answers.current = "question__5b";
+          jQuery("#question__5a").fadeOut(0);
+          jQuery("#question__5b").fadeIn(400);
+        } else {
+          answers.current = "question__6";
+          jQuery("#question__5b").fadeOut(0);
+          jQuery("#question__6").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q5b").click(function() {
+        jQuery(".loader").show();
+        answers.question5b.option = jQuery(this).attr("id");
+        answers.question5b.optionTxt = jQuery("#" + answers.question5b.option + " > .figure > .option-title").html();
+        answers.current = "question__6";
+        jQuery("#question__5b").fadeOut(0);
+        jQuery("#question__6").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q5c").click(function() {
+        jQuery(".loader").show();
+        answers.question5c.option = jQuery(this).attr("id");
+        answers.question5c.optionTxt = jQuery("#" + answers.question5c.option + " > .figure > .option-title").html();
+        answers.current = "question__6";
+        jQuery("#question__5c").fadeOut(0);
+        jQuery("#question__6").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q6").click(function() {
+        jQuery(".loader").show();
+        answers.question6.option = jQuery(this).attr("id");
+        answers.question6.optionTxt = jQuery("#" + answers.question6.option + " > .figure > .option-title").html();
+        answers.current = "question__7";
+        jQuery("#question__6").fadeOut(0);
+        jQuery("#question__7").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q7").click(function() {
+        jQuery(".loader").show();
+        answers.question7.option = jQuery(this).attr("id");
+        answers.question7.optionTxt = jQuery("#" + answers.question7.option + " > .figure > .option-title").html();
+        if (answers.question5a.option === "q7o1") {
+          answers.current = "question__8";
+          jQuery("#question__7").fadeOut(0);
+          jQuery("#question__8").fadeIn(400);
+        } else {
+          answers.current = "question__7a";
+          jQuery("#question__7").fadeOut(0);
+          jQuery("#question__7a").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q7a").click(function() {
+        jQuery(".loader").show();
+        answers.question7a.option = jQuery(this).attr("id");
+        answers.question7a.optionTxt = jQuery("#" + answers.question7a.option + " > .figure > .option-title").html();
+        answers.current = "question__8";
+        jQuery("#question__7a").fadeOut(0);
+        jQuery("#question__8").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q8").click(function() {
+        jQuery(".loader").show();
+        answers.question8.option = jQuery(this).attr("id");
+        answers.question8.optionTxt = jQuery("#" + answers.question8.option + " > .figure > .option-title").html();
+        answers.current = "question__8b";
+        jQuery("#question__8").fadeOut(0);
+        jQuery("#question__8b").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q8a").click(function() {
+        jQuery(".loader").show();
+        answers.question8a.option = jQuery(this).attr("id");
+        answers.question8a.optionTxt = jQuery("#" + answers.question8a.option + " > .figure > .option-title").html();
+        answers.current = "question__8b";
+        jQuery("#question__8a").fadeOut(0);
+        jQuery("#question__8b").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q8b").click(function() {
+        jQuery(".loader").show();
+        answers.question8b.option = jQuery(this).attr("id");
+        answers.question8b.optionTxt = jQuery("#" + answers.question8b.option + " > .figure > .option-title").html();
+        answers.current = "question__8c";
+        jQuery("#question__8b").fadeOut(0);
+        jQuery("#question__8c").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q8c").click(function() {
+        jQuery(".loader").show();
+        answers.question8c.option = jQuery(this).attr("id");
+        answers.question8c.optionTxt = jQuery("#" + answers.question8c.option + " > .figure > .option-title").html();
+        answers.current = "question__9";
+        jQuery("#question__8c").fadeOut(0);
+        jQuery("#question__9").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q9").click(function() {
+        jQuery(".loader").show();
+        answers.question9.option = jQuery(this).attr("id");
+        answers.question9.optionTxt = jQuery("#" + answers.question9.option + " > .figure > .option-title").html();
+        answers.current = "question__10";
+        jQuery("#question__9").fadeOut(0);
+        jQuery("#question__10").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10").click(function() {
+        jQuery(".loader").show();
+        answers.question10.option = jQuery(this).attr("id");
+        answers.question10.optionTxt = jQuery("#" + answers.question10.option + " > .figure > .option-title").html();
+        /////////////////////////////////////////////////
+        if (answers.question10.option === "q10o1") {
+          answers.current = "question__10b";
+          jQuery("#question__10").fadeOut(0);
+          jQuery("#question__10b").fadeIn(400);
+        } else {
+          answers.current = "question__10a";
+          jQuery("#question__10").fadeOut(0);
+          jQuery("#question__10a").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10a").click(function() {
+        jQuery(".loader").show();
+        answers.question10a.option = jQuery(this).attr("id");
+        answers.question10a.optionTxt = jQuery("#" + answers.question10a.option + " > .figure > .option-title").html();
+        answers.current = "question__10d";
+        jQuery("#question__10a").fadeOut(0);
+        jQuery("#question__10d").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10b").click(function() {
+        jQuery(".loader").show();
+        answers.question10b.option = jQuery(this).attr("id");
+        answers.question10b.optionTxt = jQuery("#" + answers.question10b.option + " > .figure > .option-title").html();
+        if(answers.question10b.option === "q10bo1"){
+          answers.current = "question__10c";
+          jQuery("#question__10b").fadeOut(0);
+          jQuery("#question__10c").fadeIn(400);
+        }else{
+          answers.current = "postal__code";
+          jQuery("#question__10b").fadeOut(0);
+          jQuery("#postal__code").fadeIn(400);
+        }
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10c").click(function() {
+        jQuery(".loader").show();
+        answers.question10c.option = jQuery(this).attr("id");
+        answers.question10c.optionTxt = jQuery("#" + answers.question10c.option + " > .figure > .option-title").html();
+        answers.current = "postal__code";
+        jQuery("#question__10c").fadeOut(0);
+        jQuery("#postal__code").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10d").click(function() {
+        jQuery(".loader").show();
+        answers.question10d.option = jQuery(this).attr("id");
+        answers.question10d.optionTxt = jQuery("#" + answers.question10d.option + " > .figure > .option-title").html();
+        answers.current = "question__10e";
+        jQuery("#question__10d").fadeOut(0);
+        jQuery("#question__10e").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10e").click(function() {
+        jQuery(".loader").show();
+        answers.question10e.option = jQuery(this).attr("id");
+        answers.question10e.optionTxt = jQuery("#" + answers.question10e.option + " > .figure > .option-title").html();
+        answers.current = "question__10f";
+        jQuery("#question__10e").fadeOut(0);
+        jQuery("#question__10f").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10f").click(function() {
+        jQuery(".loader").show();
+        answers.question10f.option = jQuery(this).attr("id");
+        answers.question10f.optionTxt = jQuery("#" + answers.question10f.option + " > .figure > .option-title").html();
+        answers.current = "question__10g";
+        jQuery("#question__10f").fadeOut(0);
+        jQuery("#question__10g").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+      jQuery(".q10g").click(function() {
+        jQuery(".loader").show();
+        answers.question10g.option = jQuery(this).attr("id");
+        answers.question10g.optionTxt = jQuery("#" + answers.question10g.option + " > .figure > .option-title").html();
+        answers.current = "postal__code";
+        jQuery("#question__10g").fadeOut(0);
+        jQuery("#postal__code").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+
+   /** End question logic **/   
+
+jQuery("#show__products").click(function() {
+        jQuery(".loader").show();
+        postalCode = jQuery.trim(jQuery("#postal_code").val());
+        if (postalCode !== "") {
+      
+          var beds = parseInt(answers.question6.optionTxt);
+          var baths = parseInt(answers.question7.optionTxt);
+          var showers = parseInt(answers.question8.optionTxt);
+          var boiler = answers.question2.optionTxt;
+          var bConvert = answers.question2a.optionTxt;
+      
+          saveAnswer(beds,baths,showers,boiler,bConvert);
+        }
+        else {
+          jQuery("#show__products").addClass('disabled');
+        }
+      }); 
+
+ jQuery("#postal_code").keyup(function(){
+  jQuery("#show__products").removeClass('disabled');
+ }); 
+
+   function saveAnswer(beds,baths,showers,boiler,bConvert)
    {
+
+    /*
+     beds = 2;
+     baths = 1;
+     showers = 3;
+     boiler = 'Combi';
+     bConvert = 'YES';
+    */
+
     $.ajax({
                 url:"{{ route('save-answer') }}", 
                 type: "POST",
-                data:{beds:2,
-                      baths:1,
-                      showers:3,
-                      boiler:'Combi',
-                      bConvert:'YES'},
+                data:{beds: beds,
+                      baths: baths,
+                      showers: showers,
+                      boiler: boiler,
+                      bConvert: bConvert
+                     },
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 },
@@ -1334,12 +1367,13 @@
                 success:function(data)
                 {
                     console.log(data);
+                    location.href = "{{ route('page.boiler') }}";
                 }
 
             });
    } 
 
-   saveAnswer();
+   //saveAnswer();
    
  </script> 
 @endsection

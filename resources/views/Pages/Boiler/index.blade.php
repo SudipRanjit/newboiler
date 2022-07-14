@@ -639,6 +639,32 @@ $('.save-answer').click(function(){
 
 });
 
+$(window).scroll(function () {
+
+    // End of the document reached?
+    //if ($(document).height() - $(this).height() - 100 < $(this).scrollTop())
+    if ($(document).height() - $(this).height() - $('footer').offset().top < $(this).scrollTop())
+     {
+      //$('.boiler-listing').append('<div>ABC</div>');
+       /* $.ajax({
+            type: "POST",
+            url: "index.aspx/GetData",
+            contentType: "application/json; charset=utf-8",
+            data: '',
+            dataType: "json",
+            success: function (msg) {
+                if (msg.d) {
+                    $(".container").append(msg.d);
+                }
+            },
+            error: function (req, status, error) {
+                //console.log("Error try again");
+                $('.boiler-listing').append('<div>ABC</div>');
+            }
+        });*/
+    }
+}); 
+
 </script> 
 @endsection
 

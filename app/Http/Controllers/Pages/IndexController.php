@@ -9,12 +9,16 @@ class IndexController extends Controller
 {
 
     /**
-     *
+     * show page
+     * 
+     * @param Request $request
      * @return view
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view('pages.index.index');
+        $request->session()->forget('selection'); 
+        
+        return view('pages.index.index');
     }
 
     /**

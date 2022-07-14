@@ -7,7 +7,7 @@
 @php $completed_wizards = [] @endphp
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="display: none">
             <div class="col-md-8">
                 <h2 class="text-center">Currently, what kind of boiler do you have?</h2>
                 <p class="text-center text-black-light mb-5">How to find out?</p>
@@ -52,6 +52,8 @@
         </div>
 </div>
 
+<div class="row justify-content-center" >
 @include ('pages.questions.include-questions')
+</div>
 
 @endsection

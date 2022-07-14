@@ -25,7 +25,7 @@
                         <i class="fa-solid fa-plus me-2"></i>
                         See everything included
                     </a>
-                    <a href="index.html" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
+                    <a href="{!! route('page.index') !!}" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
                         <i class="fa-solid fa-arrow-rotate-right me-2"></i>
                         Restart
                     </a>
