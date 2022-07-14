@@ -45,3 +45,4 @@ Route::get('/radiator', 'Pages\RadiatorController@index')->name('page.radiator')
 Route::get('/smart-device', 'Pages\DeviceController@index')->name('page.smart-device');
 Route::get('/booking', 'Pages\BookingController@index')->name('page.booking');
 Route::post('/save-answer','Pages\IndexController@saveAnswer')->name('save-answer');
+Route::post('/update-answer','Pages\IndexController@updateAnswer')->name('update-answer');

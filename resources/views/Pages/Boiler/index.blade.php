@@ -10,6 +10,8 @@
 
 @php $completed_wizards = ['boiler'] @endphp
 
+@php $Selection = Session()->get('selection') @endphp
+
 @section('content')
 <div class="row justify-content-center">
             <div class="col-md-8">
@@ -20,15 +22,15 @@
 <div class="select-boiler d-flex flex-wrap justify-content-center mb-5">
             <span class="select-boiler-item">
                 <img src="{!! asset('assets/img/icon-bed.png') !!}" alt="Bed">
-                <span class="text-primary text-small">2 Bed</span>
+                <span class="text-primary text-small"><span class="select-boiler-bed-count">{{ $Selection['beds'] }}</span> Bed</span>
             </span>
             <span class="select-boiler-item">
                 <img src="{!! asset('assets/img/icon-bath.png') !!}" alt="bath">
-                <span class="text-primary text-small">1 Bath</span>
+                <span class="text-primary text-small"><span class="select-boiler-bath-count">{{ $Selection['baths'] }}</span> Bath</span>
             </span>
             <span class="select-boiler-item">
                 <img src="{!! asset('assets/img/icon-shower.png') !!}" alt="shower">
-                <span class="text-primary text-small">1 Shower</span>
+                <span class="text-primary text-small"><span class="select-boiler-shower-count">{{ $Selection['showers'] }}</span> Shower</span>
             </span>
             <span class="select-boiler-edit" data-bs-toggle="modal" data-bs-target="#edit-answer">
                 <span>Edit Answer</span>
@@ -150,7 +152,7 @@
                                 <div class="edit-answer-item col-sm-4 text-center mb-4">
                                     <span class="select-boiler-item mx-auto">
                                         <img src="{!! asset('assets/img/icon-bed.png') !!}" alt="Bed">
-                                        <span class="text-primary"><span class="item-count">2</span> Bed</span>
+                                        <span class="text-primary"><span class="item-count">{{ $Selection['beds'] }}</span> Bed</span>
                                         <input type="number" class="bed-count d-none" name="bed-count" value="2">
                                     </span>
 
@@ -160,7 +162,7 @@
                                 <div class="edit-answer-item col-sm-4 text-center mb-4">
                                     <span class="select-boiler-item mx-auto">
                                         <img src="{!! asset('assets/img/icon-bath.png') !!}" alt="bath">
-                                        <span class="text-primary"><span class="item-count">1</span> Bath</span>
+                                        <span class="text-primary"><span class="item-count">{{ $Selection['baths'] }}</span> Bath</span>
                                         <input type="number" class="bath-count d-none" name="bath-count" value="1">
                                     </span>
 
@@ -170,7 +172,7 @@
                                 <div class="edit-answer-item col-sm-4 text-center mb-4">
                                     <span class="select-boiler-item mx-auto">
                                         <img src="{!! asset('assets/img/icon-shower.png') !!}" alt="shower">
-                                        <span class="text-primary"><span class="item-count">1</span> Shower</span>
+                                        <span class="text-primary"><span class="item-count">{{ $Selection['showers'] }}</span> Shower</span>
                                         <input type="number" class="shower-count d-none" name="shower-count" value="1">
                                     </span>
 
@@ -408,8 +410,8 @@ function listProductsFromAPI_old(selection) {
   function listProductsFromAPI_modified(selection) {
    
     var all = apiBase + "all";
-    var beds = selection.beds;
-    var baths = selection.baths;
+    var beds = parseInt(selection.beds);
+    var baths = parseInt(selection.baths);
     var boiler = selection.boiler;
     var bConvert = selection.bConvert;
 
@@ -548,13 +550,16 @@ function listProductsFromAPI_old(selection) {
                 },     
                 success:function(data)
                 {
-                   jQuery.each([data], function(i, objects)
+                   $('.boiler-listing .boiler-record').remove();
+                   
+                   $.each([data], function(i, objects)
                    {
-                        jQuery.each(objects.boiler, function(key, value)
+                        $.each(objects.boiler, function(key, value)
                         {
                             var item = $('#boiler-item-0').clone();
                             item.show();
                             item.removeAttr('id');
+                            item.addClass('boiler-record');
                             
                             item.find('.boiler-pic').attr("src",value.image);      
                             item.find('.boiler-name').html(value.boiler_name);
@@ -582,11 +587,57 @@ function listProductsFromAPI_old(selection) {
             });
   }
 
-var selection = JSON.parse('{!! $selection !!}');
+var selection = JSON.parse('{!! json_encode($Selection) !!}');
 //console.log(selection);  
 
 var apiBase = "https://new-boiler.gasking.co.uk/api/";
 listProductsFromAPI_modified(selection);
+
+$('.save-answer').click(function(){
+
+  //send ajax request to save,
+  //close modal,
+  //list products
+  
+  var bed_count =  $('#edit-answer .bed-count').val();
+  var bath_count =  $('#edit-answer .bath-count').val();
+  var shower_count =  $('#edit-answer .shower-count').val();
+
+  $('.select-boiler-bed-count').html(bed_count);
+  $('.select-boiler-bath-count').html(bath_count);
+  $('.select-boiler-shower-count').html(shower_count);
+
+  $.ajax({
+                url: "{{ route('update-answer') }}", 
+                type: "POST",
+                data: {beds: bed_count,
+                       baths: bath_count,
+                       showers: shower_count,
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                    var selection = JSON.parse(data.selection);
+                    
+                    if (Object.keys(selection).length)
+                      listProductsFromAPI_modified(selection);
+                    
+                    $('#edit-answer').modal('hide');
+
+                }
+
+            });
+
+});
 
 </script> 
 @endsection
