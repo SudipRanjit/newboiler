@@ -55,9 +55,9 @@
         </div>
 
         <div class="boiler-listing">
-                            <div class="boiler-item">
+                <div class="boiler-item" id="boiler-item-0" style="display:none">
                     <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
+                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler" class="boiler-pic">
                     </div>
                     <div class="boiler-detail order-md-3 order-xl-2">
                         <div class="boiler-pro mb-3">
@@ -70,8 +70,8 @@
                                 Popular
                             </span>
                         </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
+                        <h3 class="boiler-name">Vaillant ecoFIT pure combi 25kw</h3>
+                        <p class="text-small boiler-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
                         <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
                         <ul class="list-unstyled boiler-features">
                             <li class="boiler-feature mb-2">
@@ -80,7 +80,7 @@
                                     Hot water flow rate
                                 </span>
                                 <span class="boiler-feature-desc">
-                                    10.4
+                                    <span class="boiler-flow-rate">10.4</span>
                                     <span class="text-black-50">litres/min</span>
                                 </span>
                             </li>
@@ -90,7 +90,7 @@
                                     Centrala heating output
                                 </span>
                                 <span class="boiler-feature-desc">
-                                    25
+                                    <span class="boiler-central-heating-output">25</span>
                                     <span class="text-black-50">kilowatts</span>
                                 </span>
                             </li>
@@ -100,7 +100,7 @@
                                     Warranty
                                 </span>
                                 <span class="boiler-feature-desc">
-                                    10
+                                    <span class="boiler-warranty">10</span>
                                     <span class="text-black-50">years</span>
                                 </span>
                             </li>
@@ -108,10 +108,10 @@
                                 <span class="boiler-feature-title">
                                     <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
                                     Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
+                                    <span class="text-black-50">(HxWxD)</span>
                                 </span>
                                 <span class="boiler-feature-desc">
-                                    700 x 390 x 295
+                                    <span class="boiler-measurements">700 x 390 x 295</span>
                                     <span class="text-black-50">mm</span>
                                 </span>
                             </li>
@@ -122,450 +122,13 @@
                             Your fix price including installation
                         </p>
                         <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
+                        <h3 class="boiler-price boiler-net-price">£2542.79</h3>
+                        <h5 class="text-danger mb-3 boiler-actual-price"><s>£2562.79</s></h5>
                         <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
                         <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                     </div>
                 </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
-                            <div class="boiler-item">
-                    <div class="boiler-img order-md-1 order-xl-1">
-                        <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler">
-                    </div>
-                    <div class="boiler-detail order-md-3 order-xl-2">
-                        <div class="boiler-pro mb-3">
-                            <span class="boiler-latest">
-                                <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
-                                Latest
-                            </span>
-                            <span class="boiler-popular">
-                                <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
-                                Popular
-                            </span>
-                        </div>
-                        <h3>Vaillant ecoFIT pure combi 25kw</h3>
-                        <p class="text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                        <ul class="list-unstyled boiler-features">
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
-                                    Hot water flow rate
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10.4
-                                    <span class="text-black-50">litres/min</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    25
-                                    <span class="text-black-50">kilowatts</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
-                                    Warranty
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    10
-                                    <span class="text-black-50">years</span>
-                                </span>
-                            </li>
-                            <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
-                                    Dimension
-                                    <span class="text-black-50">(WxDxH)</span>
-                                </span>
-                                <span class="boiler-feature-desc">
-                                    700 x 390 x 295
-                                    <span class="text-black-50">mm</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="boiler-pricing text-center order-md-2 order-xl-3">
-                        <p class="m-0">
-                            Your fix price including installation
-                        </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
-                        <h3>£2542.79</h3>
-                        <h5 class="text-danger mb-3"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
-                    </div>
-                </div>
+            
 </div>
 
 <!--  Edit answer modal -->
@@ -631,7 +194,7 @@
 
 @section('custom-scripts')
 <script>
-function listProductsFromAPI_new(selection) {
+function listProductsFromAPI_old(selection) {
     jQuery(".loader").show();
     var all = apiBase + "all";
     var beds = selection.beds;
@@ -763,8 +326,7 @@ function listProductsFromAPI_new(selection) {
     var boilerAPI = apiBase + "boilers/" + finalBoiler + "/" + bedPower;
     var i = 0;
     jQuery.get(boilerAPI, function(data, status) {
-      console.log(data);
-      return false;
+     
       var content = "";
       var dPrice = 0;
       jQuery.each([data], function(i, objects) {
@@ -772,6 +334,7 @@ function listProductsFromAPI_new(selection) {
         jQuery.each(objects.boiler, function(key, value) {
 
           dPrice = parseFloat(value.price) - parseFloat(value.discount);
+         
           content += "<div class='row mt-30 product__box'>";
           content += "<div class='col-md-4 no-padding'>";
           content += "<div class='product__image' style='background-image:url(" + value.image + ");'>";
@@ -808,11 +371,15 @@ function listProductsFromAPI_new(selection) {
           content += "</div>";
           content += "</div>";
           content += "</div>";
+              
+          
         });
+
       });
       jQuery(".loader").hide();
 
       jQuery("#all__products").html(content);
+      
       jQuery(".choice__btn").click(function() {
         selectedBoiler = jQuery(this).attr("id");
         var boilerAPI = apiBase + "boiler/" + selectedBoiler;
@@ -838,11 +405,188 @@ function listProductsFromAPI_new(selection) {
     });
   }
 
+  function listProductsFromAPI_modified(selection) {
+   
+    var all = apiBase + "all";
+    var beds = selection.beds;
+    var baths = selection.baths;
+    var boiler = selection.boiler;
+    var bConvert = selection.bConvert;
+
+    var bedPower = "";
+    var bathPower = "";
+
+    var finalBoiler = "";
+    finalBoiler = boiler;
+    if (boiler === "Combi") {
+      finalBoiler = "Combi";
+    }
+
+    if (boiler !== "Combi" && bConvert === "YES") {
+      finalBoiler = "Combi";
+    }
+
+    if (finalBoiler === "Combi") {
+      switch (beds) {
+        case 1:
+          bedPower = "24-28";
+          break;
+        case 2:
+          bedPower = "24-28";
+          break;
+        case 3:
+          bedPower = "28-35";
+          break;
+        case 4:
+          bedPower = "28-35";
+          break;
+        case 5:
+          bedPower = "35-43";
+          break;
+        case 6:
+          bedPower = "35-43";
+          break;
+        default:
+          bedPower = "35-43";
+          break;
+      }
+      switch (baths) {
+        case 1:
+          bathPower = "24-28";
+          break;
+        case 2:
+          bathPower = "28-35";
+          break;
+        default:
+          bathPower = "35-43";
+          break;
+      }
+    } else if (finalBoiler === "System") {
+      switch (beds) {
+        case 1:
+          bedPower = "12-15";
+          break;
+        case 2:
+          bedPower = "12-15";
+          break;
+        case 3:
+          bedPower = "15-30";
+          break;
+        case 4:
+          bedPower = "15-30";
+          break;
+        case 5:
+          bedPower = "30-100";
+          break;
+        case 6:
+          bedPower = "30-100";
+          break;
+        default:
+          bedPower = "30-100";
+          break;
+      }
+
+      switch (baths) {
+        case 1:
+          bathPower = "12-15";
+          break;
+        case 2:
+          bathPower = "15-30";
+          break;
+        default:
+          bathPower = "30-100";
+          break;
+      }
+    } else {
+      switch (beds) {
+        case 1:
+          bedPower = "10-18";
+          break;
+        case 2:
+          bedPower = "10-18";
+          break;
+        case 3:
+          bedPower = "18-26";
+          break;
+        case 4:
+          bedPower = "18-26";
+          break;
+        case 5:
+          bedPower = "27-40";
+          break;
+        case 6:
+          bedPower = "27-40";
+          break;
+        default:
+          bedPower = "27-40";
+          break;
+      }
+
+      switch (baths) {
+        case 1:
+          bathPower = "10-18";
+          break;
+        case 2:
+          bathPower = "18-26";
+          break;
+        default:
+          bathPower = "27-40";
+          break;
+      }
+    }
+    var boilerAPI = apiBase + "boilers/" + finalBoiler + "/" + bedPower;
+    
+    $.ajax({
+                url: boilerAPI, 
+                type: "GET",
+                
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   jQuery.each([data], function(i, objects)
+                   {
+                        jQuery.each(objects.boiler, function(key, value)
+                        {
+                            var item = $('#boiler-item-0').clone();
+                            item.show();
+                            item.removeAttr('id');
+                            
+                            item.find('.boiler-pic').attr("src",value.image);      
+                            item.find('.boiler-name').html(value.boiler_name);
+                            item.find('.boiler-summary').html(value.summary);
+                            item.find('.boiler-flow-rate').html(value.flow_rate);
+                            item.find('.boiler-central-heating-output').html(value.central_heating_output);
+                            item.find('.boiler-warranty').html(value.warranty);
+                            item.find('.boiler-measurements').html(value.measurements);
+                            
+                            var price = parseFloat(value.price);
+                            var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
+                            var dPrice = price - discount;
+                            
+                            item.find('.boiler-net-price').html("£"+dPrice);
+                            if (discount)
+                                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");    
+
+                            $('.boiler-listing').append(item);  
+        
+                        });
+
+                    });
+                }
+
+            });
+  }
+
 var selection = JSON.parse('{!! $selection !!}');
-console.log(selection);  
+//console.log(selection);  
 
 var apiBase = "https://new-boiler.gasking.co.uk/api/";
-listProductsFromAPI_new(selection);
+listProductsFromAPI_modified(selection);
 
 </script> 
 @endsection
