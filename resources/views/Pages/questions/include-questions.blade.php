@@ -32,8 +32,10 @@
 @include('pages.questions.question-10f')
 @include('pages.questions.question-10g')
 @include('pages.questions.postal-code')
+@include('pages.questions.contact-us')
 
 @section('custom-scripts')
+{{--
 <script>
     
     $('.question-wrapper').hide();
@@ -576,7 +578,7 @@
       });
   
       /** Back Button **/
-      jQuery(".back__btn").click(function() {
+      jQuery(".back__btn_old").click(function() {
         progress = progress - 0.5;
         var cur = jQuery(this).attr("cur");
         var back = jQuery(this).attr("alt");
@@ -901,10 +903,159 @@
       return str.replace(new RegExp(find, 'g'), replace);
     }
   </script>
+--}}
 
-  <script>
+<script>
 
-  /** Questions Logic **/
+$('.question-wrapper').hide();
+
+    var selectedBoiler = "";
+    var screenWidth = 0;
+    var postalCode = "";
+    var nextWidth = 0;
+    var progress = 1.0;
+    var apiBase = "https://new-boiler.gasking.co.uk/api/";
+    var totalPrice = 0;
+    var controlPrice = 0;
+    var combi_convert_price = 900;
+    var combi_convert = false;
+    var same_room_price = 500;
+    var same_room = false;
+    var utility_room_price = 700;
+    var utility_room = false;
+    var kitchen_price = 700;
+    var kitchen = false;
+    var garage_price = 700;
+    var garage = false;
+    var airing_cupboard_price = 700;
+    var airing_cupboard = false;
+    var bedroom_price = 700;
+    var bedroom = false;
+    var loft_attic_price = 1000;
+    var loft_attic = false;
+    var answers = {
+      current: "question__1",
+      question1: {
+        option: "",
+        optionTxt: ""
+      },
+      question2: {
+        option: "",
+        optionTxt: ""
+      },
+      question2a: {
+        option: "",
+        optionTxt: ""
+      },
+      question2b: {
+        option: "",
+        optionTxt: ""
+      },
+      question3: {
+        option: "",
+        optionTxt: ""
+      },
+      question4: {
+        option: "",
+        optionTxt: ""
+      },
+      question4a: {
+        option: "",
+        optionTxt: ""
+      },
+      question4a1: {
+        option: "",
+        optionTxt: ""
+      },
+      question4b: {
+        option: "",
+        optionTxt: ""
+      },
+      question5: {
+        option: "",
+        optionTxt: ""
+      },
+      question5a: {
+        option: "",
+        optionTxt: ""
+      },
+      question5b: {
+        option: "",
+        optionTxt: ""
+      },
+      question5c: {
+        option: "",
+        optionTxt: ""
+      },
+      question6: {
+        option: "",
+        optionTxt: ""
+      },
+      question7: {
+        option: "",
+        optionTxt: ""
+      },
+      question7a: {
+        option: "",
+        optionTxt: ""
+      },
+      question8: {
+        option: "",
+        optionTxt: ""
+      },
+      question8a: {
+        option: "",
+        optionTxt: ""
+      },
+      question8b: {
+        option: "",
+        optionTxt: ""
+      },
+      question8c: {
+        option: "",
+        optionTxt: ""
+      },
+      question9: {
+        option: "",
+        optionTxt: ""
+      },
+      question10: {
+        option: "",
+        optionTxt: ""
+      },
+      question10a: {
+        option: "",
+        optionTxt: ""
+      },
+      question10b: {
+        option: "",
+        optionTxt: ""
+      },
+      question10c: {
+        option: "",
+        optionTxt: ""
+      },
+      question10d: {
+        option: "",
+        optionTxt: ""
+      },
+      question10e: {
+        option: "",
+        optionTxt: ""
+      },
+      question10f: {
+        option: "",
+        optionTxt: ""
+      },
+      question10g: {
+        option: "",
+        optionTxt: ""
+      }
+    };
+
+    jQuery(".option-image").css("height", "150px");
+
+ /** Questions Logic **/
       jQuery("#question__1").fadeIn(200);
       //jQuery(".progress-bar").show();
   
@@ -1313,6 +1464,17 @@
 
    /** End question logic **/   
 
+/** Back Button **/
+jQuery(".back__btn").click(function() {
+        progress = progress - 0.5;
+        var cur = jQuery(this).attr("cur");
+        var back = jQuery(this).attr("alt");
+        var pro = jQuery(this).attr("pro");
+        jQuery("#" + cur).fadeOut(0);
+        jQuery("#" + back).fadeIn(400);
+     });
+/*****************/   
+
 jQuery("#show__products").click(function() {
         jQuery(".loader").show();
         postalCode = jQuery.trim(jQuery("#postal_code").val());
@@ -1331,7 +1493,7 @@ jQuery("#show__products").click(function() {
         }
       }); 
 
- jQuery("#postal_code").keyup(function(){
+  jQuery("#postal_code").keyup(function(){
   jQuery("#show__products").removeClass('disabled');
  }); 
 

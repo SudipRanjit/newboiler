@@ -1,29 +1,36 @@
-<div class="question-wrapper" id="question__10b">
-  <div class="question">
-    <h3>Will your flue be on a sloped roof or a flat roof?</h3>
-    <p class="info__line" id="q10b__info"><span class="fa fa-info-circle"></span> <u>How to find out</u></p>
+<div class="row justify-content-center question-wrapper" id="question__10b">
+  <div class="col-md-8 question">
+    <h2 class="text-center">Will your flue be on a sloped roof or a flat roof?</h2>
+    <p class="text-center text-black-light mb-5 info__line" id="q10b__info"><span class="fa fa-info-circle"></span> <a href="#" data-bs-toggle="modal" data-bs-target="#q1__info_modal">How to find out?</a></p>
   </div>
   <div class="options">
-    <div class="row">
-      <div class="offset-md-3 col-md-3 text-center">
-        <div class="option-wrapper q10b" id="q10bo1">
-          <div class="figure">
-            <img class="option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q10b/o1.svg"; ?>" />
-            <p class="option-title">Sloped</p>
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-3 col-md-4">
+        <div class="card-questionaire text-center option-wrapper q10b" id="q10bo1">
+          <div class="questionaire-img figure">
+            <img class="img-fluid mb-2 option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q10b/o1.svg"; ?>" />
+            <h4 class="option-title">Sloped</h4>
           </div>
+          <div class="questionaire-detail">
+            <span class="btn btn-secondary text-white">Select</span>
+          </div>   
         </div>
       </div>
-      <div class="col-md-3 text-center">
-        <div class="option-wrapper q10b" id="q10bo2">
-          <div class="figure">
-            <img class="option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q10b/o2.svg"; ?>" />
-            <p class="option-title">Flat</p>
+      <div class="col-lg-3 col-md-4">
+        <div class="card-questionaire text-center option-wrapper q10b" id="q10bo2">
+          <div class="questionaire-img figure">
+            <img class="img-fluid mb-2 option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q10b/o2.svg"; ?>" />
+            <h4 class="option-title">Flat</h4>
+          </div>
+          <div class="questionaire-detail">
+            <span class="btn btn-secondary text-white">Select</span>
           </div>
         </div>
       </div>
       
     </div>
   </div>
+{{--
   <div class="info__wrapper" id="q10b__info_wrapper">
     <div class="close__btn_wrapper">
       <div class="close__btn">
@@ -37,6 +44,25 @@
       <p>Flat roofs often sit over garages, conservatories or extensions. If you live in a modern apartment building or block of flats you'll likely have a flat roof.</p>
     </div>
   </div>
-  <div class="nav-wrapper back__btn" id="back__10b" alt="question__10a" cur="question__10b"><</div>
+--}}
 
+  <div class="nav-wrapper back__btn" id="back__10b" alt="question__10a" cur="question__10b"><i class="fa-solid fa-arrow-left"></i></div>
+
+</div>
+
+<div class="modal fade" id="q10b__info_modal" tabindex="-1" aria-labelledby="q10b__info_modal_label" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body p-4 p-lg-5">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10">
+                    <h2 class="modal-title mb-4" id="q1__info_modal_label">How to find out?</h2>
+                    <p>If the roof is on an angle, it's sloped. Most sloped roofs are over a second or third floor.</p>
+                    <p>Flat roofs often sit over garages, conservatories or extensions. If you live in a modern apartment building or block of flats you'll likely have a flat roof.</p>
+                  </div>
+              </div>
+          </div>    
+      </div>
+  </div>
 </div>

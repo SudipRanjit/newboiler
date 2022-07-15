@@ -52,8 +52,6 @@
         </div>
 </div>
 
-<div class="row justify-content-center" >
 @include ('pages.questions.include-questions')
-</div>
 
 @endsection
