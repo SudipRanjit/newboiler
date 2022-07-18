@@ -34,14 +34,17 @@
         </div>
     </div>
 
-
     <div class="container @yield('container-css')">
 
         @include('pages.layouts.partials._menu')
 
         @yield('content')
 
-</div>
+        <div class="loader">
+            <img src="{!! asset('assets/img/loader.svg') !!}" style="display">        
+        </div> 
+           
+    </div>
 
 @include('pages.layouts.partials._footer')
 
