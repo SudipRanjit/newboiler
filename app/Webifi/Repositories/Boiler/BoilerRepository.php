@@ -35,4 +35,23 @@ class BoilerRepository extends Repository
   {
       return $this->model->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)->orderBy($orderBy, $orderType)->limit($limit)->get($columns);
   }
+
+    /**
+     * Paginate the resources with given condition(s)
+     *
+     * @param $conditions
+     * @param array $columns
+     * @return Collection
+     */
+    public function paginateWithConditionBetween(
+        $conditions,
+        $betWeenCondition, 
+        $orderBy='id', 
+        $orderType = 'desc', 
+        $columns = array('*'),
+        $limit = 20
+    )
+    {
+        return $this->model->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)->orderBy($orderBy, $orderType)->paginate($limit, $columns);
+    }
 }

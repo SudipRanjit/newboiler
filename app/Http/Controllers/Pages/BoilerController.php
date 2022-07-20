@@ -4,9 +4,23 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Webifi\Repositories\Category\CategoryRepository;
 
 class BoilerController extends Controller
 {
+
+   /**
+   * Constructor
+   * @param CategoryRepository $category
+   */
+  public function __construct__(
+    CategoryRepository $category
+    
+  ) {
+    $this->category = $category;
+    
+  }
+
     /**
      * Show page
      * 
@@ -27,8 +41,12 @@ class BoilerController extends Controller
             //set flash message and redirect to lastly selected wizard
             return redirect()->route($selection['page']);
         }
-        $selection = json_encode($selection);
-        return view('pages.boiler.index',compact('selection'));
+        //$selection = json_encode($selection);
+
+        $this->category = new CategoryRepository(app()) ;        
+        $categories = $this->category->getWithCondition(['publish' => 1, 'type' => 'brand'])->pluck('category', 'id');
+        //dd($categories);
+        return view('pages.boiler.index',compact(/*'selection',*/'categories'));
     }
 
 }

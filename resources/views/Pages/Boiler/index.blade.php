@@ -38,23 +38,30 @@
         </div>
 
         <div class="filter_params d-flex flex-wrap justify-content-between mb-4">
-            <div class="btn-group my-2">
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Select Manufacturer</button>
+          <div class="btn-group my-2">
+                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" ><span id="show-category">Select Manufacturer</span></button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Manufacturer 1</a></li>
+                    {{--<li><a class="dropdown-item" href="#">Manufacturer 1</a></li>
                     <li><a class="dropdown-item" href="#">Manufacturer 2</a></li>
+                    --}}
+                    @foreach ($categories as $category_id=>$category)
+                        <li><a class="dropdown-item category-item" href="javascript:void(0)" data-value="{{ $category_id }}"  >{{ $category }}</a></li>
+                    @endforeach
                 </ul>
+                <input type="hidden" name="cat" id="cat" value="" class="filter-list"/>
             </div>
             <div class="btn-group my-2">
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Sort by: <span>Recommended</span></button>
+                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-sort">Sort by: <span id="show-sort">Recommended</span></button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Price: High To Low</a></li>
-                    <li><a class="dropdown-item" href="#">Price: Low To High</a></li>
-                    <li><a class="dropdown-item" href="#">Newest First</a></li>
-                    <li><a class="dropdown-item" href="#">Oldest First</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="price" data-sort="desc">Price: High To Low</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="price" data-sort="asc">Price: Low To High</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="created_at" data-sort="desc">Newest First</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="created_at" data-sort="asc" >Oldest First</a></li>
                 </ul>
+                <input type="hidden" name="sort_by" id="sort_by" value="" class="filter-list"/>
+                <input type="hidden" name="sort" id="sort" value="" class="filter-list"/>
             </div>
-        </div>
+       </div>
 
         <div class="boiler-listing">
                 <div class="boiler-item" id="boiler-item-0" style="display:none">
@@ -407,6 +414,15 @@ function listProductsFromAPI_old(selection) {
     });
   }
 
+
+    var bedPower = "";
+    var bathPower = "";
+    var finalBoiler = "";
+    
+    var next_page_url = "";
+    var xhr = null;
+    var oldScroll = 0;
+    
   function listProductsFromAPI_modified(selection) {
    
     var all = apiBase + "all";
@@ -415,10 +431,6 @@ function listProductsFromAPI_old(selection) {
     var boiler = selection.boiler;
     var bConvert = selection.bConvert;
 
-    var bedPower = "";
-    var bathPower = "";
-
-    var finalBoiler = "";
     finalBoiler = boiler;
     if (boiler === "Combi") {
       finalBoiler = "Combi";
@@ -536,61 +548,49 @@ function listProductsFromAPI_old(selection) {
           break;
       }
     }
-    var boilerAPI = apiBase + "boilers/" + finalBoiler + "/" + bedPower;
     
-    $.ajax({
-                url: boilerAPI, 
-                type: "GET",
-                
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                   $('.boiler-listing .boiler-record').remove();
-                   
-                   $.each([data], function(i, objects)
-                   {
-                        $.each(objects.boiler, function(key, value)
-                        {
-                            var item = $('#boiler-item-0').clone();
-                            item.show();
-                            item.removeAttr('id');
-                            item.addClass('boiler-record');
-                            
-                            item.find('.boiler-pic').attr("src",value.image);      
-                            item.find('.boiler-name').html(value.boiler_name);
-                            item.find('.boiler-summary').html(value.summary);
-                            item.find('.boiler-flow-rate').html(value.flow_rate);
-                            item.find('.boiler-central-heating-output').html(value.central_heating_output);
-                            item.find('.boiler-warranty').html(value.warranty);
-                            item.find('.boiler-measurements').html(value.measurements);
-                            
-                            var price = parseFloat(value.price);
-                            var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
-                            var dPrice = price - discount;
-                            
-                            item.find('.boiler-net-price').html("£"+dPrice);
-                            if (discount)
-                                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");    
+  filter();
 
-                            $('.boiler-listing').append(item);  
-        
-                        });
-
-                    });
-                }
-
-            });
   }
+
+function create_list_item(data, append=false)
+{
+  if (!append)
+    $('.boiler-listing .boiler-record').remove();
+
+  $.each(data.boiler.data, function(key, value)
+        {
+            var item = $('#boiler-item-0').clone();
+            item.show();
+            item.removeAttr('id');
+            item.addClass('boiler-record');
+            
+            item.find('.boiler-pic').attr("src",value.image);      
+            item.find('.boiler-name').html(value.boiler_name);
+            item.find('.boiler-summary').html(value.summary);
+            item.find('.boiler-flow-rate').html(value.flow_rate);
+            item.find('.boiler-central-heating-output').html(value.central_heating_output);
+            item.find('.boiler-warranty').html(value.warranty);
+            item.find('.boiler-measurements').html(value.measurements);
+            
+            var price = parseFloat(value.price);
+            var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
+            var dPrice = price - discount;
+            
+            item.find('.boiler-net-price').html("£"+dPrice);
+            if (discount)
+                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");    
+
+            $('.boiler-listing').append(item);  
+
+        });
+}
 
 var selection = JSON.parse('{!! json_encode($Selection) !!}');
 //console.log(selection);  
 
-var apiBase = "https://new-boiler.gasking.co.uk/api/";
+//var apiBase = "https://new-boiler.gasking.co.uk/api/";
+var apiBase = "{{ url('/api/new') }}/";
 listProductsFromAPI_modified(selection);
 
 $('.save-answer').click(function(){
@@ -606,6 +606,8 @@ $('.save-answer').click(function(){
   $('.select-boiler-bed-count').html(bed_count);
   $('.select-boiler-bath-count').html(bath_count);
   $('.select-boiler-shower-count').html(shower_count);
+
+  oldScroll = 0;
 
   $.ajax({
                 url: "{{ route('update-answer') }}", 
@@ -641,29 +643,86 @@ $('.save-answer').click(function(){
 
 $(window).scroll(function () {
 
-    // End of the document reached?
+    if (!next_page_url) 
+      return false; 
+
+    //to prevent firing while scroll up 
+    if (oldScroll > this.scrollY)
+      return false;
+    
+    oldScroll = this.scrollY;  
+
+    // End of the document
     //if ($(document).height() - $(this).height() - 100 < $(this).scrollTop())
-    if ($(document).height() - $(this).height() - $('footer').offset().top < $(this).scrollTop())
+    //if ($(document).height() - $(this).height() - $('footer').offset().top < $(this).scrollTop())
+    if (oldScroll > ($('footer').offset().top-600))
      {
-      //$('.boiler-listing').append('<div>ABC</div>');
-       /* $.ajax({
-            type: "POST",
-            url: "index.aspx/GetData",
-            contentType: "application/json; charset=utf-8",
-            data: '',
-            dataType: "json",
-            success: function (msg) {
-                if (msg.d) {
-                    $(".container").append(msg.d);
-                }
-            },
-            error: function (req, status, error) {
-                //console.log("Error try again");
-                $('.boiler-listing').append('<div>ABC</div>');
-            }
-        });*/
-    }
+        filter(next_page_url, true);  
+     }
 }); 
+
+//Prevent automatic browser scroll on refresh
+$(window).on('unload', function() {
+   $(window).scrollTop(0);
+});
+
+window.onunload = function(){ window.scrollTo(0,0); }
+
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+//End prevent automatic browser scroll on refresh
+
+function filter(url = "", append = false)
+{ 
+  var boilerAPI = apiBase + "boilers/" + finalBoiler + "/" + bedPower;
+  var query = $('.filter-list').serialize();
+
+  if (!url)
+    url = boilerAPI;
+
+  if (xhr)
+    xhr.abort();
+
+  xhr = $.ajax({
+                url: url, 
+                type: "GET",
+                data: query,
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   console.log(data);
+                   create_list_item(data, append);
+                   if (data.boiler)
+                    next_page_url = data.boiler.next_page_url;
+
+                   console.log(next_page_url); 
+                   
+                }
+
+        });
+  
+}
+
+$('.category-item').click(function(){
+  $('#show-category').text($(this).text());
+  $('#cat').val($(this).attr('data-value'));
+  oldScroll = 0;
+  filter();
+});
+
+$('.sort-item').click(function(){
+  $('#show-sort').text($(this).text());
+  $('#sort_by').val($(this).attr('data-sort-by'));
+  $('#sort').val($(this).attr('data-sort'));
+  oldScroll = 0;
+  filter();
+});
 
 </script> 
 @endsection

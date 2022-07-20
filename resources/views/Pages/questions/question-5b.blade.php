@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-4 col-6">
         <div class="option-wrapper q5b" id="q5bo1" alt="question__5b">
-          <a href="javascript:void()" class="want-radiator-item want-radiator-yes p-4 p-md-5 figure">
+          <a href="javascript:void(0)" class="want-radiator-item want-radiator-yes p-4 p-md-5 figure">
             <img class="option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q5b/o1.svg"; ?>" />
             <span class="h4 font-medium option-title">YES</span>
             <span class="btn btn-secondary text-white">Select</span>
@@ -16,7 +16,7 @@
       </div>
       <div class="col-lg-4 col-6">
         <div class="option-wrapper q5b" id="q5bo2" alt="question__5b">
-          <a href="javascript:void()" class="want-radiator-item want-radiator-no p-4 p-md-5 figure">
+          <a href="javascript:void(0)" class="want-radiator-item want-radiator-no p-4 p-md-5 figure">
             <img class="option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q5b/o2.svg"; ?>" />
             <span class="h4 font-medium option-title">NO</span>
             <span class="btn btn-secondary text-white">Select</span>
