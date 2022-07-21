@@ -21,11 +21,11 @@ class DeviceController extends Controller
             return redirect()->route('page.index');
         }    
 
-        $last_completed_wizards = ['page.radiator','page.smart-device','page.booking']; 
-        if ($selection && !in_array($selection['page'],$last_completed_wizards))
+        $last_completed_wizards = ['page.radiators','page.smart-devices','page.booking']; 
+        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
             //set flash message and redirect to lastly selected wizard
-            return redirect()->route($selection['page']);
+            return redirect()->route($selection['completed_wizard']);
         }
         return view('pages.device.index');
     }

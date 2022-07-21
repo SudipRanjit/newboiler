@@ -41,10 +41,11 @@
         @yield('content')
 
         <div class="loader">
-            <img src="{!! asset('assets/img/loader.svg') !!}" style="display">        
+            <img src="{!! asset('assets/img/loader.svg') !!}" >        
         </div> 
-           
+
     </div>
+</div>
 
 @include('pages.layouts.partials._footer')
 

@@ -22,10 +22,10 @@ class BookingController extends Controller
         }    
 
         $last_completed_wizards = ['page.smart-device','page.booking']; 
-        if ($selection && !in_array($selection['page'],$last_completed_wizards))
+        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
             //set flash message and redirect to lastly selected wizard
-            return redirect()->route($selection['page']);
+            return redirect()->route($selection['completed_wizard']);
         }
         return view('pages.booking.index');
     }

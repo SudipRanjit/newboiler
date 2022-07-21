@@ -121,6 +121,9 @@ class BoilerController extends Controller
     if ($cat)
       $condition['brand'] = $cat;
 
+    if ($sort_by == "net_price")
+      $sort_by = 'price - ifnull(discount,0)';
+
     $powerRange = explode("-",$power);
     $boilers = $this->boiler->paginateWithConditionBetween($condition, $powerRange, $sort_by, $sort, ["*"], $limit);
     return ["boiler" => $boilers];

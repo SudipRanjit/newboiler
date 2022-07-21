@@ -38,14 +38,16 @@ Route::get('/api/smart-devices', 'API\APIController@smartDevice')->name('smartDe
 Route::get('/api/control-devices/{id}', 'API\APIController@controlDevices')->name('control.devices');
 
 
+Route::get('/api/new/boilers/{type}/{power}/{limit?}/{page?}', 'API\BoilerController@boilers')->name('new.boilers');
+
 Route::get('/', 'Pages\IndexController@index')->name('page.index');
-Route::get('/boiler', 'Pages\BoilerController@index')->name('page.boiler');
-Route::get('/control', 'Pages\ControlController@index')->name('page.control');
-Route::get('/radiator', 'Pages\RadiatorController@index')->name('page.radiator');
-Route::get('/smart-device', 'Pages\DeviceController@index')->name('page.smart-device');
+Route::get('/boilers', 'Pages\BoilerController@index')->name('page.boilers');
+Route::get('/controls', 'Pages\ControlController@index')->name('page.controls');
+Route::get('/radiators', 'Pages\RadiatorController@index')->name('page.radiators');
+Route::get('/smart-devices', 'Pages\DeviceController@index')->name('page.smart-devices');
 Route::get('/booking', 'Pages\BookingController@index')->name('page.booking');
 Route::post('/save-answer','Pages\IndexController@saveAnswer')->name('save-answer');
 Route::post('/update-answer','Pages\IndexController@updateAnswer')->name('update-answer');
+Route::get('/boiler/{id}','Pages\BoilerController@view')->name('page.boiler');
 
 
-Route::get('/api/new/boilers/{type}/{power}/{limit?}/{page?}', 'API\BoilerController@boilers')->name('new.boilers');

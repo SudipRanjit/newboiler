@@ -1509,16 +1509,16 @@ jQuery("#show__products").click(function() {
     */
 
     $.ajax({
-                url:"{{ route('save-answer') }}", 
+                url:"{!! route('save-answer') !!}", 
                 type: "POST",
                 data:{beds: beds,
                       baths: baths,
                       showers: showers,
-                      boiler: boiler,
+                      boiler_type: boiler,
                       bConvert: bConvert
                      },
                 headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
                 },
                 beforeSend: function () {
                     $('.loader').show();
@@ -1528,8 +1528,8 @@ jQuery("#show__products").click(function() {
                 },     
                 success:function(data)
                 {
-                    console.log(data);
-                    location.href = "{{ route('page.boiler') }}";
+                    //console.log(data);
+                    location.href = "{!! route('page.boilers') !!}";
                 }
 
             });

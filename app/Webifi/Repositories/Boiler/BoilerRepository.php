@@ -52,6 +52,6 @@ class BoilerRepository extends Repository
         $limit = 20
     )
     {
-        return $this->model->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)->orderBy($orderBy, $orderType)->paginate($limit, $columns);
+        return $this->model->select($columns)->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)/*->orderBy($orderBy, $orderType)*/->orderByRaw("$orderBy $orderType")->paginate($limit);
     }
 }

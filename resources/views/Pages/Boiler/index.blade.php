@@ -8,7 +8,7 @@
 <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
 @endsection
 
-@php $completed_wizards = ['boiler'] @endphp
+@php $completed_wizards = [] @endphp
 
 @php $Selection = Session()->get('selection') @endphp
 
@@ -41,9 +41,6 @@
           <div class="btn-group my-2">
                 <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" ><span id="show-category">Select Manufacturer</span></button>
                 <ul class="dropdown-menu">
-                    {{--<li><a class="dropdown-item" href="#">Manufacturer 1</a></li>
-                    <li><a class="dropdown-item" href="#">Manufacturer 2</a></li>
-                    --}}
                     @foreach ($categories as $category_id=>$category)
                         <li><a class="dropdown-item category-item" href="javascript:void(0)" data-value="{{ $category_id }}"  >{{ $category }}</a></li>
                     @endforeach
@@ -53,8 +50,8 @@
             <div class="btn-group my-2">
                 <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-sort">Sort by: <span id="show-sort">Recommended</span></button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="price" data-sort="desc">Price: High To Low</a></li>
-                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="price" data-sort="asc">Price: Low To High</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="net_price" data-sort="desc">Price: High To Low</a></li>
+                    <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="net_price" data-sort="asc">Price: Low To High</a></li>
                     <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="created_at" data-sort="desc">Newest First</a></li>
                     <li><a class="dropdown-item sort-item" href="javascript:void(0)" data-sort-by="created_at" data-sort="asc" >Oldest First</a></li>
                 </ul>
@@ -81,7 +78,7 @@
                         </div>
                         <h3 class="boiler-name">Vaillant ecoFIT pure combi 25kw</h3>
                         <p class="text-small boiler-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
-                        <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
+                        <a href="#" class="text-secondary d-block mb-4 more-info" target="_blank"><small>More Info</small></a>
                         <ul class="list-unstyled boiler-features">
                             <li class="boiler-feature mb-2">
                                 <span class="boiler-feature-title">
@@ -133,7 +130,7 @@
                         <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
                         <h3 class="boiler-price boiler-net-price">£2542.79</h3>
                         <h5 class="text-danger mb-3 boiler-actual-price"><s>£2562.79</s></h5>
-                        <a href="control.html" class="btn btn-secondary text-white w-100 mt-3 mb-4">Choose Boiler</a>
+                        <a href="javascript:void(0)" class="btn btn-secondary text-white w-100 mt-3 mb-4 choose-boiler" >Choose Boiler</a>
                         <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                     </div>
                 </div>
@@ -576,10 +573,16 @@ function create_list_item(data, append=false)
             var price = parseFloat(value.price);
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
             var dPrice = price - discount;
-            
+            dPrice = dPrice.toFixed(2);
+
             item.find('.boiler-net-price').html("£"+dPrice);
             if (discount)
-                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");    
+                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");
+            else        
+                item.find('.boiler-actual-price').remove();
+            
+            item.find('.more-info').attr('href',"{!! url('boiler') !!}"+"/"+value.id); 
+            item.find('.choose-boiler').attr('data-boiler',value.id);       
 
             $('.boiler-listing').append(item);  
 
@@ -610,7 +613,7 @@ $('.save-answer').click(function(){
   oldScroll = 0;
 
   $.ajax({
-                url: "{{ route('update-answer') }}", 
+                url: "{!! route('update-answer') !!}", 
                 type: "POST",
                 data: {beds: bed_count,
                        baths: bath_count,
@@ -618,7 +621,7 @@ $('.save-answer').click(function(){
                       },
                 dataType: "json",      
                 headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
                 },
                 beforeSend: function () {
                     $('.loader').show();
@@ -696,13 +699,12 @@ function filter(url = "", append = false)
                 },     
                 success:function(data)
                 {
-                   console.log(data);
+                   //console.log(data);
                    create_list_item(data, append);
                    if (data.boiler)
-                    next_page_url = data.boiler.next_page_url;
-
-                   console.log(next_page_url); 
+                      next_page_url = data.boiler.next_page_url;
                    
+                   choose_boiler_click(); 
                 }
 
         });
@@ -723,6 +725,41 @@ $('.sort-item').click(function(){
   oldScroll = 0;
   filter();
 });
+
+
+function choose_boiler_click()
+{
+  $('.choose-boiler').click(function(){
+  var boiler = $(this).attr('data-boiler');   
+  $.ajax({
+                url: "{!! route('update-answer') !!}", 
+                type: "POST",
+                data: {
+                          completed_wizard: 'page.boilers',
+                          boiler: boiler
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                    var selection = JSON.parse(data.selection);
+                    
+                    if (Object.keys(selection).length)
+                      location.href = "{!! route('page.controls') !!}";
+                  
+                }
+
+            });
+  });
+}
 
 </script> 
 @endsection

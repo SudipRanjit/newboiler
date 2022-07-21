@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Webifi\Repositories\Category\CategoryRepository;
+use App\Webifi\Repositories\Boiler\BoilerRepository;
 
 class BoilerController extends Controller
 {
@@ -35,18 +36,30 @@ class BoilerController extends Controller
             return redirect()->route('page.index');
         }    
 
-        $last_completed_wizards = ['page.index','page.boiler','page.control','page.radiator','page.smart-device','page.booking']; 
-        if ($selection && !in_array($selection['page'],$last_completed_wizards))
+        $last_completed_wizards = ['page.index','page.boilers','page.controls','page.radiators','page.smart-devices','page.booking']; 
+        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
-            //set flash message and redirect to lastly selected wizard
-            return redirect()->route($selection['page']);
+            //set flash message and redirect to lastly completed wizard
+            return redirect()->route($selection['completed_wizard']);
         }
         //$selection = json_encode($selection);
 
-        $this->category = new CategoryRepository(app()) ;        
-        $categories = $this->category->getWithCondition(['publish' => 1, 'type' => 'brand'])->pluck('category', 'id');
+        $Category = new CategoryRepository(app()) ;        
+        $categories = $Category->getWithCondition(['publish' => 1, 'type' => 'brand'])->pluck('category', 'id');
         //dd($categories);
         return view('pages.boiler.index',compact(/*'selection',*/'categories'));
+    }
+
+    public function view($id)
+    {
+      $Boiler = new BoilerRepository(app()) ;        
+      $boiler = $Boiler->find($id);
+      
+      if (!$boiler)
+        abort(404);
+
+      //dd($boiler);  
+      return view('pages.boiler.view',compact('boiler'));
     }
 
 }

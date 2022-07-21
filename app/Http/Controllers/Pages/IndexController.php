@@ -37,12 +37,22 @@ class IndexController extends Controller
            
             $success = false;
             $selection = [];
+
+            /* input eg;
+            beds = 2;
+            baths = 1;
+            showers = 3;
+            boiler = 'Combi';
+            bConvert = 'YES';
+            completed_wizard = 'page.index','page.boilers','page.controls',etc; 
+            */
+
             $selection['beds'] = $input['beds'];
             $selection['baths'] = $input['baths'];
             $selection['showers'] = $input['showers'];
-            $selection['boiler'] = $input['boiler'];
+            $selection['boiler_type'] = $input['boiler_type'];
             $selection['bConvert'] = $input['bConvert'];
-            $selection['page'] = 'page.index';
+            $selection['completed_wizard'] = 'page.index';
             
             $request->session()->put('selection', $selection);
             if ($request->session()->has('selection'))
@@ -76,15 +86,18 @@ class IndexController extends Controller
             if (isset($input['showers']))        
                 $selection['showers'] = $input['showers'];
 
-            if (isset($input['boiler']))            
-                $selection['boiler'] = $input['boiler'];
+            if (isset($input['boiler_type']))            
+                $selection['boiler_type'] = $input['boiler_type'];
             
             if (isset($input['bConvert']))                
                 $selection['bConvert'] = $input['bConvert'];
             
-            if (isset($input['page']))    
-                $selection['page'] = $input['page'];
+            if (isset($input['completed_wizard']))    
+                $selection['completed_wizard'] = $input['completed_wizard'];
             
+            if (isset($input['boiler']))    
+                $selection['boiler'] = $input['boiler'];
+                
             $request->session()->put('selection', $selection);
             $success = true;
             
