@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Webifi\Repositories\Boiler\BoilerRepository;
+use App\Webifi\Repositories\Addon\AddonRepository;
 
 class ControlController extends Controller
 {
@@ -28,6 +30,27 @@ class ControlController extends Controller
             return redirect()->route($selection['completed_wizard']);
         }
         //dd($selection);
-        return view('pages.control.index');
+
+        if (empty($selection['boiler']))
+        {
+            //redirect to boiler listing page
+            return redirect()->route('page.boilers');
+        }
+
+        $Boiler = new BoilerRepository(app()) ;        
+        $boiler = $Boiler->find($selection['boiler']);
+        if (!$boiler)
+        {
+            //redirect to boiler listing page
+            return redirect()->route('page.boilers');
+        }
+
+        $Addon = new AddonRepository(app()) ;
+        $addon = null;
+        if (isset($selection['control']))        
+            $addon = $Addon->find($selection['control']);
+        
+
+        return view('pages.control.index',compact('boiler','addon'));
     }
 }

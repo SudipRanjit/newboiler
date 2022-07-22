@@ -10,6 +10,8 @@
 
 @php $completed_wizards = ['boiler'] @endphp
 
+@php $Selection = Session()->get('selection') @endphp
+
 @section('content')
 <div class="row justify-content-center">
             <div class="col-md-8">
@@ -21,22 +23,26 @@
         <div class="control-listing">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
+                    <div class="row control-items">
+                        <div class="col-md-6 mb-4" id="control-item_0" style="display:none" >
                             <div class="card control-item">
                                 <div class="card-img control-img">
-                                    <img src="{!! asset('assets/img/nest.jpg') !!}" alt="Nest">
+                                    <img src="{!! asset('assets/img/nest.jpg') !!}" alt="Nest" class="control-pic">
                                 </div>
                                 <div class="control-detail text-center p-4 px-lg-5">
-                                    <h4 class="f-20 font-medium">Google Nest 3rd Gen</h4>
-                                    <span class="font-semibold text-secondary d-block mb-4">FREE</span>
-                                    <p class="m-0"><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida.</small></p>
+                                    <h4 class="f-20 font-medium control-name">Google Nest 3rd Gen</h4>
+                                    <span class="font-semibold text-secondary d-block mb-4 control-price">FREE</span>
+                                    <p class="m-0"><small class="control-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida.</small></p>
                                     <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
-                                    <a href="#" class="btn btn-outline-secondary d-block">Added</a>
+                                    
+                                    <a href="javascript:void(0)" class="btn btn-outline-secondary d-block btn-action-control btn-added-control">Added</a>
+                                    <a href="javascript:void(0)" class="btn btn-outline-secondary w-100 btn-action-control btn-choose-control" >Choose</a>
+                                   
                                 </div>
 
                             </div>
                         </div>
+                        {{--
                         <div class="col-md-6 mb-4">
                             <div class="card control-item">
                                 <div class="card-img control-img">
@@ -82,23 +88,31 @@
 
                             </div>
                         </div>
+                       --}} 
                     </div>
+
+                  <div class="row mt-3 mb-4" style="display:none" id="div_view_more">
+                    <div class="col-md-4">  
+                    <a href="javascript:void(0)" class="btn btn-outline-secondary" onclick="view_more()" id="a_view_more">View More</a>    
+                    </div>
+                  </div>  
+
                 </div>
                 <div class="col-lg-4">
                     <div class="card p-4">
                         <div class="card-light p-4 text-center mb-4">
                             <p class="text-primary">Your fixed price including installation & radiators</p>
-                            <h3 class="m-0">£2542.79</h3>
+                            <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
                             <small class="d-block mb-4">including VAT</small>
-                            <a href="radiator.html" class="btn btn-secondary d-block mb-4">Next</a>
+                            <a href="{!! route('page.radiators') !!}" class="btn btn-secondary d-block mb-4">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Control</p>
                             <ul class="side-card-list list-unstyled">
                                 <li>
-                                    <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                    <p class="f-15 font-medium mb-2">Google Nest 3rd Gen FREE</p>
+                                    <p class="f-15 text-secondary mb-0" id="p_control_selected_label">{{ $addon?'Control Selected':'Control Not Selected'}}</p>
+                                    <p class="f-15 font-medium mb-2" id="p_control_selected">{{ $addon->addon_name??''}}</p>
                                 </li>
                             </ul>
                         </div>
@@ -107,11 +121,11 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Boiler Selected</p>
-                                    <p class="f-15 font-medium mb-2">Vaillant ecoFIT Pure Combi 25kw £2542.79</p>
+                                    <p class="f-15 font-medium mb-2">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</p>
                                 </li>
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>
-                                    <p class="f-15 font-medium mb-2">Combi</p>
+                                    <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                 </li>
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Moving boiler to</p>
@@ -174,3 +188,134 @@
             </div>
         </div>
 @endsection
+
+@section('custom-scripts')
+<script>
+
+var xhr = null;
+var apiBase = "{{ url('/api/new') }}/";
+var next_page_url = '';
+
+var selection = JSON.parse('{!! json_encode($Selection) !!}');
+
+function fetch(url = '', append = false)
+{ 
+  var controlAPI = apiBase + "controls/";
+  
+  if (!url)
+    url = controlAPI;
+
+  if (xhr)
+    xhr.abort();
+
+  xhr = $.ajax({
+                url: url, 
+                type: "GET",
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   //console.log(data);
+                   create_list_item(data, append);
+                   next_page_url = data.boiler.next_page_url;
+                   if (next_page_url)
+                    $('#div_view_more').show();
+                   else 
+                    $('#div_view_more').hide();
+
+                   choose_control_click(); 
+                }
+
+        });
+  
+}
+
+function create_list_item(data, append=false)
+{
+  if (!append)
+    $('.control-items .control-record').remove();
+
+  $.each(data.boiler.data, function(key, value)
+        {
+            var item = $('#control-item_0').clone();
+            item.show();
+            item.removeAttr('id');
+            item.addClass('control-record');
+            item.attr('data-control',value.id);
+            
+            item.find('.control-pic').attr("src",value.image);      
+            item.find('.control-name').html(value.addon_name);
+            item.find('.control-summary').html(value.summary);
+            
+            if (value.price)
+                item.find('.control-price').html("£"+value.price);
+            else
+                item.find('.control-price').html("FREE");    
+            
+            item.find('.btn-choose-control').attr('data-control',value.id);
+            item.find('.btn-added-control').attr('data-control',value.id);  
+                        
+            if (selection.control && value.id==selection.control)
+                item.find('.btn-choose-control').remove();
+            else    
+                item.find('.btn-added-control').remove();
+
+            $('.control-items').append(item);  
+
+        });
+}
+
+fetch();
+
+function choose_control_click()
+{
+  $('.btn-choose-control').click(function(){
+  var el =$(this);
+  var control = el.attr('data-control');
+  var control_name = el.parents('.control-record').find('.control-name').text();
+    
+  $.ajax({
+                url: "{!! route('update-answer') !!}", 
+                type: "POST",
+                data: {
+                        completed_wizard: 'page.controls',  
+                        control: control
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                  
+                  $(".btn-action-control").not(el).removeClass("d-block btn-added-control").addClass("w-100 btn-choose-control").html("Choose");
+                  el.removeClass("w-100 btn-choose-control").addClass("d-block btn-added-control").html("Added");
+                  
+                  $('#p_control_selected_label').text('Control Selected');
+                  $('#p_control_selected').text(control_name);
+                  
+                  $(".btn-action-control").unbind();  
+                  choose_control_click();
+                }
+
+            });
+  });
+}
+
+$('#a_view_more').click(function(){
+   if (next_page_url)
+       fetch(next_page_url,true);  
+});
+
+</script>
+@endsection    

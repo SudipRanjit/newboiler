@@ -97,6 +97,9 @@ class IndexController extends Controller
             
             if (isset($input['boiler']))    
                 $selection['boiler'] = $input['boiler'];
+            
+            if (isset($input['control']))    
+                $selection['control'] = $input['control'];    
                 
             $request->session()->put('selection', $selection);
             $success = true;

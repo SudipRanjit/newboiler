@@ -21,7 +21,7 @@ class RadiatorController extends Controller
             return redirect()->route('page.index');
         }    
 
-        $last_completed_wizards = ['page.control','page.radiator','page.smart-device','page.booking']; 
+        $last_completed_wizards = ['page.controls','page.radiators','page.smart-devices','page.booking']; 
         if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
             //set flash message and redirect to lastly selected wizard
