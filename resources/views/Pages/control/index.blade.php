@@ -93,7 +93,7 @@
 
                   <div class="row mt-3 mb-4" style="display:none" id="div_view_more">
                     <div class="col-md-4">  
-                    <a href="javascript:void(0)" class="btn btn-outline-secondary" onclick="view_more()" id="a_view_more">View More</a>    
+                    <a href="javascript:void(0)" class="btn btn-outline-secondary" id="a_view_more">View More</a>    
                     </div>
                   </div>  
 

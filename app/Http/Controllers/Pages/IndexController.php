@@ -99,12 +99,34 @@ class IndexController extends Controller
                 $selection['boiler'] = $input['boiler'];
             
             if (isset($input['control']))    
-                $selection['control'] = $input['control'];    
+                $selection['control'] = $input['control'];
+                    
+            if (isset($input['device']))    
+                {
+                    $devices = $selection['devices']??[];
+                    //dd($devices);
+
+                    /*if (!in_array($input['device'],$devices))
+                        $devices[] = $input['device'];
+                    */
+
+                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
+                        {
+                            $devices[$input['device']]['quantity'] = $input['quantity'];
+                        }
+                    else if (empty($input['action']))  //removing
+                        {
+                            unset($devices[$input['device']]);
+                        }
+                    
+                    
+                    $selection['devices'] =$devices;
+                }
                 
             $request->session()->put('selection', $selection);
             $success = true;
             
-            return response()->json(['success'=>$success,'selection'=>json_encode($selection)]);
+            return response()->json(['success'=>$success,'selection'=>$selection]);
         }
     }
 }

@@ -16,4 +16,22 @@ class DeviceRepository extends Repository
     {
         return 'App\Webifi\Models\Device\Device';
     }
+
+    /**
+     * Paginate the resources with given condition(s)
+     *
+     * @param $conditions
+     * @param array $columns
+     * @return Collection
+     */
+    public function paginateWithCondition(
+        $conditions,
+        $orderBy='id', 
+        $orderType = 'desc', 
+        $columns = array('*'),
+        $limit = 20
+    )
+    {
+        return $this->model->select($columns)->where($conditions)->orderBy($orderBy, $orderType)->paginate($limit);
+    }
 }
