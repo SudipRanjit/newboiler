@@ -58,7 +58,7 @@ class IndexController extends Controller
             if ($request->session()->has('selection'))
                 $success = true;
             
-            return response()->json(['success'=>$success, 'selection'=>json_encode($selection)]);
+            return response()->json(['success'=>$success, 'selection'=>$selection]);
         }
     }
 

@@ -197,7 +197,7 @@
                                         <p class="f-15 font-medium mb-0  device-name">{{$device->device_name}}</p>
                                         <p class="m-0  device-price">
                                             @if($Selection['devices'][$device->id]['quantity']>1)
-                                                £{{$device->price * $Selection['devices'][$device->id]['quantity']}} (£{{$device->price}}*{{$Selection['devices'][$device->id]['quantity']}})
+                                                £{{round($device->price * $Selection['devices'][$device->id]['quantity'],2)}} (£{{$device->price}}*{{$Selection['devices'][$device->id]['quantity']}})
                                             @else
                                                 £{{$device->price}}
                                             @endif    
@@ -434,7 +434,7 @@ function action()
                         li.find('.device-name').html(device_name);
 
                         if (quantity>1)
-                            li.find('.device-price').html('£'+device_price*quantity+' (£'+device_price+'*'+quantity+')');
+                            li.find('.device-price').html('£'+(device_price*quantity).toFixed(2)+' (£'+device_price+'*'+quantity+')');
                         else
                             li.find('.device-price').html('£'+device_price);
 
@@ -464,7 +464,6 @@ $('#a_view_more').click(function(){
 
 function added_devices_remove(device)
 {
-    //$('#control-item_'+device).find('.btn-remove').click();
     $('#added_devices_li_'+device).remove();
     $.ajax({
                 url: "{!! route('update-answer') !!}", 
@@ -488,13 +487,13 @@ function added_devices_remove(device)
                 success:function(data)
                 {
                   
-                    //el.removeClass('btn-remove').addClass('btn-add').text('Add');
-                    
                     $('#control-item_'+device).find('.btn-remove').addClass('btn-add').text('Add');
                     
                     $('#added_devices_li_'+device).remove();
                     
                     $('#added_devices_count').text(Object.keys(data.selection.devices).length);
+                    
+                    selection = data.selection;
 
                 }
 

@@ -631,8 +631,8 @@ $('.save-answer').click(function(){
                 },     
                 success:function(data)
                 {
-                    var selection = JSON.parse(data.selection);
-                    
+                    var selection = data.selection;
+
                     if (Object.keys(selection).length)
                       listProductsFromAPI_modified(selection);
                     
@@ -750,7 +750,7 @@ function choose_boiler_click()
                 },     
                 success:function(data)
                 {
-                    var selection = JSON.parse(data.selection);
+                    var selection = data.selection;
                     
                     if (Object.keys(selection).length)
                       location.href = "{!! route('page.controls') !!}";
