@@ -86,7 +86,7 @@ class BoilerController extends Controller
    *
    * @return Array
    */
-  public function index($limit = 20, $currentPage = 1)
+  /*public function index($limit = 20, $currentPage = 1)
   {
     Paginator::currentPageResolver(function () use ($currentPage) {
       return $currentPage;
@@ -94,10 +94,8 @@ class BoilerController extends Controller
 
     $boilers = $this->boiler->getWithCondition(['publish' => 1], 'boiler_name', 'asc', ["*"], $limit);
     return ["boiler" => $boilers];
-  }
-
+  }*/
   
-
   /**
    * Show all boiler by power range
    * 
@@ -128,55 +126,5 @@ class BoilerController extends Controller
     $boilers = $this->boiler->paginateWithConditionBetween($condition, $powerRange, $sort_by, $sort, ["*"], $limit);
     return ["boiler" => $boilers];
   }
-
-  /**
-   * Show all boiler by power range and price
-   * 
-   * @param $type
-   * @param $power
-   * @return Array
-   */
-  public function boilersByPrice($type, $power, $limit = 20, $currentPage = 1)
-  {
-    Paginator::currentPageResolver(function () use ($currentPage) {
-      return $currentPage;
-    });
-
-    $powerRange = explode("-",$power);
-    $boilers = $this->boiler->getWithConditionBetween(['publish' => 1, "boiler_type" => $type], $powerRange, 'price', 'asc', ["*"], $limit);
-    return ["boiler" => $boilers];
-  }
-
-  /**
-   * Show all boiler by power range and price
-   * 
-   * @param $type
-   * @param $power
-   * @param $brand
-   * @return Array
-   */
-  public function boilersByBrand($type, $power, $brand, $limit = 20, $currentPage = 1)
-  {
-    Paginator::currentPageResolver(function () use ($currentPage) {
-      return $currentPage;
-    });
-
-    $powerRange = explode("-",$power);
-    $boilers = $this->boiler->getWithConditionBetween(['publish' => 1, "boiler_type" => $type, "brand" => $brand], $powerRange, 'price', 'asc', ["*"], $limit);
-    return ["boiler" => $boilers];
-  }
-
-  /**
-   * Find boiler
-   *
-   * @param $id
-   * @return Array
-   */
-  public function boiler($id)
-  {
-    $boiler = $this->boiler->find($id);
-    return ["boiler" => $boiler];
-  }
-
   
 }

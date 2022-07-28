@@ -42,6 +42,28 @@
 
                             </div>
                         </div>
+
+                        @if($boiler->addon)
+                        <div class="col-md-6 mb-4 control-record" data-control="{{$boiler->addon->id}}">
+                            <div class="card control-item">
+                                <div class="card-img control-img">
+                                    <img src="{!! asset('assets/img/nest.jpg') !!}" alt="Nest" class="control-pic">
+                                </div>
+                                <div class="control-detail text-center p-4 px-lg-5">
+                                    <h4 class="f-20 font-medium control-name">{{$boiler->addon->addon_name}}</h4>
+                                    <span class="font-semibold text-secondary d-block mb-4 control-price">{{ $boiler->addon->price?'£'.$boiler->addon->price:'FREE'}}</span>
+                                    <p class="m-0"><small class="control-summary">{{$boiler->addon->summary}}</small></p>
+                                    <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
+                                    
+                                   @if($boiler->addon->id==$Selection['control']) 
+                                    <a href="javascript:void(0)" class="btn btn-outline-secondary d-block btn-action-control btn-added-control" data-control="{{$boiler->addon->id}}">Added</a>
+                                   @else
+                                   <a href="javascript:void(0)" class="btn btn-outline-secondary w-100 btn-action-control btn-choose-control" data-control="{{$boiler->addon->id}}">Choose</a>
+                                   @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         {{--
                         <div class="col-md-6 mb-4">
                             <div class="card control-item">
@@ -211,6 +233,7 @@ function fetch(url = '', append = false)
   xhr = $.ajax({
                 url: url, 
                 type: "GET",
+                data: {ids: "{!! $boiler_addon_ids_string !!}" },
                 beforeSend: function () {
                     $('.loader').show();
                 },
@@ -221,7 +244,7 @@ function fetch(url = '', append = false)
                 {
                    //console.log(data);
                    create_list_item(data, append);
-                   next_page_url = data.boiler.next_page_url;
+                   next_page_url = data.control.next_page_url;
                    if (next_page_url)
                     $('#div_view_more').show();
                    else 
@@ -239,7 +262,7 @@ function create_list_item(data, append=false)
   if (!append)
     $('.control-items .control-record').remove();
 
-  $.each(data.boiler.data, function(key, value)
+  $.each(data.control.data, function(key, value)
         {
             var item = $('#control-item_0').clone();
             item.show();
@@ -269,7 +292,7 @@ function create_list_item(data, append=false)
         });
 }
 
-fetch();
+fetch('',true);
 
 function choose_control_click()
 {

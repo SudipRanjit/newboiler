@@ -245,7 +245,7 @@
           <option value="0">Select Default Control</option>
           @foreach($addons as $add)
           <option value="{{$add->id}}"
-          @if(isset($boiler) && $add->id == $boiler->power_range)
+          @if(isset($boiler) && $add->id == $boiler->addon_id)
             selected="selected"
           @endif  
           >{{ $add->addon_name }}</option>

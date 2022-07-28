@@ -39,7 +39,7 @@ Route::get('/api/control-devices/{id}', 'API\APIController@controlDevices')->nam
 
 
 Route::get('/api/new/boilers/{type}/{power}/{limit?}/{page?}', 'API\BoilerController@boilers')->name('new.boilers');
-Route::get('/api/new/controls/{limit?}/{page?}', 'API\AddonController@controls')->name('new.controls');
+Route::get('/api/new/controls/{ids?}/{limit?}/{page?}', 'API\AddonController@controls_by_ids')->name('new.controls');
 Route::get('/api/new/devices/{limit?}/{page?}', 'API\DeviceController@devices')->name('new.devices');
 
 Route::get('/', 'Pages\IndexController@index')->name('page.index');

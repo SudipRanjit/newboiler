@@ -36,7 +36,7 @@ class ControlController extends Controller
             //redirect to boiler listing page
             return redirect()->route('page.boilers');
         }
-
+        
         $Boiler = new BoilerRepository(app()) ;        
         $boiler = $Boiler->find($selection['boiler']);
         if (!$boiler)
@@ -45,12 +45,33 @@ class ControlController extends Controller
             return redirect()->route('page.boilers');
         }
 
+        //add default addon/control if present, to session
+        if ($boiler->addon_id && empty($selection['control']))
+            {
+                $selection['control'] = $boiler->addon_id;
+                $request->session()->put('selection', $selection);
+            }   
+        
         $Addon = new AddonRepository(app()) ;
         $addon = null;
         if (isset($selection['control']))        
             $addon = $Addon->find($selection['control']);
+                
+        $boiler_addon_ids = [];    
+        /*if ($boiler->addon_id)
+            $boiler_addon_ids['default'] = $boiler->addon_id;
+    
+        $boiler_addon_ids_other = $boiler->addons->pluck('id')->toArray();
+        if ($boiler_addon_ids_other)
+            $boiler_addon_ids['other'] = $boiler_addon_ids_other;
+        */  
         
+        $boiler_addon_ids = $boiler->addons->pluck('id')->toArray();    
+        $boiler_addon_ids_string = '';
 
-        return view('pages.control.index',compact('boiler','addon'));
+        if ($boiler_addon_ids)
+            $boiler_addon_ids_string = implode(',',$boiler_addon_ids);        
+       
+        return view('pages.control.index',compact('boiler','addon','boiler_addon_ids_string'));
     }
 }

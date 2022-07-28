@@ -752,7 +752,7 @@ function choose_boiler_click()
                 {
                     var selection = data.selection;
                     
-                    if (Object.keys(selection).length)
+                    if (data.success)
                       location.href = "{!! route('page.controls') !!}";
                   
                 }

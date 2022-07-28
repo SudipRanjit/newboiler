@@ -89,7 +89,34 @@ class AddonController extends Controller
   public function controls()
   {
     $query = request()->query();
+      
+    $limit = $query['limit']??1;
+    $page = $query['page']??1;
+    $sort_by = $query['sort_by']??'addon_name';
+    $sort = $query['sort']??'asc';
+   
+    $condition = [];
+    $condition['publish'] = 1;
+       
+    $controls = $this->addon->paginateWithCondition($condition, $sort_by, $sort, ["*"], $limit);
+
+    return ["control" => $controls];
+  }
+
+   /**
+   * Get all control devices with pagination
+   * 
+   * @return Array
+   */
+  public function controls_by_ids()
+  {
+    $query = request()->query();
     
+    $ids = $query['ids']??'';
+    if ($ids)
+      $ids = explode(',',$ids);
+    
+      
     $limit = $query['limit']??4;
     $page = $query['page']??1;
     $sort_by = $query['sort_by']??'addon_name';
@@ -98,9 +125,11 @@ class AddonController extends Controller
     $condition = [];
     $condition['publish'] = 1;
        
-    $boilers = $this->addon->paginateWithCondition($condition, $sort_by, $sort, ["*"], $limit);
-    return ["boiler" => $boilers];
-  }
-
+    $controls = [];
+    if ($ids)
+      $controls = $this->addon->paginateWithConditionInArray($condition,'id',$ids, $sort_by, $sort, ["*"], $limit);
+    
+    return ["control" => $controls];
+  } 
   
 }

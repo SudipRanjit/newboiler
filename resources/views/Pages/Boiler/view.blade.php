@@ -411,9 +411,9 @@ $.ajax({
               },     
               success:function(data)
               {
-                  var selection = JSON.parse(data.selection);
+                  var selection = data.selection;
                   
-                  if (Object.keys(selection).length)
+                  if (data.success)
                     location.href = "{!! route('page.controls') !!}";
                 
               }
