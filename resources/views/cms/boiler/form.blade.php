@@ -258,10 +258,10 @@
         <div class="form-group">
         {!! Form::label('addons_id',"Additional Controls") !!}
           <p class="info__text">[Compatible controls with this boiler]</p>
-          <select name="multiple_addons" id="addons_id" multiple="multiple" class="select2 form-control">
+          <select name="multiple_addons[]" id="addons_id" multiple="multiple" class="select2 form-control">
             @foreach($addons as $add)
             <option value="{{$add->id}}"
-            @if(isset($boiler) && $add->id == $boiler->power_range)
+            @if(isset($boiler) && in_array($add->id, $boiler->addons()->pluck('addon_id')->toArray()))
               selected="selected"
             @endif  
             >{{ $add->addon_name }}</option>

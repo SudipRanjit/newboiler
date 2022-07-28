@@ -144,7 +144,8 @@ class BoilerController extends Controller
         'flow_rate',
         'central_heating_output',
         'hot_water_output',
-        'effiency_rating'
+        'effiency_rating',
+        'multiple_addons'
       ]);
 
       $input['image'] = $request->featured_image;
@@ -158,8 +159,11 @@ class BoilerController extends Controller
       if (isset($request->publish))
         $input['publish'] = 1;
 
-      $this->boiler->store($input);
+      $boiler = $this->boiler->store($input);
 
+      if (!empty($input['multiple_addons']))
+        $boiler->addons()->attach($input['multiple_addons']);
+      
       $this->db->commit();
 
       return redirect()->route('cms::boilers.index')
@@ -226,7 +230,8 @@ class BoilerController extends Controller
         'flow_rate',
         'central_heating_output',
         'hot_water_output',
-        'effiency_rating'
+        'effiency_rating',
+        'multiple_addons'
       ]);
 
       $input['image'] = $request->featured_image;
@@ -239,6 +244,12 @@ class BoilerController extends Controller
 
       if (isset($request->publish))
         $input['publish'] = 1;
+
+      
+      if (!empty($input['multiple_addons']))
+        $boiler->addons()->sync($input['multiple_addons']);
+      else
+        $boiler->addons()->detach();
 
       $this->boiler->update($id, $input);
       $this->db->commit();

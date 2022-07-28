@@ -66,6 +66,6 @@ class Boiler extends Model
      */
     public function addons()
     {
-        return $this->belongsToMany(Addon::class, 'boiler_addons');
+        return $this->belongsToMany(Addon::class, 'boiler_addons')->withTimestamps();
     }
 }
