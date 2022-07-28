@@ -177,7 +177,7 @@
                     <div class="card p-4">
                         <div class="card-light p-4 text-center mb-4">
                             <p class="text-primary">Your fixed price including installation & radiators</p>
-                            <h3 class="m-0">£2675.79</h3>
+                            <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
                             <small class="d-block mb-4">including VAT</small>
                             <a href="booking.html" class="btn btn-secondary d-block mb-4">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
