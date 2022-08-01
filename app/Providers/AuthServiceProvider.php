@@ -20,6 +20,7 @@ use App\Policies\PowerPolicy;
 use App\Policies\BoilerPolicy;
 use App\Policies\AddonPolicy;
 use App\Policies\DevicePolicy;
+use App\Policies\RadiatorPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -41,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         Boiler::class => BoilerPolicy::class,
         Addon::class => AddonPolicy::class,
         Device::class => DevicePolicy::class,
+        Radiator::class => RadiatorPolicy::class,
     ];
 
     /**

@@ -186,3 +186,21 @@ $router->get('logout', function () {
   $router->post('devices/store','Device\DeviceController@store')->name('devices.store');
  
   $router->get('devices/search','Device\DeviceController@search')->name('devices.search');
+
+     /* ==================================================================================
+                         Radiator Module
+  ====================================================================================*/
+
+  $router->get('radiators', 'Radiator\RadiatorController@index')->name('radiators.index');
+ 
+  $router->get('radiators/add', 'Radiator\RadiatorController@create')->name('radiators.create');
+  
+  $router->get('radiators/edit/{radiator}', 'Radiator\RadiatorController@edit')->name('radiators.edit');
+  
+  $router->delete('radiators/delete/{radiator}', 'Radiator\RadiatorController@delete')->name('radiators.delete');
+  
+  $router->patch('radiators/update/{radiator}', 'Radiator\RadiatorController@update')->name('radiators.update');
+  
+  $router->post('radiators/store','Radiator\RadiatorController@store')->name('radiators.store');
+ 
+  $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');

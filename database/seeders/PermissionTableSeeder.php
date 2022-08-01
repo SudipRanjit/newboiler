@@ -20,6 +20,7 @@ class PermissionTableSeeder extends Seeder
       \App\Webifi\Permissions\BoilerPermission::class,
       \App\Webifi\Permissions\DevicePermission::class,
       \App\Webifi\Permissions\UserPermission::class,
+      \App\Webifi\Permissions\RadiatorPermission::class,
     ];
     /**
      * Run the database seeds.
