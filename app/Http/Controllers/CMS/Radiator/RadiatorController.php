@@ -117,8 +117,7 @@ class RadiatorController extends Controller
     if ($this->radiator->all()->count())
       return redirect()->route('cms::radiators.index')
         ->with('error', "Only one radiator can be added.");
-        
-
+    
     $medias = $this->media->paginate(40, "created_at");
 
     $radiator_types = $this->radiator_type->all();
@@ -162,6 +161,22 @@ class RadiatorController extends Controller
       if (isset($request->publish))
         $input['publish'] = 1;
      
+      if (empty($input['radiator_types']))
+          return  redirect()->route('cms::radiators.create') 
+            ->with('error', "Please provide radiator types.")
+            ->withInput();
+
+      if (empty($input['radiator_heights']))
+            return  redirect()->route('cms::radiators.create') 
+              ->with('error', "Please provide radiator heights.")
+              ->withInput();
+
+      if (empty($input['radiator_lengths']))
+              return  redirect()->route('cms::radiators.create') 
+                ->with('error', "Please provide radiator lengths.")
+                ->withInput();
+        
+              
       $radiator = $this->radiator->store($input);
       
       if (!empty($input['radiator_types']))
@@ -264,6 +279,22 @@ class RadiatorController extends Controller
 
       if (isset($request->publish))
         $input['publish'] = 1;
+
+      if (empty($input['radiator_types']))
+        return redirect()->route('cms::radiators.edit', ['radiator' => $id]) 
+            ->with('error', "Please provide radiator types.")
+            ->withInput();
+
+      if (empty($input['radiator_heights']))
+        return redirect()->route('cms::radiators.edit', ['radiator' => $id]) 
+              ->with('error', "Please provide radiator heights.")
+              ->withInput();
+
+      if (empty($input['radiator_lengths']))
+        return redirect()->route('cms::radiators.edit', ['radiator' => $id]) 
+                ->with('error', "Please provide radiator lengths.")
+                ->withInput();
+    
 
       $this->radiator->update($id, $input);
 
