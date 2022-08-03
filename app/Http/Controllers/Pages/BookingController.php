@@ -21,7 +21,7 @@ class BookingController extends Controller
             return redirect()->route('page.index');
         }    
 
-        $last_completed_wizards = ['page.smart-device','page.booking']; 
+        $last_completed_wizards = ['page.smart-devices','page.booking']; 
         if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
             //set flash message and redirect to lastly selected wizard

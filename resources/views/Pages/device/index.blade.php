@@ -179,14 +179,14 @@
                             <p class="text-primary">Your fixed price including installation & radiators</p>
                             <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
                             <small class="d-block mb-4">including VAT</small>
-                            <a href="booking.html" class="btn btn-secondary d-block mb-4">Next</a>
+                            <a href="{!! route('page.booking') !!}" class="btn btn-secondary d-block mb-4">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Smart Devices (<span id="added_devices_count">{{$devices?count($devices):0}}</span>)</p>
                             <ul class="side-card-list list-unstyled" id="added_devices">
                                 <li id="added_devices_li_0" style="display:none">
-                                    <p class="f-15 font-medium mb-0 device-name">1x Thermostatic radiator valve (TRV)</p>
+                                    <p class="f-15 font-medium mb-0"><span class="device-quantity">1</span>x <span class="device-name">Thermostatic radiator valve (TRV)</span></p>
                                     <p class="m-0 device-price">£</p>
                                     <a href="javascript:void(0)" class="text-danger mb-2 d-block btn-device-remove" >Remove</a>
                                 </li>
@@ -194,7 +194,7 @@
                                 @if($devices)
                                     @foreach($devices as $device)
                                     <li id="added_devices_li_{{$device->id}}">
-                                        <p class="f-15 font-medium mb-0  device-name">{{$device->device_name}}</p>
+                                        <p class="f-15 font-medium mb-0"><span class="device-quantity">{{ $Selection['devices'][$device->id]['quantity'] }}</span>x  <span class="device-name">{{$device->device_name}}</span></p>
                                         <p class="m-0  device-price">
                                             @if($Selection['devices'][$device->id]['quantity']>1)
                                                 £{{round($device->price * $Selection['devices'][$device->id]['quantity'],2)}} (£{{$device->price}}*{{$Selection['devices'][$device->id]['quantity']}})
@@ -439,6 +439,8 @@ function action()
                             li.find('.device-price').html('£'+(device_price*quantity).toFixed(2)+' (£'+device_price+'*'+quantity+')');
                         else
                             li.find('.device-price').html('£'+device_price);
+
+                        li.find('.device-quantity').html(quantity);    
 
                         li.find('.btn-device-remove').attr('onclick',"added_devices_remove("+device+")");
 
