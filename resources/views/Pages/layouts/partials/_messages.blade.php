@@ -1,6 +1,6 @@
 @if(Session::has('error'))
     <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
+        <button type="button" class="close" data-dismiss="alert" onclick="$(this).parents('.alert').hide()">
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
@@ -10,7 +10,7 @@
 
 @if(Session::has('success'))
     <div class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
+        <button type="button" class="close" data-dismiss="alert" onclick="$(this).parents('.alert').hide()">
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
@@ -18,6 +18,7 @@
     </div>
 @endif
 
+{{--
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There is problem with your input<br><br>
@@ -28,3 +29,4 @@
         </ul>
     </div>
 @endif
+--}}

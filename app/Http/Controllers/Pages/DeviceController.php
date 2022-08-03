@@ -22,15 +22,25 @@ class DeviceController extends Controller
         if (empty($selection))
         {
             //set flash message and redirect to first wizard
-            return redirect()->route('page.index');
+            return redirect()->route('page.index')
+                             ->with('error', "Please choose a boiler." );
+                             
         }    
 
-       /* $last_completed_wizards = ['page.radiators','page.smart-devices','page.booking']; 
+        $last_completed_wizards = [/*'page.radiators',*/'page.smart-devices','page.booking']; 
         if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
+            $message = "";
+            if ($selection['completed_wizard']=='page.index')
+                $message = "Please choose a boiler.";
+            elseif ($selection['completed_wizard']=='page.boilers')
+                $message = "Please choose a boiler.";    
+
             //set flash message and redirect to lastly selected wizard
-            return redirect()->route($selection['completed_wizard']);
-        }*/
+            if ($message)
+                 return redirect()->route($selection['completed_wizard'])
+                                  ->with('error',$message);
+        }
 
         
         $Device = new DeviceRepository(app()) ;
@@ -45,16 +55,18 @@ class DeviceController extends Controller
         if (!$boiler)
         {
             //redirect to boiler listing page
-            return redirect()->route('page.boilers');
+            return redirect()->route('page.boilers')
+                             ->with('error', "Please choose a boiler." );
         }
 
         $Addon = new AddonRepository(app()) ;
         $addon = $Addon->find($selection['control']);
-        if (!$addon)
+        /*if (!$addon)
         {
             //redirect to control listing page
-            return redirect()->route('page.controls');
-        }
+            return redirect()->route('page.controls')
+                             ->with('error', "Please choose a control." );   
+        }*/
 
         return view('pages.device.index',compact('devices','boiler','addon'));
     }

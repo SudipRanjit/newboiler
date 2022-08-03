@@ -38,6 +38,8 @@
 
         @include('pages.layouts.partials._menu')
 
+        @include('pages.layouts.partials._messages')
+
         @yield('content')
 
         <div class="loader">

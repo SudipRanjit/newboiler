@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-6">
-                        <a href="smart_device.html" class="want-radiator-item want-radiator-no p-4 p-md-5">
+                        <a href="{!! route('page.smart-devices') !!}" class="want-radiator-item want-radiator-no p-4 p-md-5">
                             <img src="{!! asset('assets/img/icon-cross.png') !!}" alt="Want Radiator?" class="img-fluid mb-4">
                             <span class="h4 font-medium">No</span>
                             <span class="btn btn-secondary text-white">Select</span>
@@ -51,10 +51,10 @@
                         <div class="card p-4 p-lg-5">
                             <div class="row justify-content-center">
                                 <div class="col-md-5 text-center">
-                                    <img src="{!! asset('assets/img/radiator.jpg') !!}" alt="Radiator" class="img-fluid w-100 choose-radiator mb-5 mx-auto">
-                                    <h5 class="f-20">Stelrad Softline Compact</h5>
+                                    <img src="{!! $radiator->image !!}" alt="Radiator" class="img-fluid w-100 choose-radiator mb-5 mx-auto">
+                                    <h5 class="f-20">{{ $radiator->radiator_name }}</h5>
                                     <p class="font-semibold text-secondary mb-4">£35</p>
-                                    <p><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida.</small></p>
+                                    <p><small>{{ $radiator->summary }}</small></p>
                                     <a href="#" class="text-secondary"><small>More Info</small></a>
                                 </div>
                             </div>
@@ -62,10 +62,15 @@
                                 <div class="col-xl-4 col-md-12 mb-4">
                                     <label for="type" class="ps-4 mb-2">Type</label>
                                     <select class="form-select mb-4" aria-label="Type" id="type">
+                                        {{--
                                         <option value="k1" selected>Single Convertor (K1)</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
+                                        --}}
+                                        @foreach($radiator_types as $radiator_type)
+                                            <option value="{!! $radiator_type->id !!}">{{ $radiator_type->type }}</option>
+                                        @endforeach    
                                     </select>
                                     <small class="text-black-light d-block mb-3">If we don’t offer the exact size you need please choose the nearest smaller size to your current radiator.</small>
                                     <a href="#" class="text-danger"><small>Help me choose</small></a>
@@ -73,20 +78,29 @@
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="height" class="ps-4 mb-2">Height (mm)</label>
                                     <select class="form-select mb-4" aria-label="Height (mm)" id="height">
+                                        {{--
                                         <option value="600" selected>600</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
+                                        --}}
+                                        @foreach($radiator_heights as $radiator_height)
+                                            <option value="{!! $radiator_height->id !!}">{{ $radiator_height->height }}</option>
+                                        @endforeach
                                     </select>
                                     <a href="#" class="text-danger"><small>Help me choose</small></a>
                                 </div>
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="length" class="ps-4 mb-2">Length (mm)</label>
                                     <select class="form-select mb-4" aria-label="Length (mm)" id="length">
-                                        <option value="1600" selected>1600</option>
+                                        {{--<option value="1600" selected>1600</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
+                                        --}}
+                                        @foreach($radiator_lengths as $radiator_length)
+                                            <option value="{!! $radiator_length->id !!}">{{ $radiator_length->length }}</option>
+                                        @endforeach
                                     </select>
                                     <a href="#" class="text-danger"><small>Help me choose</small></a>
                                 </div>
@@ -94,7 +108,7 @@
                             <div class="row border-top-light-1 pt-4">
                                 <div class="col-lg-4 col-md-4 mb-4 ps-4 ">
                                     <label class="mb-2">Total BTU:</label>
-                                    <p>5352</p>
+                                    <p>{{$radiator->btu}}</p>
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-4">
                                     <label for="quantity" class="ps-4 mb-2">Quantity</label>
@@ -109,7 +123,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-4 ps-md-5">
                                     <label for="total" class="mb-2">Total price</label>
-                                    <h3 class="mb-0">£129.99</h3>
+                                    <h3 class="mb-0" id="total_price">£129.99</h3>
                                     <small class="mb-4 d-block">including VAT</small>
                                     <a href="#" class="btn btn-outline-secondary">Add to Cart</a>
                                 </div>
@@ -120,7 +134,7 @@
                         <div class="card p-4">
                             <div class="card-light p-4 text-center mb-4">
                                 <p class="text-primary">Your fixed price including installation & radiators</p>
-                                <h3 class="m-0">£2675.79</h3>
+                                <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
                                 <small class="d-block mb-4">including VAT</small>
                                 <a href="smart_device.html" class="btn btn-secondary d-block mb-4">Next</a>
                                 <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
@@ -140,7 +154,7 @@
                                 <ul class="side-card-list list-unstyled">
                                     <li>
                                         <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                        <p class="f-15 font-medium mb-2">Google Nest 3rd Gen FREE</p>
+                                        <p class="f-15 font-medium mb-2">{{ $addon->addon_name}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -149,12 +163,13 @@
                                 <ul class="side-card-list list-unstyled">
                                     <li>
                                         <p class="f-15 text-secondary mb-0">Boiler Selected</p>
-                                        <p class="f-15 font-medium mb-2">Vaillant ecoFIT Pure Combi 25kw £2542.79</p>
+                                        <p class="f-15 font-medium mb-2">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</p>
                                     </li>
                                     <li>
                                         <p class="f-15 text-secondary mb-0">Current boiler type</p>
-                                        <p class="f-15 font-medium mb-2">Combi</p>
+                                        <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                     </li>
+                                    {{--
                                     <li>
                                         <p class="f-15 text-secondary mb-0">Moving boiler to</p>
                                         <p class="f-15 font-medium mb-2">
@@ -162,6 +177,7 @@
                                             £700
                                         </p>
                                     </li>
+                                    --}}
                                 </ul>
                             </div>
                             <div class="card-light p-4">

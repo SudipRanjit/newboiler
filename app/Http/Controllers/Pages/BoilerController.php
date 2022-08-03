@@ -33,21 +33,23 @@ class BoilerController extends Controller
         if (empty($selection))
         {
             //set flash message and redirect to first wizard
-            return redirect()->route('page.index');
+            return redirect()->route('page.index')
+                             ->with('error', "Please choose a boiler." );
         }    
 
         $last_completed_wizards = ['page.index','page.boilers','page.controls','page.radiators','page.smart-devices','page.booking']; 
         if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
         {
             //set flash message and redirect to lastly completed wizard
-            return redirect()->route($selection['completed_wizard']);
+            return redirect()->route($selection['completed_wizard'])
+                              ->with('error', "Please choose a boiler." );
         }
         //$selection = json_encode($selection);
 
         $Category = new CategoryRepository(app()) ;        
         $categories = $Category->getWithCondition(['publish' => 1, 'type' => 'brand'])->pluck('category', 'id');
         //dd($categories);
-        return view('pages.boiler.index',compact(/*'selection',*/'categories'));
+        return view('pages.boiler.index',compact('categories'));
     }
 
     public function view($id)
