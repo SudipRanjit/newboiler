@@ -149,6 +149,7 @@
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>
                                     <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                 </li>
+                                {{--
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Moving boiler to</p>
                                     <p class="f-15 font-medium mb-2">
@@ -156,6 +157,7 @@
                                         £700
                                     </p>
                                 </li>
+                                --}}
                             </ul>
                         </div>
                         <div class="card-light p-4">
