@@ -10,6 +10,8 @@
 
 @php $completed_wizards = ['boiler','control'] @endphp
 
+@php $Selection = Session()->get('selection') @endphp
+
 @section('content')
 <div class="want-radiator-container">
             <div class="row justify-content-center">
@@ -53,7 +55,7 @@
                                 <div class="col-md-5 text-center">
                                     <img src="{!! $radiator->image !!}" alt="Radiator" class="img-fluid w-100 choose-radiator mb-5 mx-auto">
                                     <h5 class="f-20">{{ $radiator->radiator_name }}</h5>
-                                    <p class="font-semibold text-secondary mb-4">£35</p>
+                                    <p class="font-semibold text-secondary mb-4">£{{ $radiator->price }}</p>
                                     <p><small>{{ $radiator->summary }}</small></p>
                                     <a href="#" class="text-secondary"><small>More Info</small></a>
                                 </div>
@@ -106,6 +108,15 @@
                                 </div>
                             </div>
                             <div class="row border-top-light-1 pt-4">
+
+                                <div class="alert alert-danger alert-dismissable" id="cart_error" style="display:none">
+                                    <button type="button" class="close" data-dismiss="alert" onclick="$(this).parents('.alert').hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <span class="cart_error_message"></span> 
+                                </div>
+
                                 <div class="col-lg-4 col-md-4 mb-4 ps-4 ">
                                     <label class="mb-2">Total BTU:</label>
                                     <p>{{$radiator->btu}}</p>
@@ -118,14 +129,22 @@
                                         <input type="text" class="form-control" placeholder="0" aria-label="Quantity" id="quantity">
                                         <button class="btn btn-outline-secondary increase" type="button">+</button>
                                     </div>
-                                    <span class="text-danger"><small>1 in the basket</small></span>
+
+                                    @php 
+                                    
+                                    $cart_count = !empty($Selection['radiator']['quantity'])?$Selection['radiator']['quantity']:0;
+                                    $cart_price = round($cart_count*$radiator->price,2);
+
+                                    @endphp
+
+                                    <span class="text-danger"><small><span class="basket_count">{{ !empty($Selection['radiator']['quantity'])?$Selection['radiator']['quantity']:0 }}</span> in the basket</small></span>
                                     <p class="text-black-50"><small>Up to 10 radiators</small></p>
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-4 ps-md-5">
                                     <label for="total" class="mb-2">Total price</label>
-                                    <h3 class="mb-0" id="total_price">£129.99</h3>
+                                    <h3 class="mb-0">£<span class="total_price" id="cart_total_price">{{ $cart_price }}</span></h3>
                                     <small class="mb-4 d-block">including VAT</small>
-                                    <a href="#" class="btn btn-outline-secondary">Add to Cart</a>
+                                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-add-radiator">Add to Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -136,16 +155,18 @@
                                 <p class="text-primary">Your fixed price including installation & radiators</p>
                                 <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
                                 <small class="d-block mb-4">including VAT</small>
-                                <a href="smart_device.html" class="btn btn-secondary d-block mb-4">Next</a>
+                                <a href="{!! route('page.smart-devices') !!}" class="btn btn-secondary d-block mb-4">Next</a>
                                 <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                             </div>
                             <div class="card-light p-4 mb-4">
                                 <p class="f-18 font-medium side-card-title text-primary">Radiator</p>
                                 <ul class="side-card-list list-unstyled">
                                     <li>
-                                        <p class="f-15 font-medium mb-0">1x Stelrad Softline Compact</p>
-                                        <p class="m-0">£129.99</p>
-                                        <a href="#" class="text-danger">Remove</a>
+                                        <p class="f-15 font-medium mb-0"><span class="basket_count">{{$cart_count}}</span>x {{$radiator->radiator_name}}</p>
+                                        <p class="m-0">£<span class="total_price">{{$cart_price}}</span></p>
+                                        @if ($cart_count)
+                                        <a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
@@ -232,4 +253,128 @@
                 </div>
             </div>
         </div>
+@endsection
+
+@section('custom-scripts')
+<script>
+    $('.btn-add-radiator').click(function(){
+
+     var quantity = $('#quantity').val();   
+     if (!quantity)
+     {
+        $('#cart_error .cart_error_message').html('Please choose quantity.');
+        $('#cart_error').show().attr('tabindex','-1').focus().removeAttr('tabindex');
+        setTimeout(() => {
+        $('#cart_error').hide();    
+        }, 5000);
+        return false;
+     }
+
+     if (quantity>10)
+     {
+        $('#cart_error .cart_error_message').html('Please choose quantity not more than 10.');
+        $('#cart_error').show().attr('tabindex','-1').focus().removeAttr('tabindex');
+        setTimeout(() => {
+        $('#cart_error').hide();    
+        }, 5000);
+        return false;
+     }
+
+     add_to_cart(1,quantity);
+
+    });
+
+ function add_to_cart(action,quantity)
+ {
+    $.ajax({
+                url: "{!! route('update-answer') !!}", 
+                type: "POST",
+                data: {
+                        completed_wizard: 'page.radiators',
+                        radiator: "{!! $radiator->id !!}",  
+                        action: action,
+                        quantity: quantity 
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                  
+                  if (data.success)
+                    {
+                       if (action=='0')
+                          {
+                            $('.basket_count').html('0');
+                            $('.total_price').html('0');
+                          }
+                       else if (action=='1')
+                         {
+                            $('.btn-add-radiator').html('Added');
+                            location.reload();
+                         }         
+                    }
+                  
+                }
+
+            });
+  
+ }   
+
+@if(isset($Selection['radiator'])) 
+$(".want-radiator-yes").click();
+@endif 
+
+$('.btn-remove-radiator').click(function(){
+add_to_cart(0,0);
+});
+
+function update_total()
+{
+    var quantity = $('#quantity').val();
+    var rate = {!! $radiator->price !!};
+    var total = quantity * rate;
+    $('#cart_total_price').html(total.toFixed(2));
+
+}
+
+$('#quantity').change(function(){
+    update_total();
+});
+
+function increase_decrease_event()
+{
+    $('.input-inc-dec').on('click', '.increase', function (event) {
+	var value = $(this).closest('.input-inc-dec').find('input').val();
+	value = isNaN(value) ? 0 : value;
+	value++;
+	$(this).closest('.input-inc-dec').find('input').val(value);
+    
+    update_total();
+
+    });
+
+    $('.input-inc-dec').on('click', '.decrease', function (event) {
+	var value = $(this).closest('.input-inc-dec').find('input').val();
+	value = isNaN(value) ? 0 : value;
+	value < 1 ? value = 1 : '';
+	value--;
+	$(this).closest('.input-inc-dec').find('input').val(value);
+    
+    update_total();
+
+    });
+}
+
+$('.input-inc-dec, .increase, .decrease').unbind();  
+increase_decrease_event();
+
+</script>    
 @endsection

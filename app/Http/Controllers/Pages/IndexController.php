@@ -104,12 +104,7 @@ class IndexController extends Controller
             if (isset($input['device']))    
                 {
                     $devices = $selection['devices']??[];
-                    //dd($devices);
-
-                    /*if (!in_array($input['device'],$devices))
-                        $devices[] = $input['device'];
-                    */
-
+                   
                     if (!empty($input['quantity']) && !empty($input['action']))  //adding
                         {
                             $devices[$input['device']]['quantity'] = $input['quantity'];
@@ -119,9 +114,24 @@ class IndexController extends Controller
                             unset($devices[$input['device']]);
                         }
                     
-                    
                     $selection['devices'] =$devices;
                 }
+            
+            if (isset($input['radiator']))    
+                {
+                    $radiator = $selection['radiator']??[];
+                                       
+                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
+                        {
+                            $radiator['quantity'] = $input['quantity'];
+                            $selection['radiator'] =$radiator;
+                        }
+                    else if (empty($input['action']))  //removing
+                        {
+                            unset($selection['radiator']);
+                        }
+                    
+                }    
                 
             $request->session()->put('selection', $selection);
             $success = true;
