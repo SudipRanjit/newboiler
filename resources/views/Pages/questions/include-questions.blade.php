@@ -909,6 +909,8 @@
 
 $('.question-wrapper').hide();
 
+    var conversion_charge = 0;
+    var moving_boiler = {};
     var selectedBoiler = "";
     var screenWidth = 0;
     var postalCode = "";
@@ -1485,7 +1487,62 @@ jQuery("#show__products").click(function() {
           var showers = parseInt(answers.question8.optionTxt);
           var boiler = answers.question2.optionTxt;
           var bConvert = answers.question2a.optionTxt;
+
+          var current_boiler_type = "";
+  
+          if (answers.question2.option === "q2o1")
+            current_boiler_type = "Combi";
+          else if (answers.question2.option === "q2o2")
+            current_boiler_type = "System";
+          else
+            current_boiler_type = "Standard";
+  
+          jQuery(".current__boiler_type").html(current_boiler_type);
+  
+          if (answers.question2a.option === "q2ao1"){
+            //jQuery(".conversion__charge").html("£900");
+            conversion_charge = 900;
+            totalPrice += 900;
+          }else{
+            jQuery(".conversion__charge_box").hide();
+          }
+  
+          if (same_room) {
+            //jQuery(".moving__boiler_room").html("Same room - £" + same_room_price);
+            moving_boiler = {type: 'Same room', price: same_room_price};
+            totalPrice += same_room_price;
+          } else if (utility_room) {
+            //jQuery(".moving__boiler_room").html("Utility room - £" + utility_room_price);
+            moving_boiler = {type: 'Utility room', price: utility_room_price};
+            totalPrice += utility_room_price;
+          } else if (kitchen) {
+            totalPrice += kitchen_price;
+            //jQuery(".moving__boiler_room").html("Kitchen - £" + kitchen_price);
+            moving_boiler = {type: 'Kitchen', price: kitchen_price};
+          } else if (garage) {
+            totalPrice += garage_price;
+            //jQuery(".moving__boiler_room").html("Garage - £" + garage_price);
+            moving_boiler = {type: 'Garage', price: garage_price};
+          } else if (airing_cupboard) {
+            totalPrice += airing_cupboard_price;
+            //jQuery(".moving__boiler_room").html("Airing Cupboard - £" + airing_cupboard_price);
+            moving_boiler = {type: 'Airing Cupboard', price: airing_cupboard_price};
+          } else if (bedroom) {
+            totalPrice += bedroom_price;
+            //jQuery(".moving__boiler_room").html("Bedroom - £" + bedroom_price);
+            moving_boiler = {type: 'Bedroom', price: bedroom_price};
+          } else if (loft_attic) {
+            totalPrice += loft_attic_price;
+            //jQuery(".moving__boiler_room").html("Loft or Attic - £" + loft_attic_price);
+            moving_boiler = {type: 'Loft or Attic', price: loft_attic_price};
+          } else {
+            //jQuery(".moving__boiler").hide();
+          }
       
+          //console.log('totalPrice:'+totalPrice);
+          //console.log(moving_boiler);
+          //return false;
+       
           saveAnswer(beds,baths,showers,boiler,bConvert);
         }
         else {
@@ -1507,7 +1564,7 @@ jQuery("#show__products").click(function() {
      boiler = 'Combi';
      bConvert = 'YES';
     */
-
+    
     $.ajax({
                 url:"{!! route('save-answer') !!}", 
                 type: "POST",
@@ -1515,7 +1572,9 @@ jQuery("#show__products").click(function() {
                       baths: baths,
                       showers: showers,
                       boiler_type: boiler,
-                      bConvert: bConvert
+                      bConvert: bConvert,
+                      conversion_charge: conversion_charge,
+                      moving_boiler: moving_boiler 
                      },
                 headers: {
                     'X-CSRF-TOKEN': "{!! csrf_token() !!}"
@@ -1528,7 +1587,7 @@ jQuery("#show__products").click(function() {
                 },     
                 success:function(data)
                 {
-                    //console.log(data);
+                    
                     location.href = "{!! route('page.boilers') !!}";
                 }
 

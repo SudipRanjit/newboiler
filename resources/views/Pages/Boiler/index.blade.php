@@ -425,8 +425,10 @@ function listProductsFromAPI_old(selection) {
     var all = apiBase + "all";
     var beds = parseInt(selection.beds);
     var baths = parseInt(selection.baths);
-    var boiler = selection.boiler;
+    var boiler = selection.boiler_type;
     var bConvert = selection.bConvert;
+
+    
 
     finalBoiler = boiler;
     if (boiler === "Combi") {
@@ -546,6 +548,7 @@ function listProductsFromAPI_old(selection) {
       }
     }
     
+ 
   filter();
 
   }
@@ -590,7 +593,8 @@ function create_list_item(data, append=false)
 }
 
 var selection = JSON.parse('{!! json_encode($Selection) !!}');
-//console.log(selection);  
+//console.log(selection);
+
 
 //var apiBase = "https://new-boiler.gasking.co.uk/api/";
 var apiBase = "{{ url('/api/new') }}/";

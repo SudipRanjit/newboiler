@@ -183,7 +183,7 @@
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
-                            <p class="f-18 font-medium side-card-title text-primary">Smart Devices (<span id="added_devices_count">{{$devices?count($devices):0}}</span>)</p>
+                            <p class="f-18 font-medium side-card-title text-primary">Smart Devices {{--(<span id="added_devices_count">{{$devices?count($devices):0}}</span>)--}}</p>
                             <ul class="side-card-list list-unstyled" id="added_devices">
                                 <li id="added_devices_li_0" style="display:none">
                                     <p class="f-15 font-medium mb-0"><span class="device-quantity">1</span>x <span class="device-name">Thermostatic radiator valve (TRV)</span></p>
@@ -236,15 +236,26 @@
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>
                                     <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                 </li>
-                                {{--
+
+                                @if (!empty($Selection['moving_boiler']['type']))
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Moving boiler to</p>
                                     <p class="f-15 font-medium mb-2">
-                                        <span class="d-block">Utility Room</span>
-                                        £700
+                                        <span class="d-block">{{ $Selection['moving_boiler']['type'] }}</span>
+                                        £{{ $Selection['moving_boiler']['price'] }}
                                     </p>
                                 </li>
-                                --}}
+                                @endif
+
+                                @if (!empty($Selection['conversion_charge']))
+                                <li>
+                                    <p class="f-15 text-secondary mb-0">Conversion charge (converting to a Combi boiler)</p>
+                                    <p class="f-15 font-medium mb-2">
+                                        £{{ $Selection['conversion_charge'] }}
+                                    </p>
+                                </li>
+                                @endif
+
                             </ul>
                         </div>
                         <div class="card-light p-4">
@@ -453,7 +464,7 @@ function action()
                         $('#added_devices_li_'+device).remove();
                     }
 
-                    $('#added_devices_count').text(Object.keys(data.selection.devices).length);
+                    //$('#added_devices_count').text(Object.keys(data.selection.devices).length);
 
                 }
 
@@ -495,7 +506,7 @@ function added_devices_remove(device)
                     
                     $('#added_devices_li_'+device).remove();
                     
-                    $('#added_devices_count').text(Object.keys(data.selection.devices).length);
+                    //$('#added_devices_count').text(Object.keys(data.selection.devices).length);
                     
                     selection = data.selection;
 

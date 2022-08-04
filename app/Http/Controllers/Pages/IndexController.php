@@ -53,6 +53,10 @@ class IndexController extends Controller
             $selection['boiler_type'] = $input['boiler_type'];
             $selection['bConvert'] = $input['bConvert'];
             $selection['completed_wizard'] = 'page.index';
+            $selection['conversion_charge'] = $input['conversion_charge'];
+            
+            if (isset($input['moving_boiler']))
+                $selection['moving_boiler'] = $input['moving_boiler'];
             
             $request->session()->put('selection', $selection);
             if ($request->session()->has('selection'))
@@ -91,9 +95,15 @@ class IndexController extends Controller
             
             if (isset($input['bConvert']))                
                 $selection['bConvert'] = $input['bConvert'];
-            
+
             if (isset($input['completed_wizard']))    
                 $selection['completed_wizard'] = $input['completed_wizard'];
+
+            if (isset($input['conversion_charge']))
+                $selection['conversion_charge'] = $input['conversion_charge'];
+            
+            if (isset($input['moving_boiler']))
+                $selection['moving_boiler'] = $input['moving_boiler'];
             
             if (isset($input['boiler']))    
                 $selection['boiler'] = $input['boiler'];

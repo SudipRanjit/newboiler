@@ -149,15 +149,26 @@
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>
                                     <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                 </li>
-                                {{--
+
+                                @if (!empty($Selection['moving_boiler']['type']))
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Moving boiler to</p>
                                     <p class="f-15 font-medium mb-2">
-                                        <span class="d-block">Utility Room</span>
-                                        £700
+                                        <span class="d-block">{{ $Selection['moving_boiler']['type'] }}</span>
+                                        £{{ $Selection['moving_boiler']['price'] }}
                                     </p>
                                 </li>
-                                --}}
+                                @endif
+
+                                @if (!empty($Selection['conversion_charge']))
+                                <li>
+                                    <p class="f-15 text-secondary mb-0">Conversion charge (converting to a Combi boiler)</p>
+                                    <p class="f-15 font-medium mb-2">
+                                        £{{ $Selection['conversion_charge'] }}
+                                    </p>
+                                </li>
+                                @endif
+
                             </ul>
                         </div>
                         <div class="card-light p-4">
