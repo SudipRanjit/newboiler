@@ -41,7 +41,7 @@
                                         <button class="btn btn-outline-secondary increase" type="button">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <a href="javascript:void(0)" class="btn btn-outline-secondary px-5 btn-action btn-add">Add</a>
+                                        <a href="javascript:void(0)" class="btn btn-outline-secondary px-5 btn-action btn-add" onclick="btn_click(this)">Add</a>
                                     </div>
                                 </div>
 
@@ -177,7 +177,7 @@
                     <div class="card p-4">
                         <div class="card-light p-4 text-center mb-4">
                             <p class="text-primary">Your fixed price including installation & radiators</p>
-                            <h3 class="m-0">£{{ $boiler->price - $boiler->discount??0 }}</h3>
+                            <h3 class="m-0">£<span class="net-total-price">{{ $Selection['total_price'] }}</span></h3>
                             <small class="d-block mb-4">including VAT</small>
                             <a href="{!! route('page.booking') !!}" class="btn btn-secondary d-block mb-4">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
@@ -349,7 +349,6 @@ function fetch(url = '', append = false)
                    else 
                     $('#div_view_more').hide();
 
-                   action(); 
                 }
 
         });
@@ -398,17 +397,17 @@ function create_list_item(data, append=false)
 
 fetch();
 
-function action()
+function btn_click(el)
 {
-  $('.btn-action').click(function(){
-  var el =$(this);
+  el = $(el);
   var device = el.attr('data-device');
   var device_name = el.parents('.control-record').find('.control-name').text();
   var device_price = el.parents('.control-record').find('.control-price').text();
   var quantity = el.parents('.control-record').find('.control-quantity').val();
-  
-  var action = el.hasClass('btn-add')?1:0;
+  quantity = parseInt(quantity);
 
+  var action = el.hasClass('btn-add')?1:0;
+ 
   if (action && !quantity)
     {
         alert('Please provide quantity to add.');
@@ -465,11 +464,14 @@ function action()
                     }
 
                     //$('#added_devices_count').text(Object.keys(data.selection.devices).length);
+                    $(".net-total-price").html(data.selection.total_price);
+
+                    
 
                 }
 
             });
-  });
+
 }
 
 $('#a_view_more').click(function(){
@@ -509,6 +511,8 @@ function added_devices_remove(device)
                     //$('#added_devices_count').text(Object.keys(data.selection.devices).length);
                     
                     selection = data.selection;
+
+                    $(".net-total-price").html(data.selection.total_price);
 
                 }
 

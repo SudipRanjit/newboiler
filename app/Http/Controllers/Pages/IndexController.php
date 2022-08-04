@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Webifi\Repositories\Boiler\BoilerRepository;
+use App\Webifi\Repositories\Addon\AddonRepository;
+use App\Webifi\Repositories\Device\DeviceRepository;
+use App\Webifi\Repositories\Radiator\RadiatorRepository;
 
 class IndexController extends Controller
 {
@@ -77,7 +81,8 @@ class IndexController extends Controller
         {
             $input = $request->all();
             //dd($input);            
-                        
+            
+            $total_price = 0;
             $success = false;
             $selection = $request->session()->has('selection')?$request->session()->get('selection'):[];
             
@@ -101,10 +106,10 @@ class IndexController extends Controller
 
             if (isset($input['conversion_charge']))
                 $selection['conversion_charge'] = $input['conversion_charge'];
-            
+                
             if (isset($input['moving_boiler']))
                 $selection['moving_boiler'] = $input['moving_boiler'];
-            
+                
             if (isset($input['boiler']))    
                 $selection['boiler'] = $input['boiler'];
             
@@ -115,7 +120,7 @@ class IndexController extends Controller
                 {
                     $devices = $selection['devices']??[];
                    
-                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
+                    if (/*!empty($input['quantity']) &&*/ !empty($input['action']))  //adding
                         {
                             $devices[$input['device']]['quantity'] = $input['quantity'];
                         }
@@ -131,10 +136,12 @@ class IndexController extends Controller
                 {
                     $radiator = $selection['radiator']??[];
                                        
-                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
+                    if (/*!empty($input['quantity']) &&*/ !empty($input['action']))  //adding
                         {
+                            $radiator['id'] = $input['radiator'];
                             $radiator['quantity'] = $input['quantity'];
                             $selection['radiator'] =$radiator;
+
                         }
                     else if (empty($input['action']))  //removing
                         {
@@ -142,7 +149,62 @@ class IndexController extends Controller
                         }
                     
                 }    
-                
+            
+            //calculate total_price
+            if (!empty($selection['conversion_charge']))
+                $total_price+=  $selection['conversion_charge'];
+            
+            if (!empty($selection['moving_boiler']))
+                $total_price+=  $selection['moving_boiler']['price'];
+            
+            if (!empty($selection['boiler']))    
+                {
+                    $Boiler = new BoilerRepository(app()) ;        
+                    $boiler = $Boiler->find($selection['boiler']);
+                    if ($boiler)
+                    {
+                        $total_price+= $boiler->price - $boiler->discount??0; 
+                    }
+                }
+            
+            if (!empty($selection['control']))    
+                {
+                    $Addon = new AddonRepository(app()) ;        
+                    $addon = $Addon->find($selection['control']);
+                    if ($addon)
+                    {
+                        $total_price+= $addon->price; 
+                    }
+                }
+          
+            if (!empty($selection['devices']))    
+            {
+                $devices = $selection['devices'];
+                $Device = new DeviceRepository(app()) ;
+                foreach($devices as $device_id=>$d)
+                {
+                    $device = $Device->find($device_id);
+                    if ($device)
+                    {
+                        $total_price+= round($device->price * $d['quantity'],2);
+                    }
+                }    
+            
+            }
+
+            if (!empty($selection['radiator']['id']))    
+                {
+                    $Radiator = new RadiatorRepository(app()) ;        
+                    $radiator = $Radiator->find($selection['radiator']['id']);
+                    if ($radiator)
+                    {
+                        $total_price+= round($radiator->price*$selection['radiator']['quantity'],2); 
+                    }
+                }
+
+            //end calculating total_price
+
+            $selection['total_price'] = round($total_price,2);    
             $request->session()->put('selection', $selection);
             $success = true;
             

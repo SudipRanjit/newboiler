@@ -69,6 +69,7 @@
                                 </span>
                             </div>
                             <h1 class="border-bottom pb-4 mb-4">{{ $boiler->boiler_name }}</h1>
+                            
                             <p class="m-0">Your fix price including installation</p>
                             <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
                             
