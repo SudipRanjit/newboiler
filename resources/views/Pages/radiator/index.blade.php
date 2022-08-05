@@ -70,8 +70,8 @@
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
-                                        @foreach($radiator_types as $radiator_type)
-                                            <option value="{!! $radiator_type->id !!}">{{ $radiator_type->type }}</option>
+                                        @foreach($radiator_types as $radiator_type_id=>$radiator_type)
+                                            <option value="{!! $radiator_type_id !!}">{{ $radiator_type }}</option>
                                         @endforeach    
                                     </select>
                                     <small class="text-black-light d-block mb-3">If we don’t offer the exact size you need please choose the nearest smaller size to your current radiator.</small>
@@ -86,8 +86,8 @@
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
-                                        @foreach($radiator_heights as $radiator_height)
-                                            <option value="{!! $radiator_height->id !!}">{{ $radiator_height->height }}</option>
+                                        @foreach($radiator_heights as $radiator_height_id=>$radiator_height)
+                                            <option value="{!! $radiator_height_id !!}">{{ $radiator_height }}</option>
                                         @endforeach
                                     </select>
                                     <a href="#" class="text-danger"><small>Help me choose</small></a>
@@ -100,8 +100,8 @@
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
-                                        @foreach($radiator_lengths as $radiator_length)
-                                            <option value="{!! $radiator_length->id !!}">{{ $radiator_length->length }}</option>
+                                        @foreach($radiator_lengths as $radiator_length_id=>$radiator_length)
+                                            <option value="{!! $radiator_length_id !!}">{{ $radiator_length }}</option>
                                         @endforeach
                                     </select>
                                     <a href="#" class="text-danger"><small>Help me choose</small></a>
@@ -164,6 +164,16 @@
                                     <li>
                                         <p class="f-15 font-medium mb-0"><span class="basket_count">{{$cart_count}}</span>x {{$radiator->radiator_name}}</p>
                                         <p class="m-0">£<span class="total_price">{{$cart_price}}</span></p>
+                                        @if(!empty($Selection['radiator_type']))
+                                        <p class="m-0">Type: {{ $radiator_types[$Selection['radiator_type']]}}</p>
+                                        @endif
+                                        @if(!empty($Selection['radiator_height']))
+                                        <p class="m-0">Height: {{ $radiator_heights[$Selection['radiator_height']] }}mm</p>
+                                        @endif
+                                        @if(!empty($Selection['radiator_length']))
+                                        <p class="m-0">Length: {{ $radiator_lengths[$Selection['radiator_length']] }}mm</p>
+                                        @endif
+
                                         @if ($cart_count)
                                         <a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>
                                         @endif
@@ -304,7 +314,10 @@
                         completed_wizard: 'page.radiators',
                         radiator: "{!! $radiator->id !!}",  
                         action: action,
-                        quantity: quantity 
+                        quantity: quantity,
+                        radiator_type: $('#type').val(),
+                        radiator_height: $('#height').val(),
+                        radiator_length: $('#length').val() 
                       },
                 dataType: "json",      
                 headers: {

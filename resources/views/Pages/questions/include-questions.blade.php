@@ -1574,7 +1574,8 @@ jQuery("#show__products").click(function() {
                       boiler_type: boiler,
                       bConvert: bConvert,
                       conversion_charge: conversion_charge,
-                      moving_boiler: moving_boiler 
+                      moving_boiler: moving_boiler,
+                      post_code_first_part: postalCode 
                      },
                 headers: {
                     'X-CSRF-TOKEN': "{!! csrf_token() !!}"

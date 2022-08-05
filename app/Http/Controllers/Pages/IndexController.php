@@ -62,6 +62,9 @@ class IndexController extends Controller
             if (isset($input['moving_boiler']))
                 $selection['moving_boiler'] = $input['moving_boiler'];
             
+            if (isset($input['post_code_first_part']))
+                $selection['post_code_first_part'] = $input['post_code_first_part'];
+            
             $request->session()->put('selection', $selection);
             if ($request->session()->has('selection'))
                 $success = true;
@@ -148,8 +151,17 @@ class IndexController extends Controller
                             unset($selection['radiator']);
                         }
                     
-                }    
+                }
             
+            if (isset($input['radiator_type']))    
+                $selection['radiator_type'] = $input['radiator_type'];
+            
+            if (isset($input['radiator_height']))    
+                $selection['radiator_height'] = $input['radiator_height'];
+            
+            if (isset($input['radiator_length']))    
+                $selection['radiator_length'] = $input['radiator_length'];
+                
             //calculate total_price
             if (!empty($selection['conversion_charge']))
                 $total_price+=  $selection['conversion_charge'];

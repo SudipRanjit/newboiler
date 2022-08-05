@@ -70,9 +70,9 @@ class RadiatorController extends Controller
         $radiator = $this->Radiator->findWithCondition(['publish'=>1]);
         if (!$radiator)
             abort('404');
-        $radiator_types = $this->RadiatorType->all();
-        $radiator_heights = $this->RadiatorHeight->all();
-        $radiator_lengths = $this->RadiatorLength->all();
+        $radiator_types = $this->RadiatorType->all()->pluck('type','id');
+        $radiator_heights = $this->RadiatorHeight->all()->pluck('height','id');
+        $radiator_lengths = $this->RadiatorLength->all()->pluck('length','id');
 
         $boiler = $this->Boiler->find($selection['boiler']);
         if (!$boiler)
