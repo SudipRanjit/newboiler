@@ -143,7 +143,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Boiler Selected</p>
-                                    <p class="f-15 font-medium mb-2">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.boiler', ['id' => $boiler->id]) !!}">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</a></p>
                                 </li>
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>

@@ -63,6 +63,22 @@ class DeviceController extends Controller
                              ->with('error', "Please choose a control." );   
         }
 
-        return view('pages.device.index',compact('devices','boiler','addon'));
+        $radiator = $radiator_type = $radiator_height = $radiator_length = null;
+        if (isset($selection['radiator']))
+        {
+            $Radiator = new RadiatorRepository(app()) ;        
+            $radiator = $Radiator->find($selection['radiator']['id']);
+
+            $RadiatorType = new RadiatorTypeRepository(app()) ;        
+            $radiator_type = $RadiatorType->find($selection['radiator_type']);
+            
+            $RadiatorHeight = new RadiatorHeightRepository(app()) ;        
+            $radiator_height = $RadiatorHeight->find($selection['radiator_height']);
+
+            $RadiatorLength = new RadiatorLengthRepository(app()) ;        
+            $radiator_length = $RadiatorLength->find($selection['radiator_length']);
+        }
+        
+        return view('pages.device.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length'));
     }
 }

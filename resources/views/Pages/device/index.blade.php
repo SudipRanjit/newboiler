@@ -221,16 +221,39 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                    <p class="f-15 font-medium mb-2">{{ $addon->addon_name}}</p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}}</a></p>
                                 </li>
                             </ul>
                         </div>
+
+                        @if(!empty($radiator))
+                        <div class="card-light p-4 mb-4">
+                            <p class="f-18 font-medium side-card-title text-primary">Radiator</p>
+                            <ul class="side-card-list list-unstyled">
+                                <li>
+                                    <p class="f-15 font-medium mb-0"><span class="basket_count"><a href="{!! route('page.radiators') !!}">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</a></p>
+                                    <p class="m-0">£<span class="total_price">{{round($Selection['radiator']['quantity']*$radiator->price,2);}}</span></p>
+                                    @if(!empty($Selection['radiator_type']))
+                                    <p class="m-0">Type: {{ $radiator_type->type}}</p>
+                                    @endif
+                                    @if(!empty($Selection['radiator_height']))
+                                    <p class="m-0">Height: {{ $radiator_height->height }}mm</p>
+                                    @endif
+                                    @if(!empty($Selection['radiator_length']))
+                                    <p class="m-0">Length: {{ $radiator_length->length }}mm</p>
+                                    @endif
+
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Boiler information</p>
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Boiler Selected</p>
-                                    <p class="f-15 font-medium mb-2">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.boiler', ['id' => $boiler->id]) !!}">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</a></p>
                                 </li>
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>

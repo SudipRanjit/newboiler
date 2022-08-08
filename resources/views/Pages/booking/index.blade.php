@@ -10,6 +10,8 @@
 
 @php $completed_wizards = ['boiler','control','radiator','smart-device'] @endphp
 
+@php $Selection = Session()->get('selection') @endphp
+
 @section('content')
 <div class="row justify-content-center">
             <div class="col-md-8">
@@ -126,64 +128,97 @@
                     <div class="card p-4">
                         <div class="card-light p-4 text-center mb-4">
                             <p class="text-primary">Your fixed price including installation & radiators</p>
-                            <h3 class="m-0">£2675.79</h3>
+                            <h3 class="m-0">£{{ $Selection['total_price'] }}</h3>
                             <small class="d-block mb-4">including VAT</small>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
+
+                        @if(!empty($radiator))
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Radiator</p>
                             <ul class="side-card-list list-unstyled">
                                 <li>
-                                    <p class="f-15 font-medium mb-0">1x Stelrad Softline Compact</p>
-                                    <p class="m-0">£129.99</p>
-                                    <a href="#" class="text-danger mb-2 mb-2 d-block">Remove</a>
+                                    <p class="f-15 font-medium mb-0"><span class="basket_count"><a href="{!! route('page.radiators') !!}">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</a></p>
+                                    <p class="m-0">£<span class="total_price">{{round($Selection['radiator']['quantity']*$radiator->price,2);}}</span></p>
+                                    @if(!empty($Selection['radiator_type']))
+                                    <p class="m-0">Type: {{ $radiator_type->type}}</p>
+                                    @endif
+                                    @if(!empty($Selection['radiator_height']))
+                                    <p class="m-0">Height: {{ $radiator_height->height }}mm</p>
+                                    @endif
+                                    @if(!empty($Selection['radiator_length']))
+                                    <p class="m-0">Length: {{ $radiator_length->length }}mm</p>
+                                    @endif
+
                                 </li>
                             </ul>
                         </div>
+                        @endif
+
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Smart Devices</p>
-                            <ul class="side-card-list list-unstyled">
-                                <li>
-                                    <p class="f-15 font-medium mb-0">1x Thermostatic radiator valve (TRV)</p>
-                                    <p class="m-0">£35</p>
-                                    <a href="#" class="text-danger mb-2 d-block">Remove</a>
-                                </li>
-                                <li>
-                                    <p class="f-15 font-medium mb-0">2x Nest Mini</p>
-                                    <p class="m-0">£98</p>
-                                    <a href="#" class="text-danger mb-2 d-block">Remove</a>
-                                </li>
+                            <ul class="side-card-list list-unstyled" id="added_devices">
+                                 @if($devices)
+                                    @foreach($devices as $device)
+                                    <li id="added_devices_li_{{$device->id}}">
+                                        <p class="f-15 font-medium mb-0"><a href="{!! route('page.smart-devices') !!}"><span class="device-quantity">{{ $Selection['devices'][$device->id]['quantity'] }}</span>x  <span class="device-name">{{$device->device_name}}</span></a></p>
+                                        <p class="m-0  device-price">
+                                            @if($Selection['devices'][$device->id]['quantity']>1)
+                                                £{{round($device->price * $Selection['devices'][$device->id]['quantity'],2)}} (£{{$device->price}}*{{$Selection['devices'][$device->id]['quantity']}})
+                                            @else
+                                                £{{$device->price}}
+                                            @endif    
+                                        </p>
+                                    </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
+
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Control</p>
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                    <p class="f-15 font-medium mb-2">Google Nest 3rd Gen FREE</p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}}</a></p>
                                 </li>
                             </ul>
                         </div>
+
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Boiler information</p>
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Boiler Selected</p>
-                                    <p class="f-15 font-medium mb-2">Vaillant ecoFIT Pure Combi 25kw £2542.79</p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.boiler', ['id' => $boiler->id]) !!}">{{ $boiler->boiler_name }} £{{ $boiler->price - $boiler->discount??0 }}</a></p>
                                 </li>
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Current boiler type</p>
-                                    <p class="f-15 font-medium mb-2">Combi</p>
+                                    <p class="f-15 font-medium mb-2">{{ $boiler->boiler_type }}</p>
                                 </li>
+
+                                @if (!empty($Selection['moving_boiler']['type']))
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Moving boiler to</p>
                                     <p class="f-15 font-medium mb-2">
-                                        <span class="d-block">Utility Room</span>
-                                        £700
+                                        <span class="d-block">{{ $Selection['moving_boiler']['type'] }}</span>
+                                        £{{ $Selection['moving_boiler']['price'] }}
                                     </p>
                                 </li>
+                                @endif
+
+                                @if (!empty($Selection['conversion_charge']))
+                                <li>
+                                    <p class="f-15 text-secondary mb-0">Conversion charge (converting to a Combi boiler)</p>
+                                    <p class="f-15 font-medium mb-2">
+                                        £{{ $Selection['conversion_charge'] }}
+                                    </p>
+                                </li>
+                                @endif
+
                             </ul>
                         </div>
+
                         <div class="card-light p-4">
                             <p class="f-18 font-medium side-card-title text-primary">Extras included</p>
                             <ul class="side-card-list list-unstyled side-card-extras">
