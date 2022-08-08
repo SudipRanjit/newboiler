@@ -136,16 +136,23 @@
     <div class="card-body">
     <div class="row">
       <div class="col-md-6">
+      {{--  
       <div class="form-group">
         {!! Form::label('measurements',"Measurements (mm)",['style' => 'display:block;']) !!}
         {!! Form::text('height',null,['class' => 'form-control dimension-box', 'id' => 'measurements', 'placeholder' => "H" ]) !!} X
         {!! Form::text('width',null,['class' => 'form-control dimension-box', 'id' => 'measurements', 'placeholder' => "W" ]) !!} X
         {!! Form::text('depth',null,['class' => 'form-control dimension-box', 'id' => 'measurements', 'placeholder' => "D" ]) !!}
       </div>
-
+      --}}
+      
+      <div class="form-group">
+        {!! Form::label('measurements',"Measurements (height x width x depth in mm)") !!}
+        {!! Form::text('measurements',null,['class' => 'form-control', 'id' => 'measurements', 'placeholder' => "Enter measurements" ]) !!}
+      </div>
+      
       <div class="form-group">
         {!! Form::label('warranty',"Warranty (years)") !!}
-        {!! Form::text('warranty',null,['class' => 'form-control', 'id' => 'measurements', 'placeholder' => "Enter Warranty" ]) !!}
+        {!! Form::text('warranty',null,['class' => 'form-control', 'id' => 'warranty', 'placeholder' => "Enter Warranty" ]) !!}
       </div>
 
       <div class="form-group">

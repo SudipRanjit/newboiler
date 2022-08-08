@@ -21,24 +21,17 @@ class ControlController extends Controller
         {
             //set flash message and redirect to first wizard
             return redirect()->route('page.index')
-                             ->with('error', "Please choose a boiler." );
+                             ->with('error', "Please select options." );
         }    
 
-        $last_completed_wizards = ['page.boilers','page.controls','page.radiators','page.smart-devices','page.booking']; 
-        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
+        if ($selection && !in_array('page.boilers', $selection['completed_wizard']))
         {
-            $message = "";
-            if ($selection['completed_wizard']=='page.index')
-                $message = "Please choose a boiler.";
-            elseif ($selection['completed_wizard']=='page.boilers')
-                $message = "Please choose a boiler.";    
-
-            //set flash message and redirect to lastly completed wizard
-            return $message?redirect()->route($selection['completed_wizard'])
-                    ->with('error', $message):redirect()->route($selection['completed_wizard']);
+        
+            return redirect()->route('page.boilers')
+                            ->with('error', 'Please choose a boiler.');
+                   
         }
-        //dd($selection);
-
+        
         if (empty($selection['boiler']))
         {
             //redirect to boiler listing page

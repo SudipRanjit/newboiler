@@ -56,7 +56,7 @@ class IndexController extends Controller
             $selection['showers'] = $input['showers'];
             $selection['boiler_type'] = $input['boiler_type'];
             $selection['bConvert'] = $input['bConvert'];
-            $selection['completed_wizard'] = 'page.index';
+            $selection['completed_wizard'][] = 'page.index';
             $selection['conversion_charge'] = $input['conversion_charge'];
             
             if (isset($input['moving_boiler']))
@@ -104,8 +104,8 @@ class IndexController extends Controller
             if (isset($input['bConvert']))                
                 $selection['bConvert'] = $input['bConvert'];
 
-            if (isset($input['completed_wizard']))    
-                $selection['completed_wizard'] = $input['completed_wizard'];
+            if (isset($input['completed_wizard']) && !in_array($input['completed_wizard'],$selection['completed_wizard']))    
+                $selection['completed_wizard'][] = $input['completed_wizard'];
 
             if (isset($input['conversion_charge']))
                 $selection['conversion_charge'] = $input['conversion_charge'];
@@ -123,7 +123,7 @@ class IndexController extends Controller
                 {
                     $devices = $selection['devices']??[];
                    
-                    if (/*!empty($input['quantity']) &&*/ !empty($input['action']))  //adding
+                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
                         {
                             $devices[$input['device']]['quantity'] = $input['quantity'];
                         }
@@ -132,14 +132,25 @@ class IndexController extends Controller
                             unset($devices[$input['device']]);
                         }
                     
+                    if (empty($input['quantity']))
+                        unset($devices[$input['device']]);
+                        
                     $selection['devices'] =$devices;
+
+                    if (empty($selection['devices']))
+                        {
+                            unset($selection['devices']);
+                            if (($key = array_search('page.smart-devices', $selection['completed_wizard'])) !== false) {
+                                unset($selection['completed_wizard'][$key]);
+                            }
+                        }
                 }
             
             if (isset($input['radiator']))    
                 {
                     $radiator = $selection['radiator']??[];
                                        
-                    if (/*!empty($input['quantity']) &&*/ !empty($input['action']))  //adding
+                    if (!empty($input['quantity']) && !empty($input['action']))  //adding
                         {
                             $radiator['id'] = $input['radiator'];
                             $radiator['quantity'] = $input['quantity'];
@@ -150,7 +161,16 @@ class IndexController extends Controller
                         {
                             unset($selection['radiator']);
                         }
-                    
+
+                    if (empty($input['quantity']))
+                        unset($selection['radiator']);
+
+                    if (empty($selection['radiator']))
+                        {
+                            if (($key = array_search('page.radiators', $selection['completed_wizard'])) !== false) {
+                                unset($selection['completed_wizard'][$key]);
+                            }
+                        }
                 }
             
             if (isset($input['radiator_type']))    

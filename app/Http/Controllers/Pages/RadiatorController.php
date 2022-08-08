@@ -47,25 +47,16 @@ class RadiatorController extends Controller
         {
             //set flash message and redirect to first wizard
             return redirect()->route('page.index')
-                             ->with('error', "Please choose a boiler." );
+                             ->with('error', "Please select options." );
         }    
 
-        $last_completed_wizards = ['page.controls','page.radiators','page.smart-devices','page.booking']; 
-        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
+        
+        if ($selection && !in_array('page.controls', $selection['completed_wizard']))
         {
-            $message = "";
-            if ($selection['completed_wizard']=='page.index')
-                $message = "Please choose a boiler.";
-            elseif ($selection['completed_wizard']=='page.controls')
-                $message = "Please choose a control.";
-            elseif ($selection['completed_wizard']=='page.boilers')
-                $message = "Please choose a boiler.";    
-
-            //set flash message and redirect to lastly selected wizard
-            return $message?redirect()->route($selection['completed_wizard'])
-                            ->with('error', $message):redirect()->route($selection['completed_wizard']);
+            //set flash message and redirect
+            return redirect()->route('page.controls')
+                            ->with('error', 'Please choose a control.');
         }
-
                 
         $radiator = $this->Radiator->findWithCondition(['publish'=>1]);
         if (!$radiator)
@@ -89,7 +80,6 @@ class RadiatorController extends Controller
             return redirect()->route('page.controls')
                              ->with('error', "Please choose a control." ); 
         }
-
                 
         return view('pages.radiator.index',compact('radiator','radiator_types','radiator_heights','radiator_lengths','boiler','addon'));
     }

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Webifi\Repositories\Boiler\BoilerRepository;
 use App\Webifi\Repositories\Addon\AddonRepository;
 use App\Webifi\Repositories\Device\DeviceRepository;
+use App\Webifi\Repositories\Radiator\RadiatorRepository;
+use App\Webifi\Repositories\Radiator\RadiatorTypeRepository;
+use App\Webifi\Repositories\Radiator\RadiatorHeightRepository;
+use App\Webifi\Repositories\Radiator\RadiatorLengthRepository;
 
 class DeviceController extends Controller
 {
@@ -18,30 +22,21 @@ class DeviceController extends Controller
     public function index(Request $request)
     {
         $selection = $request->session()->get('selection');
-        //dd($selection);
+        
         if (empty($selection))
         {
             //set flash message and redirect to first wizard
             return redirect()->route('page.index')
-                             ->with('error', "Please choose a boiler." );
+                             ->with('error', "Please select options." );
                              
         }    
-
-        $last_completed_wizards = [/*'page.radiators',*/'page.smart-devices','page.booking']; 
-        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
+        
+        if ($selection && !in_array('page.controls', $selection['completed_wizard']))
         {
-            $message = "";
-            if ($selection['completed_wizard']=='page.index')
-                $message = "Please choose a boiler.";
-            elseif ($selection['completed_wizard']=='page.boilers')
-                $message = "Please choose a boiler.";    
-
-            //set flash message and redirect to lastly selected wizard
-            if ($message)
-                 return redirect()->route($selection['completed_wizard'])
-                                  ->with('error',$message);
+            //set flash message and redirect
+            return redirect()->route('page.controls')
+                            ->with('error', 'Please choose a control.');
         }
-
         
         $Device = new DeviceRepository(app()) ;
         $devices = null;
@@ -61,12 +56,12 @@ class DeviceController extends Controller
 
         $Addon = new AddonRepository(app()) ;
         $addon = $Addon->find($selection['control']);
-        /*if (!$addon)
+        if (!$addon)
         {
             //redirect to control listing page
             return redirect()->route('page.controls')
                              ->with('error', "Please choose a control." );   
-        }*/
+        }
 
         return view('pages.device.index',compact('devices','boiler','addon'));
     }

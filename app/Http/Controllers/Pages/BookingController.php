@@ -15,17 +15,19 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $selection = $request->session()->get('selection');
+        
         if (empty($selection))
         {
             //set flash message and redirect to first wizard
-            return redirect()->route('page.index');
+            return redirect()->route('page.index')
+                             ->with('error', "Please select options." );
         }    
-
-        $last_completed_wizards = ['page.smart-devices','page.booking']; 
-        if ($selection && !in_array($selection['completed_wizard'],$last_completed_wizards))
+        
+        if ($selection && !in_array('page.smart-devices', $selection['completed_wizard']))
         {
-            //set flash message and redirect to lastly selected wizard
-            return redirect()->route($selection['completed_wizard']);
+            //set flash message and redirect 
+            return redirect()->route('page.smart-devices')
+                            ->with('error', 'Please choose smart devices.');
         }
         return view('pages.booking.index');
     }
