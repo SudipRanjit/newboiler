@@ -16,7 +16,12 @@ class RadiatorController extends Controller
 
    /**
    * Constructor
-   * @param CategoryRepository $category
+   * @param RadiatorRepository $Radiator
+   * @param RadiatorTypeRepository $RadiatorType
+   * @param RadiatorHeightRepository $RadiatorHeight
+   * @param RadiatorLengthRepository $RadiatorLength
+   * @param BoilerRepository $Boiler
+   * @param AddonRepository $Addon
    */
   public function __construct(
     RadiatorRepository $Radiator,
