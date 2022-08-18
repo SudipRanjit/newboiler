@@ -22,11 +22,12 @@ class Order extends Model
     'payment_gateway_id',
     'billing_address_id',
     'transaction_id',
-    'vendor_token',
+    'vendor_transaction_id',
     'amount',
     'discount',
     'conversion_charge',
     'moving_boiler_charge',
+    'moving_boiler_to',
     'status',
     'card_payment'
     ];

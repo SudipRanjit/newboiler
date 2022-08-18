@@ -20,10 +20,11 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('product_id')->comment('should be either boiler_id, addon_id, radiator_id or device_id');
             $table->string('product')->comment('should be either Boiler, Addon, Radiator or Device');
             $table->float('price');
+            $table->float('discount')->default(0);
             $table->integer('quantity');
-            $table->integer('radiator_type_id');
-            $table->integer('radiator_height_id');
-            $table->integer('radiator_length_id');
+            $table->integer('radiator_type_id')->default(null)->nullable();
+            $table->integer('radiator_height_id')->default(null)->nullable();
+            $table->integer('radiator_length_id')->default(null)->nullable();
             $table->timestamps();
         });
     }

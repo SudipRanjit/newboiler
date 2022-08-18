@@ -151,7 +151,7 @@ $router->get('logout', function () {
 
  $router->get('boilers/search','Boiler\BoilerController@search')->name('boilers.search');
 
-   /* ==================================================================================
+  /*=====================================================================================
                          Addon Module
   ====================================================================================*/
 
@@ -169,7 +169,7 @@ $router->get('logout', function () {
  
   $router->get('addons/search','Addon\AddonController@search')->name('addons.search');
 
-     /* ==================================================================================
+  /*====================================================================================
                          Smart Devices Module
   ====================================================================================*/
 
@@ -187,7 +187,7 @@ $router->get('logout', function () {
  
   $router->get('devices/search','Device\DeviceController@search')->name('devices.search');
 
-     /* ==================================================================================
+  /*===================================================================================
                          Radiator Module
   ====================================================================================*/
 
@@ -204,3 +204,36 @@ $router->get('logout', function () {
   $router->post('radiators/store','Radiator\RadiatorController@store')->name('radiators.store');
  
   $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');
+
+  /*===================================================================================
+                         Booking Module
+  ====================================================================================*/
+
+  $router->get('custom-prices', 'Booking\CustomPriceController@create')->name('custom_prices.create');
+
+  $router->get('orders', 'Booking\OrderController@index')->name('orders.index');
+
+  $router->get('orders/search','Booking\OrderController@search')->name('orders.search');
+
+  $router->get('order-details/{order}', 'Booking\OrderDetailController@index')->name('order_details.index');
+
+  $router->get('bookings', 'Booking\BookingController@index')->name('bookings.index');
+
+  $router->get('bookings/search','Booking\BookingController@search')->name('bookings.search');
+
+  $router->get('bookings/edit/{booking}', 'Booking\BookingController@edit')->name('bookings.edit');
+ 
+  $router->patch('bookings/update/{booking}', 'Booking\BookingController@update')->name('bookings.update');
+  
+
+  /*$router->get('radiators/add', 'Radiator\RadiatorController@create')->name('radiators.create');
+  
+  $router->get('radiators/edit/{radiator}', 'Radiator\RadiatorController@edit')->name('radiators.edit');
+  
+  $router->delete('radiators/delete/{radiator}', 'Radiator\RadiatorController@delete')->name('radiators.delete');
+  
+  $router->patch('radiators/update/{radiator}', 'Radiator\RadiatorController@update')->name('radiators.update');
+  
+  $router->post('radiators/store','Radiator\RadiatorController@store')->name('radiators.store');
+ 
+  $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');*/

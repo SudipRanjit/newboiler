@@ -23,6 +23,7 @@ class OrderDetail extends Model
     'product_id',
     'product',
     'price',
+    'discount',
     'quantity',
     'radiator_type_id',
     'radiator_height_id',

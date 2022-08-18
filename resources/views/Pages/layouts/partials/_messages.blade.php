@@ -18,7 +18,7 @@
     </div>
 @endif
 
-{{--
+
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There is problem with your input<br><br>
@@ -29,4 +29,4 @@
         </ul>
     </div>
 @endif
---}}
+

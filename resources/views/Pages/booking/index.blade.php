@@ -36,33 +36,38 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{--<form action="{!! route('complete-booking') !!}" method="post" id="form-billing-address">--}}
+                        <form action="#" id="form-billing-address" onsubmit="return false;">    
+                        @csrf
+                        <input type="hidden" name="appointment_date" id="appointment_date" />    
                         <div class="address border-top-light-1 pt-4 px-4 px-lg-5 mt-4">
                             <h3 class="mb-5">Installation address</h3>
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                     <div class="mb-4">
                                         <label for="address-line1" class="form-label ps-4">Address line 1</label>
-                                        <input type="text" class="form-control" id="address-line1" placeholder="Address line 1" value="105 Broadway">
+                                        <input type="text" class="form-control" name="address_line_1" id="address-line1" placeholder="Address line 1" value="105 Broadway">
                                     </div>
                                     <div class="mb-4">
                                         <label for="address-line2" class="form-label ps-4">Address line 2 (optional)</label>
-                                        <input type="text" class="form-control" id="address-line2" placeholder="Address line 2 (optional)">
+                                        <input type="text" class="form-control" name="address_line_2" id="address-line2" placeholder="Address line 2 (optional)">
                                     </div>
                                     <div class="mb-4">
                                         <label for="address-line3" class="form-label ps-4">Address line 3 (optional)</label>
-                                        <input type="text" class="form-control" id="address-line3" placeholder="Address line 3 (optional)">
+                                        <input type="text" class="form-control" name="address_line_3" id="address-line3" placeholder="Address line 3 (optional)">
                                     </div>
                                     <div class="mb-4">
                                         <label for="city-town" class="form-label ps-4">City or Town</label>
-                                        <input type="text" class="form-control" id="city-town" placeholder="City or Town">
+                                        <input type="text" class="form-control" name="city" id="city-town" placeholder="City or Town" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="county" class="form-label ps-4">County (optional)</label>
-                                        <input type="text" class="form-control" id="county" placeholder="County (optional)">
+                                        <input type="text" class="form-control" name="county" id="county" placeholder="County (optional)">
                                     </div>
                                     <div class="mb-4">
                                         <label for="postcode" class="form-label ps-4">Postcode</label>
-                                        <input type="text" class="form-control" id="postcode" placeholder="Postcode">
+                                        <input type="text" class="form-control" name="postcode" id="postcode" placeholder="Postcode" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="note" class="form-label ps-4">A note for the enginner</label>
@@ -77,19 +82,19 @@
                                 <div class="col-md-8">
                                     <div class="mb-4">
                                         <label for="first-name" class="form-label ps-4">First name</label>
-                                        <input type="text" class="form-control" id="first-name" placeholder="First name">
+                                        <input type="text" class="form-control" name="first_name" id="first-name" placeholder="First name" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="surname" class="form-label ps-4">Surname</label>
-                                        <input type="text" class="form-control" id="surname" placeholder="Surname">
+                                        <input type="text" class="form-control" name="last_name" id="surname" placeholder="Surname" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="email" class="form-label ps-4">Email address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Email address">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email address" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="contact" class="form-label ps-4">Contact number</label>
-                                        <input type="text" class="form-control" id="contact" placeholder="Contact number">
+                                        <input type="text" class="form-control" name="contact_number" id="contact" placeholder="Contact number (only digits)" pattern="[0-9]+" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +105,7 @@
                                 <div class="col-md-8">
                                     <div class="mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="pay-card">
+                                            <input class="form-check-input" type="radio" name="payment_option" id="pay-card" value="stripe">
                                             <label class="form-check-label" for="pay-card">
                                                 <span class="f-20 font-semibold">Pay by card</span>
                                                 <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
@@ -109,19 +114,21 @@
                                     </div>
                                     <div class="mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="pay-paypal">
+                                            <input class="form-check-input" type="radio" name="payment_option" id="pay-paypal" value="paypal" checked="checked">
                                             <label class="form-check-label" for="pay-paypal">
                                                 <span class="f-20 font-semibold">Pay using Paypal</span>
                                                 <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
                                             </label>
+                                            <div id="paypal-button-container" class="mt-4"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="payment-option border-top-light-1 text-center pt-4 px-4 px-lg-5 mt-4">
-                            <button class="btn btn-lg btn-secondary" type="submit">Complete Booking</button>
+                            <button class="btn btn-lg btn-secondary" type="submit" id="btn-submit" style="display:none">Complete Booking</button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -289,11 +296,36 @@
 
     const currentToDateString = document.getElementById('current-datestring');
     currentToDateString.textContent = myCalender.value.getDate()+' '+months[myCalender.value.getMonth()]+' '+myCalender.value.getFullYear();
-
-
+    
+    document.querySelector('#appointment_date').value = currentToDateString.textContent;
+    
     myCalender.onValueChange((currentValue) => {
         currentToDateString.textContent = currentValue.getDate()+' '+months[currentValue.getMonth()]+' '+myCalender.value.getFullYear();
+        document.querySelector('#appointment_date').value = currentToDateString.textContent;
     });
 </script>
 
+<script>
+function formvalidate(form)
+  {
+       
+    var el=$(form).find( "input:visible" ); 
+    var valid=true;
+        
+    $.each(el,function(i,v){
+        
+    valid=v.checkValidity();  
+    if (!valid) {
+    
+    return false;
+    } 
+    
+    });
+                
+   return valid;       
+  }
+</script>
+
+@include('pages.booking.paypal')
 @endsection
+
