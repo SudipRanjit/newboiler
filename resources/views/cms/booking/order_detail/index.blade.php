@@ -80,15 +80,39 @@
           @foreach($order_details as $order_detail)
           <tr>
             <td scope="row">{!! ++$sno !!}</td>
-            <td>{!! $order_detail->product !!}
+            <td>
+              @if($order_detail->product=='Boiler')
+                Boiler
+                <br/>
+                
+                  <a href="{!! route('cms::boilers.edit',[$order_detail->boiler()->id]) !!}"  target="_blank" title='View'> {!! $order_detail->boiler()->boiler_name !!} </a>
+                  
+              @endif
+              @if($order_detail->product=='Addon')
+                Control
+                <br/>
+                
+                  <a href="{!! route('cms::addons.edit',[$order_detail->addon()->id]) !!}"  target="_blank" title='View'> {!! $order_detail->addon()->addon_name !!} </a>
+                
+              @endif    
             @if($order_detail->product=='Radiator')
+            Radiator
             <br/>
+            <a href="{!! route('cms::radiators.edit',[$order_detail->radiator()->id]) !!}"  target="_blank" title='View'> {!! $order_detail->radiator()->radiator_name !!} </a><br/>
             <small>
+              
               Type: {!! $order_detail->radiator_type->type !!}<br/>
               Height: {!! $order_detail->radiator_height->height !!} mm<br/>
               Length: {!! $order_detail->radiator_length->length !!} mm<br/>
             </small>   
             @endif
+            @if($order_detail->product=='Device')
+                Smart Device
+                <br/>
+                
+                  <a href="{!! route('cms::devices.edit',[$order_detail->device()->id]) !!}"  target="_blank" title='View'> {!! $order_detail->device()->device_name !!} </a>
+                  
+            @endif    
             </td>
             <td>{!! $order_detail->price !!}</td>
             <td>{!! $order_detail->discount !!}</td>
@@ -151,3 +175,10 @@
 </div>
 @endsection
 
+@section ('custom-styles')
+<style>
+.table a {
+  color:#0275d8;
+}
+</style>
+@endsection

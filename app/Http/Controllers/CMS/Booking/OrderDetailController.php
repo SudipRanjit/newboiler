@@ -57,7 +57,7 @@ class OrderDetailController extends Controller
     $order = $order_details[0]->order;
     $billing_address = $order_details[0]->order->billing_address;
     $booking = $order_details[0]->order->booking;
-   
+    
     return view('cms.booking.order_detail.index',compact('order_details','order','billing_address','booking'));
   }
   

@@ -8,6 +8,10 @@ use App\Webifi\Models\Booking\Order;
 use App\Webifi\Models\Radiator\RadiatorType;
 use App\Webifi\Models\Radiator\RadiatorHeight;
 use App\Webifi\Models\Radiator\RadiatorLength;
+use App\Webifi\Models\Boiler\Boiler;
+use App\Webifi\Models\Addon\Addon;
+use App\Webifi\Models\Radiator\Radiator;
+use App\Webifi\Models\Device\Device;
 
 class OrderDetail extends Model
 {
@@ -60,5 +64,37 @@ class OrderDetail extends Model
     public function radiator_length()
     {
         return $this->belongsTo(RadiatorLength::class);
+    }
+
+    /**
+     * Get the boiler.
+     */
+    public function boiler()
+    {
+        return $this->product=='Boiler'? app(Boiler::class)->where('id',$this->product_id)->first():null;
+    }
+
+    /**
+     * Get the addon.
+     */
+    public function addon()
+    {
+        return $this->product=='Addon'? app(Addon::class)->where('id',$this->product_id)->first():null;
+    }
+
+    /**
+     * Get the radiator.
+     */
+    public function radiator()
+    {
+        return $this->product=='Radiator'? app(Radiator::class)->where('id',$this->product_id)->first():null;
+    }
+
+    /**
+     * Get the device.
+     */
+    public function device()
+    {
+        return $this->product=='Device'? app(Device::class)->where('id',$this->product_id)->first():null;
     }
 }

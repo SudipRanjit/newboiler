@@ -56,7 +56,7 @@
               {{ ++$sno }}
             </td>
             <td>{!! $booking->booking_id !!}</td>
-            <td><a href="{!! route('cms::order_details.index',[$booking->order->id]) !!}" style="color:#0275d8" title="View Detail" target="_blank"> {!! $booking->order->transaction_id !!}</a></td>
+            <td><a href="{!! route('cms::order_details.index',[$booking->order->id]) !!}" style="color:#0275d8" title="View Order" target="_blank"> {!! $booking->order->transaction_id !!}</a></td>
             <td>{!! $booking->amount !!}</td>
             <td>{!! $booking->discount !!}</td>
             <td>
