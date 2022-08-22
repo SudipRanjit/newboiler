@@ -134,7 +134,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0" id="p_control_selected_label">{{ $addon?'Control Selected':'Control Not Selected'}}</p>
-                                    <p class="f-15 font-medium mb-2" id="p_control_selected">{{ $addon->addon_name??''}}</p>
+                                    <p class="f-15 font-medium mb-2" id="p_control_selected">{{ $addon->addon_name??''}} {{ !empty($addon->price)?'£'.$addon->price:'' }}</p>
                                 </li>
                             </ul>
                         </div>
@@ -313,6 +313,7 @@ function choose_control_click()
   var el =$(this);
   var control = el.attr('data-control');
   var control_name = el.parents('.control-record').find('.control-name').text();
+  var control_price = el.parents('.control-record').find('.control-price').text();
     
   $.ajax({
                 url: "{!! route('update-answer') !!}", 
@@ -338,7 +339,7 @@ function choose_control_click()
                   el.removeClass("w-100 btn-choose-control").addClass("d-block btn-added-control").html("Added");
                   
                   $('#p_control_selected_label').text('Control Selected');
-                  $('#p_control_selected').text(control_name);
+                  $('#p_control_selected').text(control_name+' '+control_price);
                   
                   $(".btn-action-control").unbind();  
                   choose_control_click();

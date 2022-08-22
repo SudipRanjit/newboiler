@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="surname" class="form-label ps-4">Surname</label>
-                                        <input type="text" class="form-control" name="last_name" id="surname" placeholder="Surname" required="required">
+                                        <input type="text" class="form-control" name="last_name" id="last-name" placeholder="Surname" required="required">
                                     </div>
                                     <div class="mb-4">
                                         <label for="email" class="form-label ps-4">Email address</label>
@@ -187,7 +187,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}}</a></p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} £{{ $addon->price }}</a></p>
                                 </li>
                             </ul>
                         </div>

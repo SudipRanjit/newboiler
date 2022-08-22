@@ -1,6 +1,6 @@
 @php $paypal_client_id ='AZcymT8ks4CIX_bGhcdGG37t4MN7bcnhUbaWEggkPs9HKYZaMYp3y82W5sXeqHDmMbYh5SqCNF_QSlxj' @endphp
 
-<script src="https://www.paypal.com/sdk/js?client-id={!! $paypal_client_id !!}&currency=GBP&enable-funding=paylater&components=buttons,marks,messages" data_source="integrationbuilder"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={!! $paypal_client_id !!}&currency=GBP&enable-funding=paylater" data_source="integrationbuilder"></script>
 <script>
     const paypalButtonsComponent = paypal.Buttons({
 
@@ -32,19 +32,101 @@
             // pass in any options from the v2 orders create call:
             // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
             const createOrderPayload = {
-                purchase_units: [
+                /*purchase_units: [
                     {
                         amount: {
                             value: "{!! $Selection['total_price'] !!}"
+                        },*/
+                        "purchase_units": [{
+                        "amount": {
+                        "currency_code": "GBP",
+                        "value": "{!! $Selection['total_price'] !!}",
+                        "breakdown": {
+                            "item_total": {  // Required when including the `items` array /
+                            "currency_code": "GBP",
+                            "value": "{!! $Selection['total_price'] !!}"
+                            }
                         }
+                        }, 
+                        items: {!! $item_list_json_for_paypal !!},     
+                        shipping: {
+                                        name: {
+                                            full_name: $('#first-name').val()+' '+$('#last-name').val()
+                                        },
+                                        type: 'SHIPPING',
+                                        address: {
+                                            address_line_1: $('#address-line1').val(),
+                                            address_line_2: $('#address-line2').val(),
+                                            country_code: 'GB',
+                                            postal_code: $('#postcode').val(),
+                                            admin_area_1: $('#county').val()+' United Kingdom',
+                                            admin_area_2: $('#city-town').val(),
+                                        }
+                                    }  
                     }
-                ]
+                ],
+                application_context: {
+                        shipping_preference: 'SET_PROVIDED_ADDRESS',
+                        } 
             };
 
+            /*purchase_units: [{
+                                        items: itemList,
+                                        amount: { data },
+                                        shipping: {
+                                                    name: {
+                                                        full_name: address.name+' '+address.surname
+                                                    },
+                                                    type: 'SHIPPING',
+                                                    address: {
+                                                        address_line_1: address.address,
+                                                        country_code: address.country.iso_code,
+                                                        postal_code: address.zip_code,
+                                                        admin_area_2: address.city,
+                                                        admin_area_1: address.country.general_name
+                                                            }
+                                                    },
+                              }]
+                            ,
+                        application_context: {
+                        shipping_preference: 'SET_PROVIDED_ADDRESS',
+                        }
+               */         
             return actions.order.create(createOrderPayload);
         },
 
         
+
+
+/*createOrder: function(data, actions) {
+      return actions.order.create({
+         "purchase_units": [{
+            "amount": {
+              "currency_code": "USD",
+              "value": "100",
+              "breakdown": {
+                "item_total": {  // Required when including the `items` array /
+                  "currency_code": "USD",
+                  "value": "100"
+                }
+              }
+            },
+            "items": [
+              {
+                "name": "First Product Name", // Shows within upper-right dropdown during payment approval 
+                "description": "Optional descriptive text..", // Item details will also be in the completed paypal.com transaction view 
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "50"
+                },
+                "quantity": "2"
+              },
+            ]
+          }]
+      });
+    },
+*/
+
         // finalize the transaction
         /*onApprove: (data, actions) => {
             const captureOrderHandler = (details) => {

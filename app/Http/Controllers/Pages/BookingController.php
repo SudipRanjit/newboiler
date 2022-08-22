@@ -18,6 +18,7 @@ use App\Webifi\Repositories\Booking\BookingRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BillingAddressRequest;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -85,7 +86,9 @@ class BookingController extends Controller
             $radiator_length = $RadiatorLength->find($selection['radiator_length']);
         }
         
-        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length'));
+        $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
+        //dd($item_list_json_for_paypal);
+        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal'));
     }
 
     public function completeBooking(/*BillingAddress*/Request $request)
@@ -408,5 +411,147 @@ class BookingController extends Controller
             
         }
     
+    /**
+     * make item list json for submitting to paypal
+     * format:
+     * "items": [
+            {
+              "name": "First Product Name",
+              "description": "Optional descriptive text..", 
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": "50"
+              },
+              "quantity": "2"
+            },
+          ]
+     *  
+     * return json     
+     */
+   public function make_item_list_json_for_paypal()
+   {
+        $selection = session()->get('selection');
+        $items = [];
+        if (!empty($selection))
+        {
+            if (!empty($selection['boiler']))    
+                {
+                    $Boiler = new BoilerRepository(app()) ;        
+                    $boiler = $Boiler->find($selection['boiler']);
+                    if ($boiler)
+                    {
+                        $item = [];
+                        $item['name'] = $boiler->boiler_name;
+                        $item['description'] = 'Boiler ID: '.$boiler->id;
+                        if (!empty($boiler->summary))
+                            $item['description'].=', Summary: '.Str::of($boiler->summary)->limit(20);
+                        
+                        $price = $boiler->price - $boiler->discount??0;
+                        $item['unit_amount']['currency_code'] = 'GBP';
+                        $item['unit_amount']['value'] = $price;
+                        $item['quantity'] = 1;
+
+                        $items[] = $item;
+                    }
+                }
+            
+            if (!empty($selection['control']))    
+                {
+                    $Addon = new AddonRepository(app()) ;        
+                    $addon = $Addon->find($selection['control']);
+                    if ($addon)
+                    {
+                        $item = [];
+                        $item['name'] = $addon->addon_name;
+                        $item['description'] = 'Control ID: '.$addon->id;
+                        if (!empty($addon->summary))
+                            $item['description'].= ', Summary: '.Str::of($addon->summary)->limit(20);
+                        
+                        $price = $addon->price;
+                        $item['unit_amount']['currency_code'] = 'GBP';
+                        $item['unit_amount']['value'] = $price;
+                        $item['quantity'] = 1;
+                        
+                        $items[] = $item;
+                    }
+                }
+
+            if (!empty($selection['devices']))    
+                {
+                    $devices = $selection['devices'];
+                    $Device = new DeviceRepository(app()) ;
+                    foreach($devices as $device_id=>$d)
+                    {
+                        $device = $Device->find($device_id);
+                        if ($device)
+                        {
+                            $item = [];
+                            $item['name'] = $device->device_name;
+                            $item['description'] = 'Device ID: '.$device->id;
+                            if (!empty($device->summary))
+                                $item['description'].= ', Summary: '.Str::of($device->summary)->limit(20);
+                            
+                            $price = $device->price;
+                            $item['unit_amount']['currency_code'] = 'GBP';
+                            $item['unit_amount']['value'] = $price;
+                            $item['quantity'] = $d['quantity'];
+                        
+                            $items[] = $item;
+                        }
+                    }    
+                }
+                
+                if (!empty($selection['radiator']['id']))    
+                {
+                    $Radiator = new RadiatorRepository(app()) ;        
+                    $radiator = $Radiator->find($selection['radiator']['id']);
+                    if ($radiator)
+                    {
+                        $item = [];
+                        $item['name'] = $radiator->radiator_name;
+                        $item['description'] = 'Radiator ID: '.$radiator->id;
+                        if (!empty($radiator->summary))
+                            $item['description'].=', Summary: '.Str::of($radiator->summary)->limit(20);
+                        
+                        $price = $radiator->price; 
+                        $item['unit_amount']['currency_code'] = 'GBP';
+                        $item['unit_amount']['value'] = $price;
+                        $item['quantity'] = $selection['radiator']['quantity'];
+                    
+                        $items[] = $item;
+                    }
+                }
+
+                if (!empty($selection['conversion_charge']))
+                    {
+                        $price =  $selection['conversion_charge'];
+
+                        $item = [];
+                        $item['name'] = "Boiler conversion charge(converting to Combi boiler)";
+                        $item['description'] = 'Amount: '.$price;
+                        $item['unit_amount']['currency_code'] = 'GBP';
+                        $item['unit_amount']['value'] = $price;
+                        $item['quantity'] = 1;
+                    
+                        $items[] = $item;
+                    }
+
+                if (!empty($selection['moving_boiler']))
+                    {
+                        $price =  $selection['moving_boiler']['price'];
+                        $item = [];
+                        $item['name'] = "Moving boiler to: ".$selection['moving_boiler']['type'];
+                        $item['description'] = 'Amount: '.$price;
+                        $item['unit_amount']['currency_code'] = 'GBP';
+                        $item['unit_amount']['value'] = $price;
+                        $item['quantity'] = 1;
+                    
+                        $items[] = $item;
+                    }
+                  
+        }
+
+        return json_encode($items);
+   }     
 
 }

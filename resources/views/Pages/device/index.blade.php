@@ -221,7 +221,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 text-secondary mb-0">Control Selected</p>
-                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}}</a></p>
+                                    <p class="f-15 font-medium mb-2"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} £{{ $addon->price }}</a></p>
                                 </li>
                             </ul>
                         </div>
