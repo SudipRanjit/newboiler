@@ -245,7 +245,7 @@ function fetch(url = '', append = false)
 
   xhr = $.ajax({
                 url: url, 
-                type: "GET",
+                type: "POST",
                 data: {ids: "{!! $boiler_addon_ids_string !!}" },
                 beforeSend: function () {
                     $('.loader').show();
