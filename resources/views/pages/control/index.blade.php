@@ -246,7 +246,7 @@ function fetch(url = '', append = false)
     xhr.abort();
 
   xhr = $.ajax({
-                url: url, 
+                url: "{{ asset('/api/new') }}/controls/", 
                 type: "POST",
                 data: {ids: "{!! $boiler_addon_ids_string !!}" },
                 beforeSend: function () {
