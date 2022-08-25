@@ -55,11 +55,13 @@
                                     <p class="m-0"><small class="control-summary">{{$boiler->addon->summary}}</small></p>
                                     <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
                                     
-                                   @if($boiler->addon->id==$Selection['control']) 
+                                   {{--@if($boiler->addon->id==$Selection['control']) 
                                     <a href="javascript:void(0)" class="btn btn-outline-secondary d-block btn-action-control btn-added-control" data-control="{{$boiler->addon->id}}">Added</a>
                                    @else
                                    <a href="javascript:void(0)" class="btn btn-outline-secondary w-100 btn-action-control btn-choose-control" data-control="{{$boiler->addon->id}}">Choose</a>
                                    @endif
+                                   --}}
+                                   <a href="javascript:void(0)" class="btn btn-outline-secondary w-100 btn-action-control btn-choose-control" data-control="{{$boiler->addon->id}}">Choose</a>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +134,7 @@
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Control</p>
                             <ul class="side-card-list list-unstyled">
-                                <li>
+                                <li>{{ $addon = null }}
                                     <p class="f-15 text-secondary mb-0" id="p_control_selected_label">{{ $addon?'Control Selected':'Control Not Selected'}}</p>
                                     <p class="f-15 font-medium mb-2" id="p_control_selected">{{ $addon->addon_name??''}} {{ !empty($addon->price)?'£'.$addon->price:'' }}</p>
                                 </li>
