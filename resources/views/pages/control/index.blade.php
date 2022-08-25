@@ -228,7 +228,7 @@
 <script>
 
 var xhr = null;
-var apiBase = "{{ url('/api/new') }}/";
+var apiBase = "{{ asset('/api/new') }}/";
 var next_page_url = '';
 
 var selection = JSON.parse('{!! json_encode($Selection) !!}');
