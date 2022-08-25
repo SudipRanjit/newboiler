@@ -307,7 +307,7 @@ function create_list_item(data, append=false)
         });
 }
 
-fetch('',true);
+//fetch('',true);
 
 function choose_control_click()
 {
