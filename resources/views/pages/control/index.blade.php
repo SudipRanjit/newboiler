@@ -247,7 +247,7 @@ function fetch(url = '', append = false)
 
   xhr = $.ajax({
                 url: "{{ asset('/api/new') }}/controls/", 
-                type: "POST",
+                type: "GET",
                 data: {ids: "{!! $boiler_addon_ids_string !!}" },
                 beforeSend: function () {
                     $('.loader').show();
@@ -308,6 +308,8 @@ function create_list_item(data, append=false)
 }
 
 //fetch('',true);
+
+choose_control_click();
 
 function choose_control_click()
 {
