@@ -52,6 +52,14 @@ class ControlController extends Controller
         if ($boiler->addon_id && empty($selection['control']))
             {
                 $selection['control'] = $boiler->addon_id;
+                $Addon = new AddonRepository(app()) ;
+                $default_addon = $Addon->find($selection['control']);
+                if ($default_addon)
+                    $selection['total_price']+= $default_addon->price;
+
+                if (!in_array('page.controls',$selection['completed_wizard']))
+                    $selection['completed_wizard'][] = 'page.controls';     
+                
                 $request->session()->put('selection', $selection);
             }   
         
