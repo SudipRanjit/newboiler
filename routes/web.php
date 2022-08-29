@@ -51,7 +51,7 @@ Route::get('/booking', 'Pages\BookingController@index')->name('page.booking');
 Route::post('/save-answer','Pages\IndexController@saveAnswer')->name('save-answer');
 Route::post('/update-answer','Pages\IndexController@updateAnswer')->name('update-answer');
 Route::get('/boiler/{id}','Pages\BoilerController@view')->name('page.boiler');
-Route::post('/complete-booking','Pages\BookingController@completeBooking')->name('complete-booking');
+//Route::post('/complete-booking','Pages\BookingController@completeBooking')->name('complete-booking');
 Route::post('/save-order','Pages\BookingController@saveOrder')->name('save-order');
 
 

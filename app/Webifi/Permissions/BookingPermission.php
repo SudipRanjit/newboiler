@@ -23,6 +23,13 @@ class BookingPermission
                 'menu_name' => "Custom Price"
             ],
             [
+                'name' => 'Block Date',
+                'slug' => 'cms::block_dates.index',
+                'description' => 'Allow to view all block dates.',
+                'view_on_sidebar' => true,
+                'menu_name' => "Block Date"
+            ],
+            [
                 'name' => 'View all orders',
                 'slug' => 'cms::orders.index',
                 'description' => 'Allow to view all orders.',

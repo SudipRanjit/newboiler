@@ -302,7 +302,50 @@
     myCalender.onValueChange((currentValue) => {
         currentToDateString.textContent = currentValue.getDate()+' '+months[currentValue.getMonth()]+' '+myCalender.value.getFullYear();
         document.querySelector('#appointment_date').value = currentToDateString.textContent;
+
+        do_disable_dates(currentValue.getFullYear(), currentValue.getMonth()+1);
     });
+
+    function do_disable_dates(current_year, current_month)
+    {
+        disable_dates.forEach(function(date){
+           var date_split = date.split("-");
+           var year = parseInt(date_split[0]);
+           var month = parseInt(date_split[1]);
+           var day = parseInt(date_split[2]);
+          
+           if (month==current_month && year == current_year)
+           {
+               //console.log(month);
+                //add disable class
+                const headings = document.evaluate(
+                "//time[contains(., "+day+")]",
+                document,
+                null,
+                XPathResult.ANY_TYPE,
+                null
+                );
+                
+                const thisHeading = headings.iterateNext();
+                if (thisHeading)
+                {
+                    //console.log(thisHeading.textContent);
+                    thisHeading.classList.add('disabled');
+                    //thisHeading.style.backgroundColor = "#CC0000";
+                    thisHeading.title = 'Blocked date, please choose another.';
+                }
+           }
+
+        });
+    }
+
+   var disable_dates = {!! $block_dates !!} ; 
+   
+   var current_month = myCalender.value.getMonth();
+   var current_year = myCalender.value.getFullYear();
+   do_disable_dates(current_year, current_month+1);
+   
+
 </script>
 
 <script>

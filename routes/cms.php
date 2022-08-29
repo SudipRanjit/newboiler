@@ -211,6 +211,20 @@ $router->get('logout', function () {
 
   $router->get('custom-prices', 'Booking\CustomPriceController@create')->name('custom_prices.create');
 
+  $router->get('block-dates', 'Booking\BlockDateController@index')->name('block_dates.index');
+
+  $router->get('block-dates/add', 'Booking\BlockDateController@create')->name('block_dates.create');
+  
+  $router->get('block-dates/edit/{block_date}', 'Booking\BlockDateController@edit')->name('block_dates.edit');
+  
+  $router->delete('block-dates/delete/{block_date}', 'Booking\BlockDateController@delete')->name('block_dates.delete');
+  
+  $router->patch('block-dates/update/{block_date}', 'Booking\BlockDateController@update')->name('block_dates.update');
+  
+  $router->post('block-dates/store','Booking\BlockDateController@store')->name('block_dates.store');
+ 
+  $router->get('block-dates/search','Booking\BlockDateController@search')->name('block_dates.search');
+
   $router->get('orders', 'Booking\OrderController@index')->name('orders.index');
 
   $router->get('orders/search','Booking\OrderController@search')->name('orders.search');
@@ -225,15 +239,3 @@ $router->get('logout', function () {
  
   $router->patch('bookings/update/{booking}', 'Booking\BookingController@update')->name('bookings.update');
   
-
-  /*$router->get('radiators/add', 'Radiator\RadiatorController@create')->name('radiators.create');
-  
-  $router->get('radiators/edit/{radiator}', 'Radiator\RadiatorController@edit')->name('radiators.edit');
-  
-  $router->delete('radiators/delete/{radiator}', 'Radiator\RadiatorController@delete')->name('radiators.delete');
-  
-  $router->patch('radiators/update/{radiator}', 'Radiator\RadiatorController@update')->name('radiators.update');
-  
-  $router->post('radiators/store','Radiator\RadiatorController@store')->name('radiators.store');
- 
-  $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');*/

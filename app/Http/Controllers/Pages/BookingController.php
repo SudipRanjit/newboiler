@@ -15,6 +15,7 @@ use App\Webifi\Repositories\Booking\BillingAddressRepository;
 use App\Webifi\Repositories\Booking\OrderRepository;
 use App\Webifi\Repositories\Booking\OrderDetailRepository;
 use App\Webifi\Repositories\Booking\BookingRepository;
+use App\Webifi\Repositories\Booking\BlockDateRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BillingAddressRequest;
@@ -23,7 +24,7 @@ use Illuminate\Support\Str;
 class BookingController extends Controller
 {
     /**
-     * Show page
+     * Show pages
      *
      * @return view
      */
@@ -86,9 +87,15 @@ class BookingController extends Controller
             $radiator_length = $RadiatorLength->find($selection['radiator_length']);
         }
         
+        $BlockDate = new BlockDateRepository(app()) ;
+        $block_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('*'),$limit = 1000)->pluck('date')->toArray();
+        
+        $block_dates = json_encode($block_dates);
+        //dd($block_dates);    
+
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);
-        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal'));
+        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates'));
     }
 
     public function completeBooking(/*BillingAddress*/Request $request)
