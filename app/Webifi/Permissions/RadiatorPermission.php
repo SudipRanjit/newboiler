@@ -38,6 +38,30 @@ class RadiatorPermission
                 'name' => 'Delete Radiator',
                 'slug' => 'cms::radiators.delete',
                 'description' => 'Allow to delete radiator.'
+            ],
+            [
+                'name' => 'View all radiator prices',
+                'slug' => 'cms::radiator_prices.index',
+                'description' => 'Allow to view all radiator prices.',
+                'view_on_sidebar' => true,
+                'menu_name' => "All Radiator Prices"
+            ],
+            [
+                'name' => 'Create Radiator Price',
+                'slug' => 'cms::radiator_prices.create',
+                'description' => 'Allow to create new radiator price.',
+                'view_on_sidebar' => true,
+                'menu_name' => "Add Radiator Price"
+            ],
+            [
+                'name' => 'Update Radiator Price',
+                'slug' => 'cms::radiator_prices.update',
+                'description' => 'Allow to update radiator price.'
+            ],
+            [
+                'name' => 'Delete Radiator Price',
+                'slug' => 'cms::radiator_prices.delete',
+                'description' => 'Allow to delete radiator price.'
             ]
         ]
     ];

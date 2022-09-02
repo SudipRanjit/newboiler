@@ -205,6 +205,21 @@ $router->get('logout', function () {
  
   $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');
 
+
+  $router->get('radiator-prices', 'Radiator\RadiatorPriceController@index')->name('radiator_prices.index');
+ 
+  $router->get('radiator-prices/add', 'Radiator\RadiatorPriceController@create')->name('radiator_prices.create');
+  
+  $router->get('radiator-prices/edit/{radiator_price}', 'Radiator\RadiatorPriceController@edit')->name('radiator_prices.edit');
+  
+  $router->delete('radiator-prices/delete/{radiator_price}', 'Radiator\RadiatorPriceController@delete')->name('radiator_prices.delete');
+  
+  $router->patch('radiator-prices/update/{radiator_price}', 'Radiator\RadiatorPriceController@update')->name('radiator_prices.update');
+  
+  $router->post('radiator-prices/store','Radiator\RadiatorPriceController@store')->name('radiator_prices.store');
+ 
+  $router->get('radiator-prices/search','Radiator\RadiatorPriceController@search')->name('radiator_prices.search');
+
   /*===================================================================================
                          Booking Module
   ====================================================================================*/

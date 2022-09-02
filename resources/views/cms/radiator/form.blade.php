@@ -5,7 +5,7 @@
         {!! Form::label('radiator_name','Radiator Name') !!}
         {!! Form::text('radiator_name',null,['class' => 'form-control', 'id' => 'radiator-name', 'placeholder' => "Enter Radiator name" ]) !!}
       </div>
-
+{{--
       <div class="form-group">
         {!! Form::label('price','Price') !!}
         {!! Form::number('price',null,['class'=>'form-control', 'placeholder'=>'Enter Radiator Price', 'id'=>'price', 'step' => '.01']) !!}
@@ -15,7 +15,7 @@
         {!! Form::label('btu','BTU') !!}
         {!! Form::number('btu',null,['class'=>'form-control', 'placeholder'=>'Enter Radiator BTU', 'id'=>'btu', 'step' => '.01']) !!}
       </div>
-
+--}}
       <div class="form-group">
         {!! Form::label('summary',"Summary") !!}
         {!! Form::textarea('summary',null,['class'=>'textarea form-control','id'=>'summary','placeholder'=>'Enter Summary (Short description)']) !!}
