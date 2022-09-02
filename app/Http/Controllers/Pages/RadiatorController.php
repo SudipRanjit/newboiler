@@ -8,6 +8,7 @@ use App\Webifi\Repositories\Radiator\RadiatorRepository;
 use App\Webifi\Repositories\Radiator\RadiatorTypeRepository;
 use App\Webifi\Repositories\Radiator\RadiatorHeightRepository;
 use App\Webifi\Repositories\Radiator\RadiatorLengthRepository;
+use App\Webifi\Repositories\Radiator\RadiatorPriceRepository;
 use App\Webifi\Repositories\Boiler\BoilerRepository;
 use App\Webifi\Repositories\Addon\AddonRepository;
 
@@ -20,6 +21,7 @@ class RadiatorController extends Controller
    * @param RadiatorTypeRepository $RadiatorType
    * @param RadiatorHeightRepository $RadiatorHeight
    * @param RadiatorLengthRepository $RadiatorLength
+   * @param RadiatorPriceRepository $RadiatorPrice
    * @param BoilerRepository $Boiler
    * @param AddonRepository $Addon
    */
@@ -28,6 +30,7 @@ class RadiatorController extends Controller
     RadiatorTypeRepository $RadiatorType,
     RadiatorHeightRepository $RadiatorHeight,
     RadiatorLengthRepository $RadiatorLength,
+    RadiatorPriceRepository $RadiatorPrice,
     BoilerRepository $Boiler,
     AddonRepository $Addon
     
@@ -36,6 +39,7 @@ class RadiatorController extends Controller
     $this->RadiatorType = $RadiatorType;
     $this->RadiatorHeight = $RadiatorHeight;
     $this->RadiatorLength = $RadiatorLength;
+    $this->RadiatorPrice = $RadiatorPrice;
     $this->Boiler = $Boiler;
     $this->Addon = $Addon;
   }
@@ -85,7 +89,40 @@ class RadiatorController extends Controller
             return redirect()->route('page.controls')
                              ->with('error', "Please choose a control." ); 
         }
-                
-        return view('pages.radiator.index',compact('radiator','radiator_types','radiator_heights','radiator_lengths','boiler','addon'));
+        
+        $radiator_price = '';
+        if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+          $radiator_price = $this->RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']],['price','btu']);
+     
+        
+        return view('pages.radiator.index',compact('radiator','radiator_types','radiator_heights','radiator_lengths','boiler','addon','radiator_price'));
     }
+
+    /**
+     * get price and btu from radiator type, radiator height, radiator length
+     *
+     * @param Request $request
+     */
+    public function getPrice(Request $request)
+    {
+        if($request->ajax())
+        {
+            $input = $request->all();
+            //dd($input);            
+           
+            $success = false;
+           
+            $type = isset($input['type'])?$input['type']:'';
+            $height = isset($input['height'])?$input['height']:'';
+            $length = isset($input['length'])?$input['length']:'';
+            
+            if (!empty($type) && !empty($height) && !empty($length))
+              $record = $this->RadiatorPrice->findWithCondition(['radiator_type_id'=>$type,'radiator_height_id'=>$height,'radiator_length_id'=>$length],['price','btu']);
+           
+            $success = true;
+            
+            return response()->json(['success'=>$success, 'record'=>$record]);
+        }
+    }
+
 }

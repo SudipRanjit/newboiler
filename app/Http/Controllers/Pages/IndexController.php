@@ -8,6 +8,7 @@ use App\Webifi\Repositories\Boiler\BoilerRepository;
 use App\Webifi\Repositories\Addon\AddonRepository;
 use App\Webifi\Repositories\Device\DeviceRepository;
 use App\Webifi\Repositories\Radiator\RadiatorRepository;
+use App\Webifi\Repositories\Radiator\RadiatorPriceRepository;
 
 class IndexController extends Controller
 {
@@ -226,12 +227,22 @@ class IndexController extends Controller
 
             if (!empty($selection['radiator']['id']))    
                 {
-                    $Radiator = new RadiatorRepository(app()) ;        
+                    /*$Radiator = new RadiatorRepository(app()) ;        
                     $radiator = $Radiator->find($selection['radiator']['id']);
                     if ($radiator)
                     {
-                        $total_price+= round($radiator->price*$selection['radiator']['quantity'],2); 
-                    }
+                        $total_price+= round($radiator->price*$selection['radiator']['quantity'],2);  
+                    }*/
+
+                    $RadiatorPrice = new RadiatorPriceRepository(app()) ; 
+
+                    if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+                        $record = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']],['price','btu']);
+           
+                    if ($record)
+                    {
+                        $total_price+= round($record->price*$selection['radiator']['quantity'],2);  
+                    }    
                 }
 
             //end calculating total_price

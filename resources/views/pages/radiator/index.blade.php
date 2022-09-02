@@ -55,7 +55,10 @@
                                 <div class="col-md-5 text-center">
                                     <img src="{!! $radiator->image !!}" alt="Radiator" class="img-fluid w-100 choose-radiator mb-5 mx-auto">
                                     <h5 class="f-20">{{ $radiator->radiator_name }}</h5>
+                                    {{--
                                     <p class="font-semibold text-secondary mb-4">£{{ $radiator->price }}</p>
+                                    --}}
+                                    <input type="hidden" id="radiator-rate" />    
                                     <p><small>{{ $radiator->summary }}</small></p>
                                     <a href="#" class="text-secondary"><small>More Info</small></a>
                                 </div>
@@ -70,6 +73,7 @@
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
+                                        <option value="">Choose type</option>
                                         @foreach($radiator_types as $radiator_type_id=>$radiator_type)
                                             <option value="{!! $radiator_type_id !!}">{{ $radiator_type }}</option>
                                         @endforeach    
@@ -79,13 +83,14 @@
                                 </div>
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="height" class="ps-4 mb-2">Height (mm)</label>
-                                    <select class="form-select mb-4" aria-label="Height (mm)" id="height">
+                                    <select class="form-select mb-4" aria-label="Height (mm)" id="height" disabled>
                                         {{--
                                         <option value="600" selected>600</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
+                                        <option value="">Select height</option>
                                         @foreach($radiator_heights as $radiator_height_id=>$radiator_height)
                                             <option value="{!! $radiator_height_id !!}">{{ $radiator_height }}</option>
                                         @endforeach
@@ -94,12 +99,13 @@
                                 </div>
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="length" class="ps-4 mb-2">Length (mm)</label>
-                                    <select class="form-select mb-4" aria-label="Length (mm)" id="length">
+                                    <select class="form-select mb-4" aria-label="Length (mm)" id="length" disabled>
                                         {{--<option value="1600" selected>1600</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                         --}}
+                                        <option value="">Select length</option>
                                         @foreach($radiator_lengths as $radiator_length_id=>$radiator_length)
                                             <option value="{!! $radiator_length_id !!}">{{ $radiator_length }}</option>
                                         @endforeach
@@ -119,21 +125,21 @@
 
                                 <div class="col-lg-4 col-md-4 mb-4 ps-4 ">
                                     <label class="mb-2">Total BTU:</label>
-                                    <p>{{$radiator->btu}}</p>
+                                    <p id='p-total-btu'></p>
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-4">
                                     <label for="quantity" class="ps-4 mb-2">Quantity</label>
                                     
                                     <div class="input-group input-inc-dec mb-3 ms-0">
-                                        <button class="btn btn-outline-secondary decrease" type="button">-</button>
-                                        <input type="text" class="form-control" placeholder="0" aria-label="Quantity" id="quantity">
-                                        <button class="btn btn-outline-secondary increase" type="button">+</button>
+                                        <button class="btn btn-outline-secondary decrease disabled" type="button">-</button>
+                                        <input type="text" class="form-control" placeholder="1" aria-label="Quantity" id="quantity">
+                                        <button class="btn btn-outline-secondary increase  disabled" type="button">+</button>
                                     </div>
 
                                     @php 
                                     
                                     $cart_count = !empty($Selection['radiator']['quantity'])?$Selection['radiator']['quantity']:0;
-                                    $cart_price = round($cart_count*$radiator->price,2);
+                                    $cart_price = isset($radiator_price->price)?round($cart_count*$radiator_price->price,2):0;
 
                                     @endphp
 
@@ -142,7 +148,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-4 ps-md-5">
                                     <label for="total" class="mb-2">Total price</label>
-                                    <h3 class="mb-0">£<span class="total_price" id="cart_total_price">{{ $cart_price }}</span></h3>
+                                    <h3 class="mb-0">£<span class="total_price" id="cart_total_price">0</span></h3>
                                     <small class="mb-4 d-block">including VAT</small>
                                     <a href="javascript:void(0)" class="btn btn-outline-secondary btn-add-radiator">Add to Cart</a>
                                 </div>
@@ -367,7 +373,7 @@ add_to_cart(0,0);
 function update_total()
 {
     var quantity = $('#quantity').val();
-    var rate = {!! $radiator->price !!};
+    var rate = $('#radiator-rate').val();
     var total = quantity * rate;
     $('#cart_total_price').html(total.toFixed(2));
 
@@ -403,6 +409,77 @@ function increase_decrease_event()
 
 $('.input-inc-dec, .increase, .decrease').unbind();  
 increase_decrease_event();
+
+$('#type').change(function(){
+
+ if ($(this).val())
+ {
+    $('#height').prop('disabled',false);
+ }
+
+});
+
+$('#height').change(function(){
+ 
+ if ($(this).val())
+ {
+    $('#length').prop('disabled',false);
+ }
+
+});
+
+
+
+$('#length').change(function(){
+
+    if (!$(this).val())
+        return false;
+
+    $.ajax({
+                url: "{!! route('get-radiator-price') !!}", 
+                type: "POST",
+                data: {
+                        type: $('#type').val(),
+                        height: $('#height').val(),
+                        length: $('#length').val() 
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                  
+                  if (data.record)
+                    {
+                       $('#radiator-rate').val(data.record.price);
+                       $('#p-total-btu').html(data.record.btu);
+                       $('.increase,.decrease').removeClass('disabled');
+                       $('#cart_total_price').html(data.record.price);
+
+                    }
+                   else
+                   {
+                     alert('No price alloted. Please select another type, height and length.');
+                       $('#radiator-rate').val('');
+                       $('#p-total-btu').html('');
+                       $('.increase,.decrease').addClass('disabled');
+                       $('#cart_total_price').html('');
+                   }     
+
+                }
+
+            });
+  
+});
+
+  
 
 </script>    
 @endsection

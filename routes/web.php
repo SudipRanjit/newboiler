@@ -53,5 +53,6 @@ Route::post('/update-answer','Pages\IndexController@updateAnswer')->name('update
 Route::get('/boiler/{id}','Pages\BoilerController@view')->name('page.boiler');
 //Route::post('/complete-booking','Pages\BookingController@completeBooking')->name('complete-booking');
 Route::post('/save-order','Pages\BookingController@saveOrder')->name('save-order');
+Route::post('/get-radiator-price','Pages\RadiatorController@getPrice')->name('get-radiator-price');
 
 
