@@ -11,6 +11,7 @@ use App\Webifi\Models\Radiator\RadiatorLength;
 use App\Webifi\Models\Boiler\Boiler;
 use App\Webifi\Models\Addon\Addon;
 use App\Webifi\Models\Radiator\Radiator;
+use App\Webifi\Models\Radiator\RadiatorPrice;
 use App\Webifi\Models\Device\Device;
 
 class OrderDetail extends Model
@@ -31,7 +32,9 @@ class OrderDetail extends Model
     'quantity',
     'radiator_type_id',
     'radiator_height_id',
-    'radiator_length_id'
+    'radiator_length_id',
+    'radiator_price_id',
+    'radiator_btu',
   ];
 
     /**
@@ -88,6 +91,14 @@ class OrderDetail extends Model
     public function radiator()
     {
         return $this->product=='Radiator'? app(Radiator::class)->where('id',$this->product_id)->first():null;
+    }
+
+    /**
+     * Get the radiator price.
+     */
+    public function radiator_price()
+    {
+        return $this->product=='Radiator'? app(RadiatorPrice::class)->where('id',$this->radiator_price_id)->first():null;
     }
 
     /**

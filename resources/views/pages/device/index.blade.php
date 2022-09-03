@@ -232,7 +232,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 font-medium mb-0"><span class="basket_count"><a href="{!! route('page.radiators') !!}">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</a></p>
-                                    <p class="m-0">£<span class="total_price">{{round($Selection['radiator']['quantity']*$radiator->price,2);}}</span></p>
+                                    <p class="m-0">£<span class="total_price">{{round($Selection['radiator']['quantity']*$radiator_price->price,2);}}</span></p>
                                     @if(!empty($Selection['radiator_type']))
                                     <p class="m-0">Type: {{ $radiator_type->type}}</p>
                                     @endif
@@ -241,6 +241,9 @@
                                     @endif
                                     @if(!empty($Selection['radiator_length']))
                                     <p class="m-0">Length: {{ $radiator_length->length }}mm</p>
+                                    @endif
+                                    @if(!empty($radiator_price->btu))
+                                        <p class="m-0">BTU: {{ $radiator_price->btu }}</p>
                                     @endif
 
                                 </li>

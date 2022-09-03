@@ -11,6 +11,7 @@ use App\Webifi\Repositories\Radiator\RadiatorRepository;
 use App\Webifi\Repositories\Radiator\RadiatorTypeRepository;
 use App\Webifi\Repositories\Radiator\RadiatorHeightRepository;
 use App\Webifi\Repositories\Radiator\RadiatorLengthRepository;
+use App\Webifi\Repositories\Radiator\RadiatorPriceRepository;
 use App\Webifi\Repositories\Booking\BillingAddressRepository;
 use App\Webifi\Repositories\Booking\OrderRepository;
 use App\Webifi\Repositories\Booking\OrderDetailRepository;
@@ -71,7 +72,7 @@ class BookingController extends Controller
                              ->with('error', "Please choose a control." );   
         }
 
-        $radiator = $radiator_type = $radiator_height = $radiator_length = null;
+        $radiator = $radiator_type = $radiator_height = $radiator_length = $radiator_price = null;
         if (isset($selection['radiator']))
         {
             $Radiator = new RadiatorRepository(app()) ;        
@@ -85,6 +86,11 @@ class BookingController extends Controller
 
             $RadiatorLength = new RadiatorLengthRepository(app()) ;        
             $radiator_length = $RadiatorLength->find($selection['radiator_length']);
+
+            $RadiatorPrice = new RadiatorPriceRepository(app()) ;
+            if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+                $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']]);
+     
         }
         
         $BlockDate = new BlockDateRepository(app()) ;
@@ -95,7 +101,7 @@ class BookingController extends Controller
 
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);
-        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates'));
+        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
     }
 
     public function completeBooking(/*BillingAddress*/Request $request)
@@ -359,11 +365,22 @@ class BookingController extends Controller
                     if (empty($radiator))
                         throw new \Exception('Radiator not found.');
                     
-                    $order_detail['price'] = $radiator->price;   
+                    $RadiatorPrice = new RadiatorPriceRepository(app()) ; 
+
+                    $radiator_price = null; 
+                    if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+                        $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']]);
+                                
+                    if (empty($radiator_price))
+                        throw new \Exception('Radiator Price not found.');
+                                        
+                    $order_detail['price'] = $radiator_price->price;   
                     $order_detail['quantity'] = $selection['radiator']['quantity'];
                     $order_detail['radiator_type_id'] = $selection['radiator_type'];
                     $order_detail['radiator_height_id'] = $selection['radiator_height'];
                     $order_detail['radiator_length_id'] = $selection['radiator_length'];
+                    $order_detail['radiator_price_id'] = $radiator_price->id;
+                    $order_detail['radiator_btu'] = $radiator_price->btu;
                     $order_detail_record = $OrderDetailRepository->store($order_detail);
                     //dd($order_detail_record);
                 }
@@ -514,13 +531,21 @@ class BookingController extends Controller
                     $radiator = $Radiator->find($selection['radiator']['id']);
                     if ($radiator)
                     {
+                        $RadiatorPrice = new RadiatorPriceRepository(app()) ;    
+                        if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+                            $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']],['price','btu']);
+                        
                         $item = [];
                         $item['name'] = $radiator->radiator_name;
                         $item['description'] = 'Radiator ID: '.$radiator->id;
-                        if (!empty($radiator->summary))
-                            $item['description'].=', Summary: '.Str::of($radiator->summary)->limit(20);
-                        
-                        $price = $radiator->price; 
+                        $item['description'].=',type: '.$selection['radiator_type'];
+                        $item['description'].=',height: '.$selection['radiator_height'];
+                        $item['description'].=',length: '.$selection['radiator_length'];
+                        $item['description'].=',btu: '.$radiator_price->btu;
+                        /*if (!empty($radiator->summary))
+                            $item['description'].=', Summary: '.Str::of($radiator->summary)->limit(10);
+                        */                        
+                        $price = $radiator_price->price; 
                         $item['unit_amount']['currency_code'] = 'GBP';
                         $item['unit_amount']['value'] = $price;
                         $item['quantity'] = $selection['radiator']['quantity'];

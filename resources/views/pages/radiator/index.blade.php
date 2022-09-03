@@ -179,6 +179,9 @@
                                         @if(!empty($Selection['radiator_length']))
                                         <p class="m-0">Length: {{ $radiator_lengths[$Selection['radiator_length']] }}mm</p>
                                         @endif
+                                        @if(!empty($radiator_price->btu))
+                                        <p class="m-0">BTU: {{ $radiator_price->btu }}</p>
+                                        @endif
 
                                         @if ($cart_count)
                                         <a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>

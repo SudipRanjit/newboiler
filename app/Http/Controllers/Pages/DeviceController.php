@@ -11,6 +11,7 @@ use App\Webifi\Repositories\Radiator\RadiatorRepository;
 use App\Webifi\Repositories\Radiator\RadiatorTypeRepository;
 use App\Webifi\Repositories\Radiator\RadiatorHeightRepository;
 use App\Webifi\Repositories\Radiator\RadiatorLengthRepository;
+use App\Webifi\Repositories\Radiator\RadiatorPriceRepository;
 
 class DeviceController extends Controller
 {
@@ -63,7 +64,7 @@ class DeviceController extends Controller
                              ->with('error', "Please choose a control." );   
         }
 
-        $radiator = $radiator_type = $radiator_height = $radiator_length = null;
+        $radiator = $radiator_type = $radiator_height = $radiator_length = $radiator_price = null;
         if (isset($selection['radiator']))
         {
             $Radiator = new RadiatorRepository(app()) ;        
@@ -77,8 +78,13 @@ class DeviceController extends Controller
 
             $RadiatorLength = new RadiatorLengthRepository(app()) ;        
             $radiator_length = $RadiatorLength->find($selection['radiator_length']);
+            
+            $RadiatorPrice = new RadiatorPriceRepository(app()) ;
+            if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length']))
+                $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']]);
+     
         }
         
-        return view('pages.device.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length'));
+        return view('pages.device.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','radiator_price'));
     }
 }
