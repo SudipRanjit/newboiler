@@ -356,6 +356,7 @@ function fetch(url = '', append = false)
   xhr = $.ajax({
                 url: url, 
                 type: "GET",
+                dataType: "json",
                 beforeSend: function () {
                     $('.loader').show();
                 },

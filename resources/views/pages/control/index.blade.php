@@ -248,6 +248,7 @@ function fetch(url = '', append = false)
   xhr = $.ajax({
                 url: "{{ asset('/api/new') }}/controls/", 
                 type: "GET",
+                dataType: "json",
                 data: {ids: "{!! $boiler_addon_ids_string !!}" },
                 beforeSend: function () {
                     $('.loader').show();
