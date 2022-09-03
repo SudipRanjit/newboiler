@@ -134,6 +134,16 @@ class RadiatorPriceController extends Controller
         ]);
       
       $input['user_id'] = auth()->user()->id;
+
+      $record = $this->radiator_price->findWithCondition(['radiator_type_id'=>$input['radiator_type_id'],'radiator_height_id'=>$input['radiator_height_id'],'radiator_length_id'=>$input['radiator_length_id']]);  
+
+      if ($record)
+      {
+        $error_message = "Price already submitted for radiator type: ".$record->radiator_type->type.', radiator height: '.$record->radiator_height->height.', radiator length: '.$record->radiator_length->length; 
+        return  redirect()->route('cms::radiator_prices.create') 
+        ->with('error', $error_message)
+        ->withInput();   
+      }
         
       $radiator_price = $this->radiator_price->store($input);
       
@@ -195,6 +205,16 @@ class RadiatorPriceController extends Controller
 
      
       $input['user_id'] = auth()->user()->id;
+
+      $record = $this->radiator_price->findWithCondition(['radiator_type_id'=>$input['radiator_type_id'],'radiator_height_id'=>$input['radiator_height_id'],'radiator_length_id'=>$input['radiator_length_id']]);  
+
+      if (!empty($record) && $record->id!=$id)
+      {
+        $error_message = "Price already submitted for radiator type: ".$record->radiator_type->type.', radiator height: '.$record->radiator_height->height.', radiator length: '.$record->radiator_length->length; 
+        return  redirect()->route('cms::radiator_prices.edit',$id) 
+        ->with('error', $error_message)
+        ->withInput();   
+      }
       
       $this->radiator_price->update($id, $input);
       
