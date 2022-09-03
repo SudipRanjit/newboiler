@@ -39,9 +39,25 @@ class OrderRepository extends Repository
   
           $q = $q->where(function($query) use ($searchCondition) {
           $query->where('transaction_id', 'like', '%'.$searchCondition.'%')
-            ->orWhere('vendor_transaction_id', 'like', '%'.$searchCondition.'%')
-            ->orWhere('amount', 'like', '%'.$searchCondition.'%')
-            ->orWhere('discount', 'like', '%'.$searchCondition.'%')
+                ->orWhere('vendor_transaction_id', 'like', '%'.$searchCondition.'%')
+                ->orWhere('amount', 'like', '%'.$searchCondition.'%')
+                ->orWhere('discount', 'like', '%'.$searchCondition.'%')
+                ->orWhere('created_at', 'like', '%'.$searchCondition.'%')
+                
+          ->orWhereHas('billing_address', function ($qb) use ($searchCondition) {
+            $qb->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%".$searchCondition."%"])
+                ->orWhere('email', 'like', '%'.$searchCondition.'%')
+                ->orWhere('city', 'like', '%'.$searchCondition.'%')
+                ->orWhere('postcode', 'like', '%'.$searchCondition.'%')
+                ->orWhere('address_line_1', 'like', '%'.$searchCondition.'%')
+                ->orWhere('contact_number', 'like', '%'.$searchCondition.'%')
+                ->orWhere('note', 'like', '%'.$searchCondition.'%')
+                ;
+           })
+           ->orWhereHas('booking', function ($qb) use ($searchCondition) {
+            $qb->where('appointment_date', 'like', '%'.$searchCondition.'%')
+                ;
+           }) 
             ;
         });
   

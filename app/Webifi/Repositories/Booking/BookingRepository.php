@@ -39,10 +39,14 @@ class BookingRepository extends Repository
   
           $q = $q->where(function($query) use ($searchCondition) {
           $query->where('order_id', 'like', '%'.$searchCondition.'%')
+          ->orWhereHas('order', function ($qo) use ($searchCondition) {
+            $qo->where('transaction_id',  'like', '%'.$searchCondition.'%');
+           })
             ->orWhere('booking_id', 'like', '%'.$searchCondition.'%')
             ->orWhere('amount', 'like', '%'.$searchCondition.'%')
             ->orWhere('discount', 'like', '%'.$searchCondition.'%')
             ->orWhere('appointment_date', 'like', '%'.$searchCondition.'%')
+            ->orWhere('created_at', 'like', '%'.$searchCondition.'%')
             ;
         });
   
