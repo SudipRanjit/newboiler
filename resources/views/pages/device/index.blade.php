@@ -232,7 +232,7 @@
                             <ul class="side-card-list list-unstyled">
                                 <li>
                                     <p class="f-15 font-medium mb-0"><span class="basket_count"><a href="{!! route('page.radiators') !!}">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</a></p>
-                                    <p class="m-0">£<span class="total_price">{{round($Selection['radiator']['quantity']*$radiator_price->price,2);}}</span></p>
+                                    <p class="m-0">£<span class="total_price">{{ isset($radiator_price)? round($Selection['radiator']['quantity']*$radiator_price->price,2):0;}}</span></p>
                                     @if(!empty($Selection['radiator_type']))
                                     <p class="m-0">Type: {{ $radiator_type->type}}</p>
                                     @endif
