@@ -26,9 +26,7 @@ class RadiatorRequest extends FormRequest
         
        return [
                 'radiator_name' => 'required',
-                'price' => 'required',
-                'btu' => 'required',
-            ];
+              ];
 
     }
 }

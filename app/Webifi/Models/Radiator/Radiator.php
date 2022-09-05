@@ -17,10 +17,8 @@ class Radiator extends Model
   protected $fillable = [
     'radiator_name',
     'user_id',
-    'price',
     'summary',
     'description',
-    'btu',
     'image',
     'publish'
   ];
