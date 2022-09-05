@@ -695,6 +695,7 @@ function filter(url = "", append = false)
                 url: url, 
                 type: "GET",
                 data: query,
+                dataType: "json", 
                 beforeSend: function () {
                     $('.loader').show();
                 },

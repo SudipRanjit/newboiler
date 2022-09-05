@@ -237,8 +237,8 @@ var selection = JSON.parse('{!! json_encode($Selection) !!}');
 
 function fetch(url = '', append = false)
 { 
-  var controlAPI = apiBase + "controls/";
   
+  var controlAPI = "{!! route('new.controls') !!}";
   if (!url)
     url = controlAPI;
 
@@ -246,7 +246,8 @@ function fetch(url = '', append = false)
     xhr.abort();
 
   xhr = $.ajax({
-                url: "{{ asset('/api/new') }}/controls/", 
+                
+                url: url,
                 type: "GET",
                 dataType: "json",
                 data: {ids: "{!! $boiler_addon_ids_string !!}" },

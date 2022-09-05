@@ -348,7 +348,7 @@ var selection = JSON.parse('{!! json_encode($Selection) !!}');
 
 function fetch(url = '', append = false)
 { 
-  var controlAPI = apiBase + "devices/";
+  var controlAPI = "{!! route('new.devices') !!}";
   
   if (!url)
     url = controlAPI;
