@@ -132,7 +132,7 @@
                                     
                                     <div class="input-group input-inc-dec mb-3 ms-0">
                                         <button class="btn btn-outline-secondary decrease disabled" type="button">-</button>
-                                        <input type="text" class="form-control" placeholder="1" aria-label="Quantity" id="quantity">
+                                        <input type="text" class="form-control" placeholder="1" aria-label="Quantity" id="quantity" value="1">
                                         <button class="btn btn-outline-secondary increase  disabled" type="button">+</button>
                                     </div>
 
@@ -150,7 +150,7 @@
                                     <label for="total" class="mb-2">Total price</label>
                                     <h3 class="mb-0">£<span class="total_price" id="cart_total_price">0</span></h3>
                                     <small class="mb-4 d-block">including VAT</small>
-                                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-add-radiator">Add to Cart</a>
+                                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-add-radiator disabled">Add to Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -433,11 +433,14 @@ $('#height').change(function(){
 
 
 
-$('#length').change(function(){
+$('#type,#height,#length').change(function(){
 
-    if (!$(this).val())
+    if ($('#type').val()=='' || $('#height').val()=='' || $('#length').val()=='' )
         return false;
 
+    if ($('#type').prop('disabled') || $('#height').prop('disabled') || $('#length').prop('disabled'))
+        return false;
+        
     $.ajax({
                 url: "{!! route('get-radiator-price') !!}", 
                 type: "POST",
@@ -452,6 +455,7 @@ $('#length').change(function(){
                 },
                 beforeSend: function () {
                     $('.loader').show();
+                    $('.btn-add-radiator').addClass('disabled');
                 },
                 complete: function () {
                     $('.loader').hide();
@@ -465,15 +469,15 @@ $('#length').change(function(){
                        $('#p-total-btu').html(data.record.btu);
                        $('.increase,.decrease').removeClass('disabled');
                        $('#cart_total_price').html(data.record.price);
-
+                       $('.btn-add-radiator').removeClass('disabled'); 
                     }
                    else
                    {
-                     alert('No price alloted. Please select another type, height and length.');
-                       $('#radiator-rate').val('');
-                       $('#p-total-btu').html('');
-                       $('.increase,.decrease').addClass('disabled');
-                       $('#cart_total_price').html('');
+                        alert('No price alloted. Please select another type, height and length.');
+                        $('#radiator-rate').val('');
+                        $('#p-total-btu').html('');
+                        $('.increase,.decrease').addClass('disabled');
+                        $('#cart_total_price').html('');
                    }     
 
                 }

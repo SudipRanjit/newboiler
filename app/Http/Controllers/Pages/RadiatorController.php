@@ -70,9 +70,14 @@ class RadiatorController extends Controller
         $radiator = $this->Radiator->findWithCondition(['publish'=>1]);
         if (!$radiator)
             abort('404');
-        $radiator_types = $this->RadiatorType->all()->pluck('type','id');
-        $radiator_heights = $this->RadiatorHeight->all()->pluck('height','id');
-        $radiator_lengths = $this->RadiatorLength->all()->pluck('length','id');
+        
+        $radiator_type_ids = $this->RadiatorPrice->pluck('radiator_type_id','radiator_type_id')->toArray();
+        $radiator_height_ids = $this->RadiatorPrice->pluck('radiator_height_id','radiator_height_id')->toArray();
+        $radiator_length_ids = $this->RadiatorPrice->pluck('radiator_length_id','radiator_length_id')->toArray();        
+
+        $radiator_types = $this->RadiatorType->getInArray([],'id',array_values($radiator_type_ids),'id','asc',['*'],1000)->pluck('type','id');
+        $radiator_heights = $this->RadiatorHeight->getInArray([],'id',array_values($radiator_height_ids),'id','asc',['*'],1000)->pluck('height','id');
+        $radiator_lengths = $this->RadiatorLength->getInArray([],'id',array_values($radiator_length_ids),'id','asc',['*'],1000)->pluck('length','id');
 
         $boiler = $this->Boiler->find($selection['boiler']);
         if (!$boiler)
@@ -116,6 +121,7 @@ class RadiatorController extends Controller
             $height = isset($input['height'])?$input['height']:'';
             $length = isset($input['length'])?$input['length']:'';
             
+            $record = null;
             if (!empty($type) && !empty($height) && !empty($length))
               $record = $this->RadiatorPrice->findWithCondition(['radiator_type_id'=>$type,'radiator_height_id'=>$height,'radiator_length_id'=>$length],['price','btu']);
            
