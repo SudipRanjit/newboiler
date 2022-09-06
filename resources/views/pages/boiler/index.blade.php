@@ -41,6 +41,7 @@
           <div class="btn-group my-2">
                 <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" ><span id="show-category">Select Manufacturer</span></button>
                 <ul class="dropdown-menu">
+                  <li><a class="dropdown-item category-item" href="javascript:void(0)" data-value=""  >Select Manufacturer</a></li>
                     @foreach ($categories as $category_id=>$category)
                         <li><a class="dropdown-item category-item" href="javascript:void(0)" data-value="{{ $category_id }}"  >{{ $category }}</a></li>
                     @endforeach
