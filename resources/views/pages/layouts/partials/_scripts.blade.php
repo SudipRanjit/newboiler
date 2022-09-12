@@ -4,6 +4,8 @@
 <script type="text/javascript" src="{!! asset('assets/js/script.js') !!}"></script>
 
 @yield('custom-scripts')
+@yield('stripe-scripts')
+@yield('paypal-scripts')
 
 </body>
 </html>

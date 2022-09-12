@@ -55,3 +55,6 @@
 @include ('pages.questions.include-questions')
 
 @endsection
+
+@include('pages.booking.stripe_future.status') 
+

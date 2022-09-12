@@ -66,4 +66,14 @@ class BookingPolicy
         return $user->hasPermission('cms::boilers.delete');
     }*/
 
+    /**
+     * Determine whether the user can do stripe payout from customer.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function stripe_payout(User $user)
+    {
+        return $user->hasPermission('cms::bookings.stripe_payout');
+    }
 }

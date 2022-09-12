@@ -10,7 +10,7 @@
       </div>
   
       <div class="form-group">
-        {!! Form::label('order_transaction_id','Order Transaction ID') !!}
+        {!! Form::label('order_transaction_id','Order ID') !!}
         <input type="text" class='form-control' id='order_transaction_id' value={!! $booking->order->transaction_id !!} readonly="readonly" >
       </div>
       

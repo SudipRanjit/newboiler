@@ -29,7 +29,10 @@ class Order extends Model
     'moving_boiler_charge',
     'moving_boiler_to',
     'status',
-    'card_payment'
+    'stripe_customer_id',
+    'stripe_payment_method_id',
+    'stripe_setup_intent_id',
+    'payout_amount'
     ];
 
     /**

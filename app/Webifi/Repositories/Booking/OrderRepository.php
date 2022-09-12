@@ -43,6 +43,7 @@ class OrderRepository extends Repository
                 ->orWhere('amount', 'like', '%'.$searchCondition.'%')
                 ->orWhere('discount', 'like', '%'.$searchCondition.'%')
                 ->orWhere('created_at', 'like', '%'.$searchCondition.'%')
+                ->orWhere('payout_amount', 'like', '%'.$searchCondition.'%')
                 
           ->orWhereHas('billing_address', function ($qb) use ($searchCondition) {
             $qb->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%".$searchCondition."%"])
@@ -50,12 +51,18 @@ class OrderRepository extends Repository
                 ->orWhere('city', 'like', '%'.$searchCondition.'%')
                 ->orWhere('postcode', 'like', '%'.$searchCondition.'%')
                 ->orWhere('address_line_1', 'like', '%'.$searchCondition.'%')
+                ->orWhere('address_line_2', 'like', '%'.$searchCondition.'%')
+                ->orWhere('address_line_3', 'like', '%'.$searchCondition.'%')
                 ->orWhere('contact_number', 'like', '%'.$searchCondition.'%')
                 ->orWhere('note', 'like', '%'.$searchCondition.'%')
                 ;
            })
            ->orWhereHas('booking', function ($qb) use ($searchCondition) {
             $qb->where('appointment_date', 'like', '%'.$searchCondition.'%')
+                ;
+           })
+           ->orWhereHas('payment_gateway', function ($qp) use ($searchCondition) {
+            $qp->where('title', 'like', '%'.$searchCondition.'%')
                 ;
            }) 
             ;

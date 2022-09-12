@@ -23,8 +23,9 @@
       <div class="col-md-4 mb-4 float-right">
         <h4>Booking </h4>
         <div>ID: <b>{!! $booking->booking_id !!}</b></div>
-        <div>Amount Paid(&pound;): <b>{!! $booking->amount !!}</b></div>
+        <div>Amount(&pound;): <b>{!! $booking->amount !!}</b></div>
         <div>Discount(&pound;): <b>{!! $booking->discount !!}</b></div>
+        <div>Payout/Paid Amount (&pound;): <b>{!! $booking->order->payout_amount !!}</b></div>
         <div>Appointment Date: <b>{!! date('Y-m-d',strtotime($booking->appointment_date)) !!}</b></div>
         <div>Status: <b>@if($booking->status===0)
                         On process (Installment not complete)
@@ -41,7 +42,7 @@
       <h4>Billing Information </h4>
       <div>First Name: <b>{!! $billing_address->first_name.' '.$billing_address->last_name !!}</b></div>
       <div>Email: <b>{!! $billing_address->email !!}</b></div>
-      <div>Contact number: <b>{!! $billing_address->contact_number !!}</b></div>
+      <div>Phone: <b>{!! $billing_address->contact_number !!}</b></div>
       <div>Address line 1: <b>{!! $billing_address->address_line_1 !!}</b></div>
       <div>Address line 2: <b>{!! $billing_address->address_line_2 !!}</b></div>
       <div>Address line 3: <b>{!! $billing_address->address_line_3 !!}</b></div>
@@ -53,11 +54,12 @@
 
     <div class="col-md-4  mb-4">
       <h4>Order </h4>
-      <div>Transaction ID: <b>{!! $order->transaction_id !!}</b></div>
+      <div>ID: <b>{!! $order->transaction_id !!}</b></div>
       <div>Payment Method: <b>{!! $order->payment_gateway->title !!}</b></div>
       <div>{!! $order->payment_gateway->title !!} Transaction ID: <b>{!! $order->vendor_transaction_id !!}</b></div>
       <div>Amount(&pound;): <b>{!! $order->amount !!}</b></div>
       <div>Discount(&pound;): <b>{!! $order->discount !!}</b></div>
+      <div>Payout/Paid Amount (&pound;): <b>{!! $order->payout_amount !!}</b></div>
       <div>Status: <b>{!! $order->status?'Payment complete':'Payment incomplete' !!}</b></div>
       <div>Created: <b>{!! date('Y-m-d',strtotime($order->created_at)) !!}</b></div>                                
     </div>    

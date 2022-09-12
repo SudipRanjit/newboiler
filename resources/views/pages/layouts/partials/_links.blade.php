@@ -12,5 +12,7 @@
 
     @yield('custom-styles')
 
+    @yield('head-custom-scripts')
+
 </head>
 

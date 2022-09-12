@@ -51,7 +51,7 @@ class OrderController extends Controller
   public function index()
   {
     $this->authorize('view', Order::class);
-    $orders = $this->order->paginate(40);
+    $orders = $this->order->paginate(20);
     return view('cms.booking.order.index')->with('orders', $orders);
   }
 
@@ -64,7 +64,7 @@ class OrderController extends Controller
   public function search(Request $request)
   {
     $this->authorize('view', Order::class);
-    $orders = $this->order->searchWithMultipleCondition([] ,$request->search_txt, "id", "desc", ['*'], 40);
+    $orders = $this->order->searchWithMultipleCondition([] ,$request->search_txt, "id", "desc", ['*'], 20);
     return view('cms.booking.order.index')->with('orders', $orders)->with("searchTxt", $request->search_txt);
   }
   

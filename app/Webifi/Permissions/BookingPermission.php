@@ -48,6 +48,11 @@ class BookingPermission
                 'slug' => 'cms::bookings.update',
                 'description' => 'Allow to update booking.'
             ],
+            [
+                'name' => 'Stripe payout from customer',
+                'slug' => 'cms::bookings.stripe_payout',
+                'description' => 'Allow to stripe payout from customer.'
+            ],
          ]
     ];
 

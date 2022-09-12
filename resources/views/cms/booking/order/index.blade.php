@@ -33,12 +33,13 @@
         <thead>
           <tr>
             <th scope="col">S.No.</th>
-            <th scope="col">Transaction ID</th>
+            <th scope="col">ID</th>
             <th scope="col">Payment Method</th>
             <th scope="col">Paypal/Stripe Transaction ID</th>
             <th scope="col">Billing</th>
             <th scope="col">Amount(&pound;)</th>
             <th scope="col">Discount(&pound;)</th>
+            <th scope="col">Payout/Paid Amount(&pound;)</th>
             <th scope="col">Status</th>
             <th scope="col">Appointment</th>
             <th scope="col">Created&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -54,12 +55,34 @@
             <td>{!! $order->transaction_id !!}</td>
             <td>{!! $order->payment_gateway->title !!}</td>
             <td>{!! $order->vendor_transaction_id !!}</td>
-            <td>{!! $order->billing_address->first_name.' '.$order->billing_address->last_name!!}
-             <br/>
-             <small>{!! $order->billing_address->email.', '.$order->billing_address->contact_number.', '.$order->billing_address->address_line_1.', '.$order->billing_address->city.', '.$order->billing_address->postcode !!}</small>
-            </td>
+            <td><a href="{!! route('cms::order_details.index',[$order->id]) !!}" title="View" target="_blank"><b>{!! $order->billing_address->first_name.' '.$order->billing_address->last_name!!}</b>
+                      <br/>
+                      @php 
+                        $address =[
+                                  $order->billing_address->email,
+                                  "Phone: ".$order->billing_address->contact_number, 
+                                  "Address: ".$order->billing_address->address_line_1,
+                                  ];
+
+                      if (!empty($order->billing_address->address_line_2))
+                        $address[] = $order->billing_address->address_line_2;         
+
+                      if (!empty($order->billing_address->address_line_3))
+                        $address[] = $order->billing_address->address_line_3;         
+          
+                      $address[] = $order->billing_address->city;
+
+                      if (!empty($order->billing_address->county))  
+                        $address[] = $order->billing_address->county;
+                    
+                      $address[] = "Postcode: ".$order->billing_address->postcode;  
+                      @endphp
+                      <small>{!! implode(", ",$address)!!}</small>
+                </a>
+           </td>
             <td>{!! $order->amount !!}</td>
             <td>{!! $order->discount !!}</td>
+            <td>{!! $order->payout_amount !!}</td>
             <td>
               @if($order->status===1)
               <span class="label label-success">Complete</span>
@@ -71,7 +94,7 @@
             <td>{!! date('Y-m-d',strtotime($order->created_at)) !!}</td>
             <td><span title="{!! $order->billing_address->note !!}">{!! Str::limit($order->billing_address->note, 10) !!}</span></td>
             <td>
-              <a href="{!! route('cms::order_details.index',[$order->id]) !!}" class="btn btn-default" title="View"><span class="fa fa-eye"></span></a>
+              <a href="{!! route('cms::order_details.index',[$order->id]) !!}" class="btn btn-default" title="View" target="_blank"><span class="fa fa-eye"></span></a>
             </td>
           </tr>
           @endforeach

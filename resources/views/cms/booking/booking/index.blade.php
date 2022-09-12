@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="content-wrapper">
+  <div class="loader" style="background:none;display:none;">
+    <img src="{{asset('cms/dist/img/loading.gif')}}" />
+  </div> 
 <div class="content-header sty-one">
   <h1>Bookings</h1>
   <ol class="breadcrumb">
@@ -9,8 +12,6 @@
     <li><i class="fa fa-angle-right"></i> Booking</li>
   </ol>
 </div>
-
-
 <div class="content">
   <div class="row">
     <div class="col-md-6 search__box">
@@ -39,11 +40,14 @@
           <tr>
             <th scope="col">S.No.</th>
             <th scope="col">ID</th>
-            <th scope="col">Order Transaction ID</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Customer</th>
             <th scope="col">Amount(&pound;)</th>
             <th scope="col">Discount(&pound;)</th>
-            <th scope="col">Status</th>
+            <th scope="col">Payout Amount(&pound;)</th>
+            <th scope="col">Payout status</th>
             <th scope="col">Appointment Date</th>
+            <th scope="col">Booking Status</th>
             <th scope="col">Created</th>
             <th scope="col">Action</th>
           </tr>
@@ -57,8 +61,51 @@
             </td>
             <td>{!! $booking->booking_id !!}</td>
             <td><a href="{!! route('cms::order_details.index',[$booking->order->id]) !!}" style="color:#0275d8" title="View Order" target="_blank"> {!! $booking->order->transaction_id !!}</a></td>
+            <td><b>{!! $name = $booking->order->billing_address->first_name.' '.$booking->order->billing_address->last_name !!}</b>
+              <br/>
+              @php 
+                $address =[
+                           $booking->order->billing_address->email,
+                           "Phone: ".$booking->order->billing_address->contact_number, 
+                           "Address: ".$booking->order->billing_address->address_line_1,
+                          ];
+
+              if (!empty($booking->order->billing_address->address_line_2))
+                $address[] = $booking->order->billing_address->address_line_2;         
+
+              if (!empty($booking->order->billing_address->address_line_3))
+                $address[] = $booking->order->billing_address->address_line_3;         
+  
+              $address[] =$booking->order->billing_address->city;
+
+              if (!empty($booking->order->billing_address->county))  
+                $address[] = $booking->order->billing_address->county;
+            
+              $address[] = "Postcode: ". $booking->order->billing_address->postcode;  
+              @endphp
+              <small>{!! implode(", ",$address)!!}</small>
+              @if(!empty($booking->order->billing_address->note))
+              <br/>
+              <small><b>Note for engineer:</b> {!! Str::limit($booking->order->billing_address->note, 10) !!}</small>
+              @endif 
+            </td>
             <td>{!! $booking->amount !!}</td>
             <td>{!! $booking->discount !!}</td>
+            <td>
+              @if($booking->order->status=='0')
+                {{ $payout_amount = $booking->amount - $booking->discount }}
+              @elseif($booking->order->status=='1')
+                {{ $payout_amount = $booking->order->payout_amount }}
+              @endif
+            </td>
+            <td>
+              @if($booking->order->status=='0')
+              <span class="label label-danger">InComplete</span>
+              @elseif($booking->order->status=='1')
+              <span class="label label-success">Complete</span>
+              @endif
+            </td>
+            <td>{!! date('Y-m-d', strtotime($booking->appointment_date)) !!}</td>
             <td>
               @if($booking->status===0)
               <span class="label label-info">On process</span>
@@ -68,10 +115,16 @@
               <span class="label label-danger">Cancel</span>
               @endif
             </td>
-            <td>{!! date('Y-m-d', strtotime($booking->appointment_date)) !!}</td>
             <td>{!! date('Y-m-d', strtotime($booking->created_at)) !!}</td>
             <td>
               <a href="{!! route('cms::bookings.edit',['booking' => $booking->id]) !!}" class="btn btn-default" title="Edit"><span class="fa fa-edit"></span></a>
+              @if ($booking->order->payment_gateway_id =='2' && $booking->order->status=='0')
+                {!! Form::open(['route' => ['cms::bookings.stripe-payout'],'method' => 'post','onsubmit' =>"return onpayout('{$booking->booking_id}','{$name}','{$booking->order->billing_address->email}','{$payout_amount}')", 'class' => 'action-form']) !!}
+                  <input type="hidden" name="booking_id" value="{!! $booking->id !!}" />
+                  <input type="hidden" name="customer_id" value="{!! $booking->order->stripe_customer_id !!}" />
+                  <button class="btn btn-default" title="Payout"><span class="fa fa-credit-card"></span></button>
+                {!! Form::close() !!}
+              @endif
             </td>
 
           </tr>
@@ -94,3 +147,13 @@
 </div>
 @endsection
 
+@section ('custom-scripts')
+<script>
+function onpayout(booking_id, customer_name, customer_email, amount)
+{
+  var con = confirm("Are you sure for payout(£) "+amount+" from customer# "+ customer_name+"("+customer_email+") for booking ID# "+booking_id+"?");
+  if (con) {$(".loader").show(); return true;} 
+  else return false;    
+}
+</script>  
+@endsection

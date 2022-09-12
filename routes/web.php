@@ -55,4 +55,9 @@ Route::get('/boiler/{id}','Pages\BoilerController@view')->name('page.boiler');
 Route::post('/save-order','Pages\BookingController@saveOrder')->name('save-order');
 Route::post('/get-radiator-price','Pages\RadiatorController@getPrice')->name('get-radiator-price');
 
+Route::post('/get-client-secret','Pages\BookingController@getPaymentIntentClientSecret')->name('get-secret');
+Route::post('/get-customer-client-secret','Pages\BookingController@createStripeCustomerAndClientSecret')->name('get-customer-secret');
 
+//Route::post('/test-future-payout','Pages\BookingController@testStripeFuturePayout')->name('test-future-payout');
+Route::post('/delete-stripe-order','Pages\BookingController@deleteStripeOrder')->name('delete-stripe-order');
+Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.thankyou');

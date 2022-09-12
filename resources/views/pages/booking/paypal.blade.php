@@ -1,6 +1,5 @@
-@php $paypal_client_id ='AZcymT8ks4CIX_bGhcdGG37t4MN7bcnhUbaWEggkPs9HKYZaMYp3y82W5sXeqHDmMbYh5SqCNF_QSlxj' @endphp
-
-<script src="https://www.paypal.com/sdk/js?client-id={!! $paypal_client_id !!}&currency=GBP&enable-funding=paylater" data_source="integrationbuilder"></script>
+@section('paypal-scripts')
+<script src="https://www.paypal.com/sdk/js?client-id={!! config('paypal.client_id') !!}&currency=GBP&enable-funding=paylater" data_source="integrationbuilder"></script>
 <script>
     const paypalButtonsComponent = paypal.Buttons({
 
@@ -203,3 +202,4 @@
   
 </script>
 
+@endsection

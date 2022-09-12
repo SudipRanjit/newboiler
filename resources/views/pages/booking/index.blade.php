@@ -105,21 +105,22 @@
                                 <div class="col-md-8">
                                     <div class="mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_option" id="pay-card" value="stripe">
+                                            <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-card" value="stripe">
                                             <label class="form-check-label" for="pay-card">
                                                 <span class="f-20 font-semibold">Pay by card</span>
                                                 <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
                                             </label>
+                                             @include('pages.booking.stripe_future.form')
                                         </div>
                                     </div>
                                     <div class="mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_option" id="pay-paypal" value="paypal" checked="checked">
+                                            <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-paypal" value="paypal">
                                             <label class="form-check-label" for="pay-paypal">
                                                 <span class="f-20 font-semibold">Pay using Paypal</span>
                                                 <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
                                             </label>
-                                            <div id="paypal-button-container" class="mt-4"></div>
+                                            <div id="paypal-button-container" class="mt-4" style="display:none"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -370,8 +371,47 @@ function formvalidate(form)
                 
    return valid;       
   }
-</script>
 
-@include('pages.booking.paypal')
+  $('.payment-option').change(function(){
+
+    var value = $(this).val();  
+    if (value=='paypal')
+    {
+        $('#paypal-button-container').show();
+        $('#stripe-payment-form').hide();
+    }
+    else if (value=='stripe')
+    {
+        $('#stripe-payment-form').show();
+        $('#paypal-button-container').hide();
+    }
+  });
+
+ @php /*@endphp 
+ $('#btn-test').click(function(){
+
+    $.ajax({
+                url:"{!! route('test-future-payout') !!}", 
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   console.log(data);  
+                }
+
+         });
+    
+ });
+@php */@endphp
+</script>
 @endsection
 
+@include('pages.booking.paypal')

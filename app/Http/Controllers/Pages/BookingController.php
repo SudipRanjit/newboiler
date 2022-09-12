@@ -273,7 +273,7 @@ class BookingController extends Controller
             try
             {
                 DB::beginTransaction();
-    
+
                 $selection = session()->get('selection');
                
                 if (empty($selection))
@@ -281,8 +281,12 @@ class BookingController extends Controller
     
                 $input = $request->only([
                   'first_name','last_name','email','contact_number','address_line_1','address_line_2','address_line_3','city','county','postcode','note','payment_option','appointment_date','transaction_id','transaction_status'  
-                ]);
+                  ,'customer_id','payment_method_id','setup_intent_id'
+                 ]);
     
+                 if ($input['payment_option']=='stripe' && !empty($input['customer_id']) && !empty($input['setup_intent_id']) )
+                    $this->deletePreviousStripeOrder($input['customer_id'],$input['setup_intent_id']);
+
                 //store in billing_addresses, orders, order_details, bookings
     
                 $BillingAddressRepository = new BillingAddressRepository(app()) ;
@@ -304,13 +308,26 @@ class BookingController extends Controller
                 
                 $order['billing_address_id'] = $billing_address_record->id;     
                 $order['transaction_id'] = strtoupper(uniqid());      
-                $order['vendor_transaction_id'] = $input['transaction_id'];
+                
+                $order['vendor_transaction_id'] = isset($input['transaction_id'])?$input['transaction_id']:'';
+
                 $order['amount'] = $selection['total_price'];
                 $order['conversion_charge'] = $selection['conversion_charge'];
                 $order['moving_boiler_to'] = $selection['moving_boiler']['type'];
                 $order['moving_boiler_charge'] = $selection['moving_boiler']['price'];
                 $order['status'] = $input['transaction_status'];
-                $order['card_payment'] = 0;
+                
+                if (isset($input['customer_id']))
+                    $order['stripe_customer_id'] = $input['customer_id'];
+
+                if (isset($input['payment_method_id']))
+                    $order['stripe_payment_method_id'] = $input['payment_method_id'];    
+
+                if (isset($input['setup_intent_id']))
+                    $order['stripe_setup_intent_id'] = $input['setup_intent_id'];
+                    
+                if ($input['payment_option']=='paypal')
+                    $order['payout_amount'] = $order['amount'];    
     
                 $order_record = $OrderRepository->store($order);
     
@@ -421,7 +438,7 @@ class BookingController extends Controller
 
                 $success = true;
 
-                return response()->json(['success'=>$success]);
+                return response()->json(['success'=>$success,'order_id'=>$order_record->id]);
     
             }
             catch (\Exception $e)
@@ -584,6 +601,214 @@ class BookingController extends Controller
         }
 
         return json_encode($items);
-   }     
+   }
+   
+   public function deletePreviousStripeOrder($customer_id,$setup_intent_id)
+   {
+        $OrderRepository = new OrderRepository(app()) ;
+
+        $orders = $OrderRepository->getWithCondition(['stripe_customer_id'=>$customer_id,
+                                                      'stripe_setup_intent_id'=>$setup_intent_id,  
+                                                     ]
+                                                    ,'id'
+                                                    ,'desc'
+                                                    ,['*']
+                                                    ,10000);
+        
+                                                    
+        if ($orders->isEmpty())
+            return;
+        
+        foreach($orders as $order)
+        {
+            $order->billing_address->delete();
+            $order->booking->delete();
+            foreach ($order->order_details as $order_detail) {
+            $order_detail->delete();
+            }
+            $order->delete();
+        }  
+   }
+
+   public function deleteStripeOrder(Request $request)
+   {
+      
+       try
+       {
+           DB::beginTransaction();
+
+           $input = $request->only([
+            'customer_id','setup_intent_id' 
+            ]);
+           
+           if (empty($input['customer_id']) && empty($input['setup_intent_id']))
+                throw new \Exception('Empty parameters.');
+
+           $OrderRepository = new OrderRepository(app()) ;
+
+           $orders = $OrderRepository->getWithCondition(['stripe_customer_id'=>$input['customer_id'],
+                                                         'stripe_setup_intent_id'=>$input['setup_intent_id'],  
+                                                        ]
+                                                        ,'id'
+                                                        ,'desc'
+                                                        ,['*']
+                                                        ,10000);
+           
+                                                        
+            if ($orders->isEmpty())
+                throw new \Exception('Empty order.');
+           
+         foreach($orders as $order)
+         {
+           $order->billing_address->delete();
+           $order->booking->delete();
+           foreach ($order->order_details as $order_detail) {
+            $order_detail->delete();
+           }
+           $order->delete();
+         }  
+
+           DB::commit();
+
+           $success = true;
+
+           return response()->json(['success'=>$success]);
+
+       }
+       catch (\Exception $e)
+       {
+           DB::rollback();
+           
+           $success = false;
+           return response()->json(['success'=>$success,'message'=>(String)$e]);
+           
+       }
+       
+   }
+
+
+
+   public function getPaymentIntentClientSecret(Request $request)
+   {
+                try {
+
+                    \Stripe\Stripe::setApiKey(config('stripe.secret_key'));
+                    
+                       // Create a PaymentIntent with amount and currency
+                        $paymentIntent = \Stripe\PaymentIntent::create([
+                            'amount' => 10000,
+                            'currency' => 'gbp',
+                            'automatic_payment_methods' => [
+                            'enabled' => true,
+                            ],
+                        ]);
+                        
+                    return response()->json(['success'=>true,'clientSecret'=>$paymentIntent->client_secret]);
+                    }
+
+                catch(Error $e)
+                {
+                    return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
+                }   
+
+          
+    }
+
+    public function createStripeCustomerAndClientSecret()
+    {
+        try {
+
+            $stripe = new \Stripe\StripeClient(config('stripe.secret_key'));
+            
+            $customer = $stripe->customers->create([
+                //'description' => 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
+              ]);
+
+            $intent = $stripe->setupIntents->create(
+                [
+                  'customer' => $customer->id,
+                  'payment_method_types' => ['card'],
+                ]);
+                
+            return response()->json(['success'=>true,'customer'=>$customer->id,'clientSecret'=>$intent->client_secret,'setup_intent'=>$intent->id]);
+            }
+
+        catch(\Exception $e)
+        {
+            return response()->json(['success'=>false, 'message'=>(String)$e]);
+        }
+    }
+
+    public function testStripeListPaymentMethods()
+    {
+        $customer_id = "cus_MOQPKUu2gdopkJ";
+     
+        try {
+
+                $stripe = new \Stripe\StripeClient(config('stripe.secret_key'));
+                
+                $payment_methods = $stripe->paymentMethods->all(['customer' => $customer_id, 'type' => 'card']);
+                            
+                return response()->json(['success'=>true,'payment_methods'=>$payment_methods]);
+            }
+
+            catch(\Exception $e)
+            {
+                return response()->json(['success'=>false, 'message'=>(String)$e]);
+            }
+     }
+
+     public function testStripeFuturePayout()  
+     {
+        $customer_id = "cus_MOQPKUu2gdopkJ";
+
+        try
+         {
+
+                $stripe = new \Stripe\StripeClient(config('stripe.secret_key'));
+
+                $payment_methods = $stripe->paymentMethods->all(['customer' => $customer_id, 'type' => 'card']);
+
+                //dd($payment_methods['data'][0]['id']);  
+                if (empty($payment_methods['data']))
+                    throw new \Exception('Payment methods not found.');
+
+                  
+                $payment_method_id = $payment_methods['data'][0]['id'] ;
+
+                $payment_intent =  $stripe->paymentIntents->create([
+                'amount' => 30000,
+                'currency' => 'gbp',
+                'customer' => $customer_id,
+                'payment_method' => $payment_method_id,
+                'off_session' => true,
+                'confirm' => true,
+                ]);
+
+                return response()->json(['success'=>true,'payment_intent'=>$payment_intent]);
+        } 
+        catch (\Stripe\Exception\CardException $e)
+        {
+            // Error code will be authentication_required if authentication is needed
+            //echo 'Error code is:' . $e->getError()->code;
+            //$payment_intent_id = $e->getError()->payment_intent->id;
+            //$payment_intent = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+            return response()->json(['success'=>false, 'message'=>(string)$e]);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['success'=>false, 'message'=>(string)$e]);
+        }
+    }
+    
+    public function thankyou_page(Request $request)
+    {
+        $selection = session()->get('selection');
+        if (empty($selection))
+            return redirect()->route('page.index')
+                             ->with('error', "Please select options." );
+
+        return view('pages.booking.thankyou');
+    }
 
 }
