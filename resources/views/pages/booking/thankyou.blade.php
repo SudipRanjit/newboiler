@@ -13,7 +13,7 @@
 @section('content')
 <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="mb-4">Submitted successfully</h2>
+                <h2 class="mb-4" id="h2-title">Submitted successfully</h2>
                 <p class="text-black-light mb-5" id="message"></p>
                 
             </div>
@@ -22,11 +22,15 @@
        
 @endsection
 
-@include('pages.booking.stripe_future.status')
+@if (isset($_GET['payment_option']) && $_GET['payment_option']=='stripe')
+    @include('pages.booking.stripe_future.status')
+@elseif (isset($_GET['payment_option']) && $_GET['payment_option']=='paypal')
+    @section('paypal-scripts')
+    <script>
+        $('#message').html('Thank you for your payment. We will contact you soon.');
+    </script>
+    @endsection    
+@endif 
 
-@section('custom-scripts')
-
-</script>
-@endsection
 
 

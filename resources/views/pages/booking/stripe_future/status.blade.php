@@ -25,7 +25,11 @@ if (clientSecret)
         {
             // Retrieve the SetupIntent
             stripe.retrieveSetupIntent(clientSecret).then(({setupIntent}) => {
-            const message = document.querySelector('#message')
+            
+            if (setupIntent.id!=setup_intent_id)
+              location.href = "{!! route('page.index') !!}";
+            
+            const message = document.querySelector('#message');
             //console.log(setup_intent_id);
             //return false;
             // Inspect the SetupIntent `status` to indicate the status of the payment
@@ -41,19 +45,21 @@ if (clientSecret)
                 /*var message_d = 'Thank you. We will contact you soon.'; 
                 alert(message_d);*/
                 message.innerText = 'Thank you. We will contact you soon.';
-                alert(message.innerText);
-                location.href = "{!! route('page.index') !!}";
+                save_order_stripe();
+                //location.href = "{!! route('page.index') !!}";
+                //alert(message.innerText);
                 break;
                 }
 
                 case 'processing': {
+                //  case 'succeeded': {  
                 //message.innerText = "Processing payment details. We'll update you when processing is complete.";
                 /*var message_d = "Processing payment details. We'll update you when processing is complete.";
                 alert(message_d);*/
-                message.innerText = 'Failed to process payment details. Please try another card.';
-                delete_stripe_order();
-                alert(message.innerText);
-                location.href = "{!! route('page.booking') !!}";
+                message.innerText = 'Something went wrong. Failed to process payment details. Please try another card. Redirecting to booking page.';
+                setTimeout(function(){
+                    location.href = "{!! route('page.booking') !!}";
+                    }, 5000);
                 break;
                 }
 
@@ -65,17 +71,44 @@ if (clientSecret)
                 /*var message_d = "Failed to process payment details. Please try another payment method.";
                 alert(message_d);  
                 */
-                message.innerText = 'Failed to process payment details. Please try another card.'; 
-                delete_stripe_order();
-                alert(message.innerText);
-                location.href = "{!! route('page.booking') !!}"; 
+                message.innerText = 'Something went wrong. Failed to process payment details. Please try another card. Redirecting to booking page.'; 
+                setTimeout(function(){
+                    location.href = "{!! route('page.booking') !!}";
+                    }, 5000);
                 break;
                 }
             }
             });
         }
   
-  function delete_stripe_order()
+  function save_order_stripe()
+  {
+    const params = new URLSearchParams(window.location.search); 
+    $.ajax({
+                url:"{!! route('save-order') !!}", 
+                type: "POST",
+                data: params.toString(),
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    //$('.loader').show();
+                },
+                complete: function () {
+                    //$('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   //redirect to thank you page
+                   //alert('Thank you. We will contact you soon.');
+                   //location.href = "{!! route('page.index') !!}"    
+                }
+
+            });    
+ }
+ 
+ {{--
+ function delete_stripe_order()
   {
     
     $.ajax({
@@ -86,10 +119,10 @@ if (clientSecret)
                     'X-CSRF-TOKEN': "{!! csrf_token() !!}"
                 },
                 beforeSend: function () {
-                    $('.loader').show();
+                    //$('.loader').show();
                 },
                 complete: function () {
-                    $('.loader').hide();
+                    //$('.loader').hide();
                 },     
                 success:function(data)
                 {
@@ -97,6 +130,7 @@ if (clientSecret)
                 }
 
             });    
- }        
+ }
+ --}}  
 </script>
 @endsection

@@ -156,7 +156,7 @@
 
         // handle unrecoverable errors
         onError: (err) => {
-            console.error('An error prevented the buyer from checking out with PayPal');
+            //console.error('An error prevented the buyer from checking out with PayPal');
             alert('Something went wrong. Please try again.');
         }
     });
@@ -193,8 +193,8 @@
                 success:function(data)
                 {
                    //redirect to thank you page
-                   alert('Thank you. We will contact you soon.');
-                   location.href = "{!! route('page.index') !!}"    
+                   //alert('Thank you. We will contact you soon.');
+                   location.href = "{!! route('page.thankyou') !!}?payment_option=paypal";    
                 }
 
             });    

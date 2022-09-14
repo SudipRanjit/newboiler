@@ -21,9 +21,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BillingAddressRequest;
 use Illuminate\Support\Str;
+use App\Webifi\Services\StripeService;
 
 class BookingController extends Controller
 {
+
+  /**
+   * Constructor
+   * @param StripeService $StripeService
+   *
+   */
+  public function __construct(StripeService $StripeService)
+  {
+     $this->StripeService = $StripeService;
+  }
+
+
     /**
      * Show pages
      *
@@ -40,12 +53,13 @@ class BookingController extends Controller
                              ->with('error', "Please select options." );
         }    
         
-        if ($selection && !in_array('page.smart-devices', $selection['completed_wizard']))
+       /* if ($selection && !in_array('page.smart-devices', $selection['completed_wizard']))
         {
             //set flash message and redirect 
             return redirect()->route('page.smart-devices')
                             ->with('error', 'Please choose smart devices.');
         }
+       */
 
         $Device = new DeviceRepository(app()) ;
         $devices = null;
@@ -268,6 +282,8 @@ class BookingController extends Controller
 
     public function saveOrder(Request $request)
         {
+          if($request->ajax())
+          { 
             $success = false;
            
             try
@@ -281,11 +297,29 @@ class BookingController extends Controller
     
                 $input = $request->only([
                   'first_name','last_name','email','contact_number','address_line_1','address_line_2','address_line_3','city','county','postcode','note','payment_option','appointment_date','transaction_id','transaction_status'  
-                  ,'customer_id','payment_method_id','setup_intent_id'
+                  ,'customer_id','setup_intent'
                  ]);
     
-                 if ($input['payment_option']=='stripe' && !empty($input['customer_id']) && !empty($input['setup_intent_id']) )
-                    $this->deletePreviousStripeOrder($input['customer_id'],$input['setup_intent_id']);
+                 $OrderRepository = new OrderRepository(app()) ;
+
+                 if ($input['payment_option']=='stripe')
+                 {
+                   if (empty($input['customer_id']) || empty($input['setup_intent']))
+                        throw new \Exception('customer_id or setup_intent_id is empty.');
+
+                   if ($input['customer_id']=='undefined' || $input['setup_intent']=='undefined')
+                        throw new \Exception('customer_id or setup_intent_id is empty.'); 
+                  
+                   //search for customer_id and setup_intent_id in orders table and avoid multiple entries
+                   $orders = $OrderRepository->getWithCondition(['stripe_customer_id'=>$input['customer_id'],'stripe_setup_intent_id'=>$input['setup_intent']],'id','desc',['*'],10000);
+                   if (count($orders))
+                      throw new \Exception('Already placed order.');
+
+                 } 
+
+                 /*if ($input['payment_option']=='stripe' && !empty($input['customer_id']) && !empty($input['setup_intent']) )
+                    $this->deletePreviousStripeOrder($input['customer_id'],$input['setup_intent']);
+                 */
 
                 //store in billing_addresses, orders, order_details, bookings
     
@@ -298,8 +332,7 @@ class BookingController extends Controller
                 $billing_address_record = $BillingAddressRepository->store($input);
                 
                 //store in orders
-                $OrderRepository = new OrderRepository(app()) ;
-               
+                
                 $order = [];
                 if ($input['payment_option']=='paypal')
                     $order['payment_gateway_id'] = 1;
@@ -315,17 +348,17 @@ class BookingController extends Controller
                 $order['conversion_charge'] = $selection['conversion_charge'];
                 $order['moving_boiler_to'] = $selection['moving_boiler']['type'];
                 $order['moving_boiler_charge'] = $selection['moving_boiler']['price'];
-                $order['status'] = $input['transaction_status'];
+                if (isset($input['transaction_status']))
+                    $order['status'] = $input['transaction_status'];
                 
-                if (isset($input['customer_id']))
+                if ($input['payment_option']=='stripe')
+                {
+                  
                     $order['stripe_customer_id'] = $input['customer_id'];
+                   
+                    $order['stripe_setup_intent_id'] = $input['setup_intent'];
+                }
 
-                if (isset($input['payment_method_id']))
-                    $order['stripe_payment_method_id'] = $input['payment_method_id'];    
-
-                if (isset($input['setup_intent_id']))
-                    $order['stripe_setup_intent_id'] = $input['setup_intent_id'];
-                    
                 if ($input['payment_option']=='paypal')
                     $order['payout_amount'] = $order['amount'];    
     
@@ -403,25 +436,27 @@ class BookingController extends Controller
                 }
     
                 //save device in order_details
-                foreach ($selection['devices'] as $device_id=>$Device)
-                {   
-                    $order_detail = [];
-                    $order_detail['order_id'] = $order_record->id;
-                    $order_detail['product'] = 'Device';
-                    $order_detail['product_id'] = $device_id;
-                    
-                    $DeviceRepository = new DeviceRepository(app()) ;
-                    $device = $DeviceRepository->findWithCondition(['publish'=>1,'id'=>$device_id]);
-                    if (empty($device))
-                        throw new \Exception('Device not found.');
-                    
-                    $order_detail['price'] = $device->price;   
-                    $order_detail['quantity'] = $Device['quantity'];
-                    $order_detail_record = $OrderDetailRepository->store($order_detail);
-                    //dump($order_detail_record);
-                    
+                if (!empty($selection['devices']))
+                {
+                    foreach ($selection['devices'] as $device_id=>$Device)
+                        {   
+                            $order_detail = [];
+                            $order_detail['order_id'] = $order_record->id;
+                            $order_detail['product'] = 'Device';
+                            $order_detail['product_id'] = $device_id;
+                            
+                            $DeviceRepository = new DeviceRepository(app()) ;
+                            $device = $DeviceRepository->findWithCondition(['publish'=>1,'id'=>$device_id]);
+                            if (empty($device))
+                                throw new \Exception('Device not found.');
+                            
+                            $order_detail['price'] = $device->price;   
+                            $order_detail['quantity'] = $Device['quantity'];
+                            $order_detail_record = $OrderDetailRepository->store($order_detail);
+                            //dump($order_detail_record);
+                        }
                 }
-                
+
                 //save in booking
                 $BookingRepository = new BookingRepository(app()) ;
                 $booking = [];
@@ -438,6 +473,8 @@ class BookingController extends Controller
 
                 $success = true;
 
+                $request->session()->forget('selection'); 
+
                 return response()->json(['success'=>$success,'order_id'=>$order_record->id]);
     
             }
@@ -449,8 +486,8 @@ class BookingController extends Controller
                 return response()->json(['success'=>$success,'message'=>$e->getMessage()]);
                 
             }
-            
-        }
+         }    
+       }
     
     /**
      * make item list json for submitting to paypal
@@ -616,7 +653,7 @@ class BookingController extends Controller
                                                     ,10000);
         
                                                     
-        if ($orders->isEmpty())
+        if (!count($orders))
             return;
         
         foreach($orders as $order)
@@ -632,7 +669,8 @@ class BookingController extends Controller
 
    public function deleteStripeOrder(Request $request)
    {
-      
+    if($request->ajax()) 
+     { 
        try
        {
            DB::beginTransaction();
@@ -654,10 +692,11 @@ class BookingController extends Controller
                                                         ,['*']
                                                         ,10000);
            
-                                                        
-            if ($orders->isEmpty())
+            //dd($orders->isEmpty());                                            
+            if (!count($orders))
                 throw new \Exception('Empty order.');
-           
+
+         $order_ids = [];  
          foreach($orders as $order)
          {
            $order->billing_address->delete();
@@ -666,13 +705,14 @@ class BookingController extends Controller
             $order_detail->delete();
            }
            $order->delete();
+           $order_ids[] = $order->id;
          }  
 
            DB::commit();
 
            $success = true;
 
-           return response()->json(['success'=>$success]);
+           return response()->json(['success'=>$success, 'orders'=>$order_ids]);
 
        }
        catch (\Exception $e)
@@ -683,12 +723,12 @@ class BookingController extends Controller
            return response()->json(['success'=>$success,'message'=>(String)$e]);
            
        }
-       
+    }  
    }
 
 
 
-   public function getPaymentIntentClientSecret(Request $request)
+  /* public function getPaymentIntentClientSecret(Request $request)
    {
                 try {
 
@@ -713,33 +753,30 @@ class BookingController extends Controller
 
           
     }
+   */
 
     public function createStripeCustomerAndClientSecret()
     {
         try {
 
-            $stripe = new \Stripe\StripeClient(config('stripe.secret_key'));
+            $response =  $this->StripeService->createStripeCustomerAndClientSecret();
+            if (!$response['success'])
+                throw new \Exception($response['error']);
             
-            $customer = $stripe->customers->create([
-                //'description' => 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
-              ]);
+            $customer_id = $response['customer_id'];
+            $clientSecret = $response['clientSecret'];    
+            $setup_intent_id = $response['setup_intent_id'];
 
-            $intent = $stripe->setupIntents->create(
-                [
-                  'customer' => $customer->id,
-                  'payment_method_types' => ['card'],
-                ]);
-                
-            return response()->json(['success'=>true,'customer'=>$customer->id,'clientSecret'=>$intent->client_secret,'setup_intent'=>$intent->id]);
+            return response()->json(['success'=>true,'customer'=>$customer_id,'clientSecret'=>$clientSecret,'setup_intent'=>$setup_intent_id]);
             }
 
         catch(\Exception $e)
         {
-            return response()->json(['success'=>false, 'message'=>(String)$e]);
+            return response()->json(['success'=>false, 'error'=>(String)$e]);
         }
     }
 
-    public function testStripeListPaymentMethods()
+    /*public function testStripeListPaymentMethods()
     {
         $customer_id = "cus_MOQPKUu2gdopkJ";
      
@@ -799,12 +836,25 @@ class BookingController extends Controller
         {
             return response()->json(['success'=>false, 'message'=>(string)$e]);
         }
-    }
+    }*/
     
     public function thankyou_page(Request $request)
     {
+        if( !$request->has('payment_option') ) 
+        {
+            return redirect()->route('page.index')
+                             ->with('error', "Please select options." );
+
+        }
+
         $selection = session()->get('selection');
-        if (empty($selection))
+        if ($request->query('payment_option')=='stripe' && empty($selection))
+            return redirect()->route('page.index')
+                             ->with('error', "Please select options." );
+        
+        $referer = $request->headers->get('referer');
+        //dd($referer);
+        if (strpos($referer,'/booking')===false) 
             return redirect()->route('page.index')
                              ->with('error', "Please select options." );
 

@@ -43,14 +43,17 @@ const form = document.getElementById('form-billing-address');
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  save_order_stripe();
-
+  $('.loader').show();
+  
+  var data = $('#form-billing-address').serialize();
+  data+='&transaction_status=0&customer_id='+customer_id;
+  
   const {error} = await stripe.confirmSetup({
     //`Elements` instance that was used to create the Payment Element
     elements,
     confirmParams: {
       //return_url: 'https://example.com/account/payments/setup-complete',
-      return_url: "{!! route('page.thankyou') !!}?customer_id="+customer_id,
+      return_url: "{!! route('page.thankyou') !!}?"+data,
     }
   });
 
@@ -60,68 +63,16 @@ form.addEventListener('submit', async (event) => {
     // details incomplete)
     const messageContainer = document.querySelector('#error-message');
     messageContainer.textContent = error.message;
-    //delete_stripe_order();
+    $('.loader').hide();
+   
   } else {
     // Your customer will be redirected to your `return_url`. For some payment
     // methods like iDEAL, your customer will be redirected to an intermediate
     // site first to authorize the payment, then redirected to the `return_url`.
-   
+    
   }
-
   
 });
 
-function save_order_stripe()
-  {
-    var data = $('#form-billing-address').serialize();
-    
-    data+='&transaction_status=0&customer_id='+customer_id+'&setup_intent_id='+setup_intent_id;
-
-    $.ajax({
-                url:"{!! route('save-order') !!}", 
-                type: "POST",
-                data: data,
-                headers: {
-                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-                },
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                   //redirect to thank you page
-                   //alert('Thank you. We will contact you soon.');
-                   //location.href = "{!! route('page.index') !!}"    
-                }
-
-            });    
- }
-
- function delete_stripe_order()
-  {
-    
-    $.ajax({
-                url:"{!! route('delete-stripe-order') !!}", 
-                type: "POST",
-                data: {'customer_id':customer_id,'setup_intent_id':setup_intent_id},
-                headers: {
-                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-                },
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                     
-                }
-
-            });    
- }
 </script>
 @endsection
