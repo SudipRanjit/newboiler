@@ -40,6 +40,7 @@
           <tr>
             <th scope="col">S.No.</th>
             <th scope="col">ID</th>
+            <th scope="col">Payment Method</th>
             <th scope="col">Order ID</th>
             <th scope="col">Customer</th>
             <th scope="col">Amount(&pound;)</th>
@@ -60,6 +61,7 @@
               {{ ++$sno }}
             </td>
             <td>{!! $booking->booking_id !!}</td>
+            <td>{!! $booking->order->payment_gateway->title !!}</td>
             <td><a href="{!! route('cms::order_details.index',[$booking->order->id]) !!}" style="color:#0275d8" title="View Order" target="_blank"> {!! $booking->order->transaction_id !!}</a></td>
             <td><b>{!! $name = $booking->order->billing_address->first_name.' '.$booking->order->billing_address->last_name !!}</b>
               <br/>

@@ -1,5 +1,7 @@
 @section('stripe-scripts')
 <script>
+
+
 // This is your test publishable API key.
 const stripe = Stripe("{!! config('stripe.publishable_key') !!}");
 
@@ -38,8 +40,7 @@ async function initialize() {
 
 }
 
-const form = document.getElementById('form-billing-address');
-
+/*const form = document.getElementById('form-billing-address');
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -73,6 +74,55 @@ form.addEventListener('submit', async (event) => {
   }
   
 });
+
+*/
+
+async function stripe_submit(event)
+{
+    event.preventDefault();
+
+    $('.loader').show();
+
+    var data = $('#form-billing-address').serialize();
+    data+='&transaction_status=0&customer_id='+customer_id;
+
+    const {error} = await stripe.confirmSetup({
+      //`Elements` instance that was used to create the Payment Element
+      elements,
+      confirmParams: {
+        //return_url: 'https://example.com/account/payments/setup-complete',
+        return_url: "{!! route('page.thankyou') !!}?"+data,
+      }
+    });
+
+    if (error) {
+      // This point will only be reached if there is an immediate error when
+      // confirming the payment. Show error to your customer (for example, payment
+      // details incomplete)
+      const messageContainer = document.querySelector('#error-message');
+      messageContainer.textContent = error.message;
+      $('.loader').hide();
+    
+    } else {
+      // Your customer will be redirected to your `return_url`. For some payment
+      // methods like iDEAL, your customer will be redirected to an intermediate
+      // site first to authorize the payment, then redirected to the `return_url`.
+      
+    }
+
+}
+
+function add_stripe_submit_event()
+{
+  const form = document.getElementById('form-billing-address');
+  form.addEventListener('submit', stripe_submit);
+}
+
+function remove_stripe_submit_event()
+{
+  const form = document.getElementById('form-billing-address');
+  form.removeEventListener('submit', stripe_submit);
+}
 
 </script>
 @endsection

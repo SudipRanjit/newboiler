@@ -123,12 +123,26 @@
                                             <div id="paypal-button-container" class="mt-4" style="display:none"></div>
                                         </div>
                                     </div>
+                                    <div class="mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-with-finance" value="pay_with_finance">
+                                            <label class="form-check-label" for="pay-with-finance">
+                                                <span class="f-20 font-semibold">Pay with Finance</span>
+                                                <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
+                                            </label>
+                                            <div id="div-pay-with-finance" class="mt-4" style="display:none">
+                                                <button class="btn btn-secondary" type="submit" id="btn-submit-pay-with-finance">Complete Booking</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="payment-option border-top-light-1 text-center pt-4 px-4 px-lg-5 mt-4">
                             <button class="btn btn-lg btn-secondary" type="submit" id="btn-submit" style="display:none">Complete Booking</button>
                         </div>
+                        
                         </form>
                     </div>
                 </div>
@@ -379,39 +393,30 @@ function formvalidate(form)
     {
         $('#paypal-button-container').show();
         $('#stripe-payment-form').hide();
+        $('#div-pay-with-finance').hide();
+        remove_stripe_submit_event();
+        remove_pay_with_finance_submit_event();
     }
     else if (value=='stripe')
     {
         $('#stripe-payment-form').show();
         $('#paypal-button-container').hide();
+        $('#div-pay-with-finance').hide();
+        add_stripe_submit_event();
+        remove_pay_with_finance_submit_event();
+    }
+    else if (value=='pay_with_finance')
+    {
+        $('#div-pay-with-finance').show();
+        $('#stripe-payment-form').hide();
+        $('#paypal-button-container').hide();
+        remove_stripe_submit_event();
+        add_pay_with_finance_submit_event();
     }
   });
 
- @php /*@endphp 
- $('#btn-test').click(function(){
-
-    $.ajax({
-                url:"{!! route('test-future-payout') !!}", 
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-                },
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                   console.log(data);  
-                }
-
-         });
-    
- });
-@php */@endphp
 </script>
 @endsection
 
 @include('pages.booking.paypal')
+@include('pages.booking.pay_with_finance')

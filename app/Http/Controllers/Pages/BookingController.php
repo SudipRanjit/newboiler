@@ -338,6 +338,8 @@ class BookingController extends Controller
                     $order['payment_gateway_id'] = 1;
                 elseif ($input['payment_option']=='stripe')
                     $order['payment_gateway_id'] = 2;
+                elseif ($input['payment_option']=='pay_with_finance')
+                    $order['payment_gateway_id'] = 3;
                 
                 $order['billing_address_id'] = $billing_address_record->id;     
                 $order['transaction_id'] = strtoupper(uniqid());      

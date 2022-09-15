@@ -33,6 +33,12 @@
                         Complete (Installment completed)
                         @elseif($booking->status===2)
                         Cancel (Installment cancelled)
+                        @elseif($booking->status===3)
+                        Finance Awaiting
+                        @elseif($booking->status===4)
+                        Finance Approved
+                        @elseif($booking->status===5)
+                        Finance Rejected
                         @endif 
                      </b>
         </div>

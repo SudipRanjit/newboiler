@@ -20,7 +20,7 @@
     <!-- Elements will create form elements here -->
   </div>
   <button id="submit">Submit</button>
-  <div id="error-message">
+  <div id="error-message" style="color:red;margin-top:15px">
     <!-- Display error message to your customers here -->
   </div>
 </div>

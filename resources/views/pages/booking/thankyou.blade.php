@@ -29,6 +29,12 @@
     <script>
         $('#message').html('Thank you for your payment. We will contact you soon.');
     </script>
+    @endsection
+@elseif (isset($_GET['payment_option']) && $_GET['payment_option']=='pay_with_finance')
+    @section('pay_with_finance-scripts')
+    <script>
+        $('#message').html('Thank you. We will contact you soon.');
+    </script>
     @endsection    
 @endif 
 

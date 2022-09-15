@@ -6,6 +6,7 @@
 @yield('custom-scripts')
 @yield('stripe-scripts')
 @yield('paypal-scripts')
+@yield('pay_with_finance-scripts')
 
 </body>
 </html>
