@@ -102,7 +102,7 @@ class BookingController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'appointment_date','amount','discount','status' 
+        'appointment_date','amount','discount','status','note' 
         
       ]);
       

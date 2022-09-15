@@ -21,7 +21,8 @@ class Booking extends Model
     'appointment_date',
     'amount',
     'discount',
-    'status'
+    'status',
+    'note'
   ];
 
   /**

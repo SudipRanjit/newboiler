@@ -113,6 +113,12 @@
               <span class="label label-success">Complete</span>
               @elseif($booking->status===2)
               <span class="label label-danger">Cancel</span>
+              @elseif($booking->status===3)
+              <span class="label label-info">Finance Awaiting</span>
+              @elseif($booking->status===4)
+              <span class="label label-success">Finance Approved</span>
+              @elseif($booking->status===5)
+              <span class="label label-danger">Finance Rejected</span>
               @endif
             </td>
             <td>{!! date('Y-m-d', strtotime($booking->created_at)) !!}</td>

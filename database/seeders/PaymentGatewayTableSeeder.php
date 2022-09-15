@@ -30,5 +30,11 @@ class PaymentGatewayTableSeeder extends Seeder
             ];
       
         PaymentGateway::create($data);
+
+        $data = [
+            'title' => "Pay with Finance"
+            ];
+      
+        PaymentGateway::create($data);
     }
 }
