@@ -165,6 +165,8 @@ class BookingController extends Controller
                 'payment_method' => $payment_method_id,
                 'off_session' => true,
                 'confirm' => true,
+                'description' =>"Booking ID: ".$booking->booking_id.', '."Order ID: ".$booking->order->transaction_id,
+                'metadata' =>["Booking ID"=>$booking->booking_id,"Order ID"=>$booking->order->transaction_id]
                 ]);
 
                 //store payment intent id on orders table

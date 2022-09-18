@@ -61,3 +61,5 @@ Route::post('/get-customer-client-secret','Pages\BookingController@createStripeC
 //Route::post('/test-future-payout','Pages\BookingController@testStripeFuturePayout')->name('test-future-payout');
 //Route::post('/delete-stripe-order','Pages\BookingController@deleteStripeOrder')->name('delete-stripe-order');
 Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.thankyou');
+Route::post('/update-customer','Pages\BookingController@updateStripeCustomer')->name('update-stripe-customer');
+

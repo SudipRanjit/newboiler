@@ -57,16 +57,16 @@ class StripeService
         {
             $this->stripe = new \Stripe\StripeClient($this->stripe_secret_key);
 
-            $response = $this->stripe->customers->update(
+            $customer = $this->stripe->customers->update(
                 $customer_id,
                 $params
               );
 
-            return ['response'=>$response];  
+            return ['success'=>true,'customer'=>$customer];  
         }
         catch(\Exception $e)
         {
-            return ['response'=>null, 'error'=>(String)$e];
+            return ['success'=>false,'error'=>(String)$e];
         }
         
     }

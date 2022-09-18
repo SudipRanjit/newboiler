@@ -477,7 +477,7 @@ class BookingController extends Controller
 
                 $request->session()->forget('selection'); 
 
-                return response()->json(['success'=>$success,'order_id'=>$order_record->id]);
+                return response()->json(['success'=>$success,'order_id'=>$order_record->transaction_id]);
     
             }
             catch (\Exception $e)
@@ -490,6 +490,7 @@ class BookingController extends Controller
             }
          }    
        }
+  
     
     /**
      * make item list json for submitting to paypal
@@ -862,5 +863,59 @@ class BookingController extends Controller
 
         return view('pages.booking.thankyou');
     }
+
+    public function updateStripeCustomer(Request $request)
+    {
+        if($request->ajax())
+        {
+            try {
+
+                $input = $request->all();
+                if (empty($input['customer_id']))
+                    throw new \Exception('Empty customer_id');
+
+                if (empty($input['email']) || empty($input['first_name']) || empty($input['last_name']) || empty($input['contact_number'])
+                    || empty($input['address_line_1']) || empty($input['city']) || empty($input['postcode'])
+                    )
+                    throw new \Exception('Empty required parameters.');    
+                
+                $params = [];
+                $params['email'] = $input['email'];
+                $params['name'] = ucwords($input['first_name'].' '.$input['last_name']);
+                $params['phone'] = $input['contact_number']; 
+
+                $params['address']['line1'] = $input['address_line_1'];
+                if (trim($input['address_line_2'])!='')
+                    $params['address']['line2'] = $input['address_line_2'];
+                $params['address']['city'] = $input['city'];
+                $params['address']['postal_code'] = $input['postcode'];
+                if (trim($input['county'])!='')
+                    $params['address']['state'] = $input['county'];    
+                
+                $params['shipping']['name'] = ucwords($input['first_name'].' '.$input['last_name']);
+                
+                $params['shipping']['address']['line1'] = $input['address_line_1'];
+                if (trim($input['address_line_2'])!='')
+                    $params['shipping']['address']['line2'] = $input['address_line_2'];
+                $params['shipping']['address']['city'] = $input['city'];
+                $params['shipping']['address']['postal_code'] = $input['postcode'];
+                if (trim($input['county'])!='')
+                    $params['shipping']['address']['state'] = $input['county'];    
+    
+                $params['metadata']['order_id'] = $input['order_id'];    
+
+                $response =  $this->StripeService->update_customer($input['customer_id'], $params);
+                if (!$response['success'])
+                    throw new \Exception($response['error']);
+               
+                return response()->json(['success'=>true]);
+                }
+    
+            catch(\Exception $e)
+            {
+                return response()->json(['success'=>false, 'error'=>(String)$e]);
+            }    
+       }
+   }     
 
 }

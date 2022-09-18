@@ -56,10 +56,8 @@ if (clientSecret)
                 //message.innerText = "Processing payment details. We'll update you when processing is complete.";
                 /*var message_d = "Processing payment details. We'll update you when processing is complete.";
                 alert(message_d);*/
-                message.innerText = 'Something went wrong. Failed to process payment details. Please try another card. Redirecting to booking page.';
-                setTimeout(function(){
-                    location.href = "{!! route('page.booking') !!}";
-                    }, 5000);
+                message.innerText = 'Thank you. We will contact you soon.';
+                save_order_stripe();
                 break;
                 }
 
@@ -101,12 +99,42 @@ if (clientSecret)
                 {
                    //redirect to thank you page
                    //alert('Thank you. We will contact you soon.');
-                   //location.href = "{!! route('page.index') !!}"    
+                   //location.href = "{!! route('page.index') !!}" 
+                   if (data.success)
+                   {
+                        update_customer_stripe(data.order_id);          
+                   }   
                 }
 
             });    
  }
  
+ function update_customer_stripe(order_id)
+  {
+    const params = new URLSearchParams(window.location.search); 
+    $.ajax({
+                url:"{!! route('update-stripe-customer') !!}", 
+                type: "POST",
+                data: params.toString()+'&order_id='+order_id,
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    //$('.loader').show();
+                },
+                complete: function () {
+                    //$('.loader').hide();
+                },     
+                success:function(data)
+                {
+                   //redirect to thank you page
+                   //alert('Thank you. We will contact you soon.');
+                   //location.href = "{!! route('page.index') !!}"    
+                }
+
+            });    
+ }
+
  {{--
  function delete_stripe_order()
   {

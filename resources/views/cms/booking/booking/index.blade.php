@@ -3,7 +3,7 @@
 @section('content')
 <div class="content-wrapper">
   <div class="loader" style="background:none;display:none;">
-    <img src="{{asset('cms/dist/img/loading.gif')}}" />
+    <img src="{{asset('cms/dist/img/loading.gif')}}" style="padding-top:10%" />
   </div> 
 <div class="content-header sty-one">
   <h1>Bookings</h1>
@@ -160,7 +160,7 @@
 function onpayout(booking_id, customer_name, customer_email, amount)
 {
   var con = confirm("Are you sure for payout(£) "+amount+" from customer# "+ customer_name+"("+customer_email+") for booking ID# "+booking_id+"?");
-  if (con) {$(".loader").show(); return true;} 
+  if (con) {$(".loader").show().attr('tabindex','-1').focus().removeAttr('tabindex'); return true;} 
   else return false;    
 }
 </script>  
