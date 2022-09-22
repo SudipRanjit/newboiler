@@ -52,9 +52,9 @@
             <td scope="row">
               {!! ++$sno !!}
             </td>
-            <td>{!! $radiator_price->radiator_type->type !!}</td>
-            <td>{!! $radiator_price->radiator_height->height !!}</td>
-            <td>{!! $radiator_price->radiator_length->length !!}</td>
+            <td>{!! $radiator_price->radiator_type()->exists() ? $radiator_price->radiator_type->type:'' !!}</td>
+            <td>{!! $radiator_price->radiator_height()->exists() ? $radiator_price->radiator_height->height:'' !!}</td>
+            <td>{!! $radiator_price->radiator_length()->exists() ? $radiator_price->radiator_length->length:'' !!}</td>
             <td>{!! $radiator_price->price !!}</td>
             <td>{!! $radiator_price->btu !!}</td>
             <td>{!! date('Y-m-d',strtotime($radiator_price->created_at)) !!}</td>

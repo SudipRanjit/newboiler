@@ -109,9 +109,9 @@
             <a href="{!! route('cms::radiators.edit',[$order_detail->radiator()->id]) !!}"  target="_blank" title='View'> {!! $order_detail->radiator()->radiator_name !!} </a><br/>
             <small>
               
-              Type: {!! $order_detail->radiator_type->type !!}<br/>
-              Height: {!! $order_detail->radiator_height->height !!} mm<br/>
-              Length: {!! $order_detail->radiator_length->length !!} mm<br/>
+              Type: {!! $order_detail->radiator_type()->exists() ? $order_detail->radiator_type->type:'' !!}<br/>
+              Height: {!! $order_detail->radiator_height()->exists() ? $order_detail->radiator_height->height:'' !!} mm<br/>
+              Length: {!! $order_detail->radiator_length()->exists() ? $order_detail->radiator_length->length:'' !!} mm<br/>
               BTU: {!! $order_detail->radiator_btu !!}<br/>
             </small>   
             @endif
