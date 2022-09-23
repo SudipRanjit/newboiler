@@ -46,4 +46,21 @@ class BlockDateRepository extends Repository
         return $q->orderBy($orderBy, $orderType)->paginate($limit, $columns);
     }
 
+    /**
+     * Get the resources with given condition(s)
+     *
+     * @param $conditions
+     * @param array $columns
+     * @return Collection
+     */
+    public function getWithCondition(
+        $conditions, 
+        $orderBy='id', 
+        $orderType = 'desc', 
+        $columns = array('*'),
+        $limit = 10
+    )
+    {
+        return $this->model->where($conditions)->where('date','>=',date('Y-m-d'))->orderBy($orderBy, $orderType)->limit($limit)->get($columns);
+    }
 }

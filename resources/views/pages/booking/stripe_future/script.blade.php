@@ -1,13 +1,12 @@
 @section('stripe-scripts')
 <script>
 
-
-// This is your test publishable API key.
 const stripe = Stripe("{!! config('stripe.publishable_key') !!}");
 
-
+{{--
 // The items the customer wants to buy
 // const items = [{ id: "xl-tshirt" }];
+--}}
 
 let elements;
 let customer_id;
@@ -22,7 +21,7 @@ async function initialize() {
     headers: { "Content-Type": "application/json",
                'X-CSRF-TOKEN': "{!! csrf_token() !!}"
              },
-    //body: JSON.stringify({ items }),
+             {{-- //body: JSON.stringify({ items }), --}}
     
   });
  
@@ -40,6 +39,7 @@ async function initialize() {
 
 }
 
+{{--
 /*const form = document.getElementById('form-billing-address');
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -74,8 +74,8 @@ form.addEventListener('submit', async (event) => {
   }
   
 });
-
 */
+--}}
 
 async function stripe_submit(event)
 {

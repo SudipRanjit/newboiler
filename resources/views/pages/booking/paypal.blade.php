@@ -68,7 +68,7 @@
                         shipping_preference: 'SET_PROVIDED_ADDRESS',
                         } 
             };
-
+        {{--    
             /*purchase_units: [{
                                         items: itemList,
                                         amount: { data },
@@ -90,13 +90,11 @@
                         application_context: {
                         shipping_preference: 'SET_PROVIDED_ADDRESS',
                         }
-               */         
+               */ --}}        
             return actions.order.create(createOrderPayload);
         },
 
-        
-
-
+{{--
 /*createOrder: function(data, actions) {
       return actions.order.create({
          "purchase_units": [{
@@ -125,7 +123,9 @@
       });
     },
 */
+--}}
 
+{{--
         // finalize the transaction
         /*onApprove: (data, actions) => {
             const captureOrderHandler = (details) => {
@@ -136,6 +136,7 @@
             return actions.order.capture().then(captureOrderHandler);
         },
         */
+--}}
 
          // Finalize the transaction after payer approval
          onApprove: function(data, actions) {
@@ -145,11 +146,14 @@
                 var transaction = orderData.purchase_units[0].payments.captures[0];
                 //alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
 
+            {{--    
             // When ready to go live, remove the alert and show a success message within this page. For example:
             // var element = document.getElementById('paypal-button-container');
             // element.innerHTML = '';
             // element.innerHTML = '<h3>Thank you for your payment!</h3>';
             // Or go to another URL:  actions.redirect('thank_you.html');
+            --}}
+
             save_order_paypal(transaction.id,transaction.status);
           });
         },

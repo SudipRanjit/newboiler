@@ -37,6 +37,11 @@ function CalendarPicker(element, options) {
     this._formatDateToInit(this.min);
     this._formatDateToInit(this.max);
 
+    
+    this.disable_dates = [];
+    if (options.disable_dates)
+        this.disable_dates = options.disable_dates;
+        
     // Element to insert calendar in.
     this.userElement = document.querySelector(element);
 
@@ -76,6 +81,7 @@ function CalendarPicker(element, options) {
     this._insertCalendarIntoWrapper();
 
     this.userElement.appendChild(this.calendarWrapper);
+    
 }
 
 CalendarPicker.prototype._toTranslatedWeekday = function(beginningOfYearOnMonday, locale, showShortWeekdays) {
@@ -219,6 +225,7 @@ CalendarPicker.prototype._insertNavigationButtons = function () {
                 that.month -= 1;
             }
             that._updateCalendar();
+           
         }
 
         if (clickEvent.target.closest('#' + that.nextMonthArrow.id)) {
@@ -229,10 +236,12 @@ CalendarPicker.prototype._insertNavigationButtons = function () {
                 that.month += 1;
             }
             that._updateCalendar();
+            
         }
     }, false)
 
     that.calendarElement.appendChild(that.navigationWrapper);
+    
 }
 
 CalendarPicker.prototype._beginningOfMonth = function(date) {
@@ -282,7 +291,15 @@ CalendarPicker.prototype._insertDaysIntoGrid = function () {
             dateElement.value = date;
         }
 
+        var day_param = parseInt(Date); 
+       
         dateElement.textContent = date ? Date : '';
+
+        if (this.do_disable_dates(day_param) && dateElement.textContent) {
+            dateElement.classList.add('disabled');
+            dateElement.innerHTML = "<span style='color:white'>"+dateElement.textContent+"<small style='font-size:11px;margin:0px 0px 0px 10px;'> Full</small></span>";
+            }
+
         this.calendarGrid.appendChild(dateElement);
     })
 
@@ -309,7 +326,10 @@ CalendarPicker.prototype._updateCalendar = function () {
     window.requestAnimationFrame(function () {
         that.calendarHeaderTitle.textContent = that.listOfAllMonthsAsText[that.month] + ' - ' + that.year;
         that._insertDaysIntoGrid();
+         
     })
+
+   
 }
 
 /**
@@ -321,3 +341,29 @@ CalendarPicker.prototype.onValueChange = function (callback) {
     this.callback = callback;
 }
 
+CalendarPicker.prototype.do_disable_dates = function(/*current_year, current_month*/dayparam)
+    {   
+        var current_month = this.month+1;
+        var current_year = this.year;
+        var found = false;
+        //console.log(current_month);
+        
+        this.disable_dates.forEach(function(date){
+           var date_split = date.split("-");
+           var year = parseInt(date_split[0]);
+           var month = parseInt(date_split[1]);
+           var day = parseInt(date_split[2]);
+         
+           //console.log(dayparam+' d:'+day);
+           if (month==current_month && year == current_year)
+           {
+               if (dayparam == day)
+               {
+                found = true;
+                return;
+                }
+           }
+        });
+
+        return found;
+    }

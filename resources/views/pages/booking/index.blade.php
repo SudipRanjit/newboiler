@@ -302,6 +302,7 @@
 
 <script src="{!! asset('assets/js/CalendarPicker.js') !!}"></script>
 <script>
+    var disable_dates = {!! $block_dates !!} ; 
     const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const nextYear = new Date().getFullYear() + 1;
     const myCalender = new CalendarPicker('#myCalendarWrapper', {
@@ -309,23 +310,28 @@
         min: new Date(),
         max: new Date(nextYear, 10), // NOTE: new Date(nextYear, 10) is "Nov 01 <nextYear>"
         locale: 'en-US', // Can be any locale or language code supported by Intl.DateTimeFormat, defaults to 'en-US'
-        showShortWeekdays: true // Can be used to fit calendar onto smaller (mobile) screens, defaults to false
+        showShortWeekdays: true, // Can be used to fit calendar onto smaller (mobile) screens, defaults to false
+        disable_dates: disable_dates
     });
 
     const currentToDateString = document.getElementById('current-datestring');
-    currentToDateString.textContent = myCalender.value.getDate()+' '+months[myCalender.value.getMonth()]+' '+myCalender.value.getFullYear();
-    
-    document.querySelector('#appointment_date').value = currentToDateString.textContent;
-    
+    {{--
+    //currentToDateString.textContent = myCalender.value.getDate()+' '+months[myCalender.value.getMonth()]+' '+myCalender.value.getFullYear();
+    //document.querySelector('#appointment_date').value = currentToDateString.textContent;
+    --}}
+    currentToDateString.textContent ='';
+
     myCalender.onValueChange((currentValue) => {
         currentToDateString.textContent = currentValue.getDate()+' '+months[currentValue.getMonth()]+' '+myCalender.value.getFullYear();
         document.querySelector('#appointment_date').value = currentToDateString.textContent;
-
-        do_disable_dates(currentValue.getFullYear(), currentValue.getMonth()+1);
+        {{--
+        //do_disable_dates(currentValue.getFullYear(), currentValue.getMonth()+1);
+        --}}
     });
 
-    function do_disable_dates(current_year, current_month)
-    {
+{{--
+    function do_disable_dates(disable_dates, current_year, current_month)
+    {   
         disable_dates.forEach(function(date){
            var date_split = date.split("-");
            var year = parseInt(date_split[0]);
@@ -350,19 +356,21 @@
                     //console.log(thisHeading.textContent);
                     thisHeading.classList.add('disabled');
                     //thisHeading.style.backgroundColor = "#CC0000";
-                    thisHeading.title = 'Blocked date, please choose another.';
+                    thisHeading.title = 'Please choose another date.';
+                    var text = thisHeading.textContent+' Full';
+                    thisHeading.textContent = text;
                 }
            }
 
         });
     }
-
-   var disable_dates = {!! $block_dates !!} ; 
+--}}
    
    var current_month = myCalender.value.getMonth();
    var current_year = myCalender.value.getFullYear();
-   do_disable_dates(current_year, current_month+1);
-   
+   {{--
+   //do_disable_dates(disable_dates, current_year, current_month+1);
+   --}}
 
 </script>
 
@@ -386,7 +394,14 @@ function formvalidate(form)
    return valid;       
   }
 
-  $('.payment-option').change(function(){
+  $('.payment-option').change(function(e){
+    
+    if (!$('#appointment_date').val())
+    {
+      alert('Please select appointment date.');
+      $('.payment-option').prop('checked',false);
+      return false;
+    }
 
     var value = $(this).val();  
     if (value=='paypal')
