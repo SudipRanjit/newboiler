@@ -23,7 +23,10 @@ class RadiatorPrice extends Model
     'radiator_height_id',
     'price',
     'btu',
-    'user_id'
+    'user_id',
+    'range',
+    'watts',
+    'publish'
   ];
 
 

@@ -131,9 +131,15 @@ class RadiatorPriceController extends Controller
 
       $input = $request->only([
         'radiator_type_id','radiator_height_id','radiator_length_id', 'price', 'btu',
+        'range','watts','publish'
         ]);
       
       $input['user_id'] = auth()->user()->id;
+
+      $input['publish'] = 0;
+
+      if (isset($request->publish))
+        $input['publish'] = 1;
 
       $record = $this->radiator_price->findWithCondition(['radiator_type_id'=>$input['radiator_type_id'],'radiator_height_id'=>$input['radiator_height_id'],'radiator_length_id'=>$input['radiator_length_id']]);  
 
@@ -201,10 +207,16 @@ class RadiatorPriceController extends Controller
 
       $input = $request->only([
         'radiator_type_id','radiator_height_id','radiator_length_id', 'price', 'btu',
+        'range','watts','publish'
         ]);
 
      
       $input['user_id'] = auth()->user()->id;
+
+      $input['publish'] = 0;
+
+      if (isset($request->publish))
+        $input['publish'] = 1;
 
       $record = $this->radiator_price->findWithCondition(['radiator_type_id'=>$input['radiator_type_id'],'radiator_height_id'=>$input['radiator_height_id'],'radiator_length_id'=>$input['radiator_length_id']]);  
 

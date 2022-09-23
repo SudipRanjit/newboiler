@@ -39,8 +39,11 @@
             <th scope="col">Radiator Type </th>
             <th scope="col">Radiator Height </th>
             <th scope="col">Radiator Length </th>
-            <th scope="col">Price (&pound;)</th>
+            <th scope="col">Range </th>
+            <th scope="col">Watts </th>
             <th scope="col">BTU</th>
+            <th scope="col">Price (&pound;)</th>
+            <th scope="col">Status</th>
             <th scope="col">Created</th>
             <th scope="col">Action</th>
           </tr>
@@ -55,8 +58,17 @@
             <td>{!! $radiator_price->radiator_type()->exists() ? $radiator_price->radiator_type->type:'' !!}</td>
             <td>{!! $radiator_price->radiator_height()->exists() ? $radiator_price->radiator_height->height:'' !!}</td>
             <td>{!! $radiator_price->radiator_length()->exists() ? $radiator_price->radiator_length->length:'' !!}</td>
-            <td>{!! $radiator_price->price !!}</td>
+            <td>{!! $radiator_price->range !!}</td>
+            <td>{!! $radiator_price->watts !!}</td>
             <td>{!! $radiator_price->btu !!}</td>
+            <td>{!! $radiator_price->price !!}</td>
+            <td>
+              @if($radiator_price->publish)
+              <span class="label label-success">Published</span>
+              @else
+              <span class="label label-danger">Unpublished</span>
+              @endif
+            </td>
             <td>{!! date('Y-m-d',strtotime($radiator_price->created_at)) !!}</td>
             <td>
               <a href="{!! route('cms::radiator_prices.edit',['radiator_price' => $radiator_price->id]) !!}" class="btn btn-default" title="Edit"><span class="fa fa-edit"></span></a>

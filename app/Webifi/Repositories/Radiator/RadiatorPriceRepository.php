@@ -49,7 +49,10 @@ class RadiatorPriceRepository extends Repository
             $qrl->where('length',  'like', '%'.$searchCondition.'%');
            })
             ->orWhere('price', 'like', '%'.$searchCondition.'%')
-            ->orWhere('btu', 'like', '%'.$searchCondition.'%');
+            ->orWhere('btu', 'like', '%'.$searchCondition.'%')
+            ->orWhere('range', 'like', '%'.$searchCondition.'%')
+            ->orWhere('watts', 'like', '%'.$searchCondition.'%')
+            ;
         });
   
         return $q->orderBy($orderBy, $orderType)->paginate($limit, $columns);
