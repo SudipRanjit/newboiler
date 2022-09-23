@@ -123,7 +123,7 @@ class RadiatorController extends Controller
             
             $record = null;
             if (!empty($type) && !empty($height) && !empty($length))
-              $record = $this->RadiatorPrice->findWithCondition(['radiator_type_id'=>$type,'radiator_height_id'=>$height,'radiator_length_id'=>$length],['price','btu']);
+              $record = $this->RadiatorPrice->findWithCondition(['radiator_type_id'=>$type,'radiator_height_id'=>$height,'radiator_length_id'=>$length,'publish'=>1],['price','btu']);
            
             $success = true;
             
