@@ -131,4 +131,84 @@ class RadiatorController extends Controller
         }
     }
 
+    /**
+     * get heights from radiator type
+     *
+     * @param Request $request
+     */
+    public function getHeights(Request $request)
+    {
+        if($request->ajax())
+        {
+          try
+           {
+            $input = $request->all();
+           
+            $type = isset($input['type'])?$input['type']:'';
+            
+            if (empty($type))
+              throw new \Exception('Type is empty.');
+                
+              $records = $this->RadiatorPrice->getWithCondition(['radiator_type_id'=>$type,'publish'=>1],'id','asc',['*'],10000);
+              
+              $heights = [];
+              
+              if ($records)
+                {
+                  foreach($records as $record)
+                  {
+                    $heights[$record->radiator_height->id] = $record->radiator_height->height; 
+                  }
+                }
+
+             return response()->json(['success'=>true, 'heights'=>$heights]);
+            }
+           catch(\Exception $e)
+           {
+             $success = false;
+             return response()->json(['success'=>false, 'message'=>(String)$e]);   
+           } 
+        }
+    }
+
+    /**
+     * get lengths from radiator type and height
+     *
+     * @param Request $request
+     */
+    public function getLengths(Request $request)
+    {
+        if($request->ajax())
+        {
+          try
+           {
+            $input = $request->all();
+           
+            $type = isset($input['type'])?$input['type']:'';
+            $height = isset($input['height'])?$input['height']:'';
+            
+            if (empty($type) || empty($height))
+              throw new \Exception('Type or height is empty.');
+                
+              $records = $this->RadiatorPrice->getWithCondition(['radiator_type_id'=>$type,'radiator_height_id'=>$height,'publish'=>1],'id','asc',['*'],10000);
+              
+              $lengths = [];
+              
+              if ($records)
+                {
+                  foreach($records as $record)
+                  {
+                    $lengths[$record->radiator_length->id] = $record->radiator_length->length; 
+                  }
+                }
+
+             return response()->json(['success'=>true, 'lengths'=>$lengths]);
+            }
+           catch(\Exception $e)
+           {
+             $success = false;
+             return response()->json(['success'=>false, 'message'=>(String)$e]);   
+           } 
+        }
+    }
 }

@@ -413,34 +413,71 @@ function increase_decrease_event()
 $('.input-inc-dec, .increase, .decrease').unbind();  
 increase_decrease_event();
 
+function init_controls()
+{
+    $('#cart_total_price').html('0');
+    $('.btn-add-radiator').addClass('disabled'); 
+    $('.increase,.decrease').addClass('disabled'); 
+    $('#quantity').val('1'); 
+}
+
 $('#type').change(function(){
 
- if ($(this).val())
- {
-    $('#height').prop('disabled',false);
- }
+if ($(this).val()=='')
+    { 
+        init_controls();
+        $('#height,#length').val('').prop('disabled',true);
+        return false;
+    }
+
+else if ($(this).val())
+    {
+        //$('#height').prop('disabled',false);
+        get_heights();
+    }
 
 });
 
 $('#height').change(function(){
  
- if ($(this).val())
- {
-    $('#length').prop('disabled',false);
- }
+/*if ($('#type').val()=='')
+   { 
+    $('#cart_total_price').html('0');
+    $('.btn-add-radiator').addClass('disabled'); 
+    return false;
+   }
+*/
+
+/*if ($('#type').prop('disabled'))
+    return false;
+*/
+
+if ($(this).val()=='')
+    { 
+        init_controls();
+        $('#length').val('').prop('disabled',true);
+        return false;
+    }
+else if ($(this).val())
+    {
+        //$('#length').prop('disabled',false);
+        get_lengths();
+    }
 
 });
 
-
-
-$('#type,#height,#length').change(function(){
+$('/*#type,#height,*/#length').change(function(){
 
     if ($('#type').val()=='' || $('#height').val()=='' || $('#length').val()=='' )
+       {
+        init_controls();
         return false;
+       }
 
-    if ($('#type').prop('disabled') || $('#height').prop('disabled') || $('#length').prop('disabled'))
+    /*if ($('#type').prop('disabled') || $('#height').prop('disabled') || $('#length').prop('disabled'))
         return false;
-        
+    */
+
     $.ajax({
                 url: "{!! route('get-radiator-price') !!}", 
                 type: "POST",
@@ -455,7 +492,7 @@ $('#type,#height,#length').change(function(){
                 },
                 beforeSend: function () {
                     $('.loader').show();
-                    $('.btn-add-radiator').addClass('disabled');
+                    init_controls();
                 },
                 complete: function () {
                     $('.loader').hide();
@@ -486,7 +523,96 @@ $('#type,#height,#length').change(function(){
   
 });
 
-  
+function get_heights()
+{
+    $.ajax({
+                url: "{!! route('get-radiator-heights') !!}", 
+                type: "POST",
+                data: {
+                        type: $('#type').val(),
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                    init_controls();
+                    $('#height').prop('disabled',true);
+                    $('#length').val('').prop('disabled',true);
+                    
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                  if (data.success)
+                    {
+                        $('#height').html('');
+                        $('#height').append("<option value=''>Select height</option>");
+                        $.each(data.heights,function(i,v){
+                            $('#height').append("<option value='"+i+"'>"+v+"</option>");
+                        });
+                       
+                        $('#height').prop('disabled',false);
+                        
+                    }
+                   else
+                   {
+                        alert('Something went wrong. Please try again.');
+                   }     
+
+                }
+
+            });
+}  
+
+function get_lengths()
+{
+    $.ajax({
+                url: "{!! route('get-radiator-lengths') !!}", 
+                type: "POST",
+                data: {
+                        type: $('#type').val(),
+                        height: $('#height').val(),
+                         
+                      },
+                dataType: "json",      
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                    $('.loader').show();
+                    init_controls();
+                    $('#length').prop('disabled',true);
+                    
+                },
+                complete: function () {
+                    $('.loader').hide();
+                },     
+                success:function(data)
+                {
+                  if (data.success)
+                    {
+                        $('#length').html('');
+                        $('#length').append("<option value=''>Select length</option>");
+                        $.each(data.lengths,function(i,v){
+                            $('#length').append("<option value='"+i+"'>"+v+"</option>");
+                        });
+                       
+                        $('#length').prop('disabled',false);
+                        
+                    }
+                   else
+                   {
+                        alert('Something went wrong. Please try again.');
+                   }     
+
+                }
+
+            });
+}  
 
 </script>    
 @endsection
