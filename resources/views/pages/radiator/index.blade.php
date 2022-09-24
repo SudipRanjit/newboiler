@@ -439,18 +439,6 @@ else if ($(this).val())
 });
 
 $('#height').change(function(){
- 
-/*if ($('#type').val()=='')
-   { 
-    $('#cart_total_price').html('0');
-    $('.btn-add-radiator').addClass('disabled'); 
-    return false;
-   }
-*/
-
-/*if ($('#type').prop('disabled'))
-    return false;
-*/
 
 if ($(this).val()=='')
     { 
