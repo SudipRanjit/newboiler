@@ -224,6 +224,20 @@ $router->get('logout', function () {
                          Booking Module
   ====================================================================================*/
 
+  $router->get('payment-gateways', 'Booking\PaymentGatewayController@index')->name('payment_gateways.index');
+ 
+  $router->get('payment-gateways/add', 'Booking\PaymentGatewayController@create')->name('payment_gateways.create');
+  
+  $router->get('payment-gateways/edit/{payment_gateway}', 'Booking\PaymentGatewayController@edit')->name('payment_gateways.edit');
+  
+  $router->delete('payment-gateways/delete/{payment_gateway}', 'Booking\PaymentGatewayController@delete')->name('payment_gateways.delete');
+  
+  $router->patch('payment-gateways/update/{payment_gateway}', 'Booking\PaymentGatewayController@update')->name('payment_gateways.update');
+  
+  $router->post('payment-gateways/store','Booking\PaymentGatewayController@store')->name('payment_gateways.store');
+ 
+  $router->get('payment-gateways/search','Booking\PaymentGatewayController@search')->name('payment_gateways.search');
+
   $router->get('custom-prices', 'Booking\CustomPriceController@create')->name('custom_prices.create');
 
   $router->get('block-dates', 'Booking\BlockDateController@index')->name('block_dates.index');

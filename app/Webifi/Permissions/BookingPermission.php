@@ -16,18 +16,41 @@ class BookingPermission
         ],
         'actions' => [
             [
-                'name' => 'Custom Price',
+                'name' => 'View all Payment Gateways',
+                'slug' => 'cms::payment_gateways.index',
+                'description' => 'Allow to view all payment gateways.',
+                'view_on_sidebar' => true,
+                'menu_name' => "All Payment Gateways"
+            ],
+            [
+                'name' => 'Create Payment Gateway',
+                'slug' => 'cms::payment_gateways.create',
+                'description' => 'Allow to create new payment gateway.',
+                'menu_name' => "Add Payment Gateway"
+            ],
+            [
+                'name' => 'Update Payment Gateway',
+                'slug' => 'cms::payment_gateways.update',
+                'description' => 'Allow to update Payment Gateway.'
+            ],
+            [
+                'name' => 'Delete Payment Gateway',
+                'slug' => 'cms::payment_gateways.delete',
+                'description' => 'Allow to delete Payment Gateway.'
+            ],
+            [
+                'name' => 'View all Custom Prices',
                 'slug' => 'cms::custom_prices.create',
                 'description' => 'Allow to create custom price.',
                 'view_on_sidebar' => true,
-                'menu_name' => "Custom Price"
+                'menu_name' => "All Custom Prices"
             ],
             [
-                'name' => 'Block Date',
+                'name' => 'View all Block Dates',
                 'slug' => 'cms::block_dates.index',
                 'description' => 'Allow to view all block dates.',
                 'view_on_sidebar' => true,
-                'menu_name' => "Block Date"
+                'menu_name' => "All Block Dates"
             ],
             [
                 'name' => 'View all orders',
