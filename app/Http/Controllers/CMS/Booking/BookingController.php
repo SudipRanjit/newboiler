@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
+use App\Mail\PayoutNotificationToCustomer;
+use Mail;
 
 class BookingController extends Controller
 {
@@ -53,7 +55,7 @@ class BookingController extends Controller
    * @return View
    */
   public function index()
-  {
+  { 
     $this->authorize('view', Booking::class);
     $bookings = $this->booking->paginate(20);
     return view('cms.booking.booking.index')->with('bookings', $bookings);
@@ -154,7 +156,6 @@ class BookingController extends Controller
                 //dd($payment_methods['data'][0]['id']);  
                 if (empty($payment_methods['data']))
                     throw new \Exception('Payment methods not found.');
-
                   
                 $payment_method_id = $payment_methods['data'][0]['id'] ;
 
@@ -181,6 +182,9 @@ class BookingController extends Controller
                 $id = $order->id;
                 $this->order->update($id, $updates);
 
+                $booking = $this->booking->find($input['booking_id']);
+                $this->send_payout_notification_email_to_customer($booking);
+
                 return redirect()->route('cms::bookings.index')
                                  ->with('success', 'Payout successfull.');
         } 
@@ -190,14 +194,33 @@ class BookingController extends Controller
             //echo 'Error code is:' . $e->getError()->code;
             //$payment_intent_id = $e->getError()->payment_intent->id;
             //$payment_intent = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+            $this->log->error((string)$e);
             return redirect()->route('cms::bookings.index')
                            ->with('error', $e->getMessage());
         }
         catch (\Exception $e)
         {
+          $this->log->error((string)$e);
           return redirect()->route('cms::bookings.index')
                            ->with('error', $e->getMessage());
         }
     }
 
+  public function send_payout_notification_email_to_customer($booking)
+  {
+    try
+      {
+          $body = [
+              'name'=>ucwords($booking->order->billing_address->first_name.' '.$booking->order->billing_address->last_name),
+              'email'=>$booking->order->billing_address->email
+          ];
+  
+          Mail::to($body['email'])->send(new PayoutNotificationToCustomer($body,$booking));
+          return ['success'=>true];
+      }
+      catch(\Exception $e)
+      {
+          return ['success'=>false,'error_message'=>$e->getMessage()];
+      }
+  }  
 }

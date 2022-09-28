@@ -102,7 +102,8 @@ if (clientSecret)
                    //location.href = "{!! route('page.index') !!}" 
                    if (data.success)
                    {
-                        update_customer_stripe(data.order_id);          
+                        update_customer_stripe(data.order_id);
+                        send_order_notification_email(data.order_id);          
                    }   
                 }
 
@@ -134,6 +135,29 @@ if (clientSecret)
 
             });    
  }
+
+ function send_order_notification_email(order_id)
+  {
+    $.ajax({
+                url:"{!! route('order-notification-email-to-customer') !!}", 
+                type: "POST",
+                data: {order_id:order_id},
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                   
+                },
+                complete: function () {
+                   
+                },     
+                success:function(data)
+                {
+                     
+                }
+
+          });    
+ } 
 
  {{--
  function delete_stripe_order()

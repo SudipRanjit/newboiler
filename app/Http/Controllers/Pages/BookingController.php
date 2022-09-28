@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BillingAddressRequest;
 use Illuminate\Support\Str;
 use App\Webifi\Services\StripeService;
+use App\Mail\OrderNotificationToCustomer;
+use Mail;
 
 class BookingController extends Controller
 {
@@ -36,14 +38,13 @@ class BookingController extends Controller
      $this->StripeService = $StripeService;
   }
 
-
     /**
      * Show pages
      *
      * @return view
      */
     public function index(Request $request)
-    {
+    {   
         $selection = $request->session()->get('selection');
         
         if (empty($selection))
@@ -108,7 +109,7 @@ class BookingController extends Controller
         }
         
         $BlockDate = new BlockDateRepository(app()) ;
-        $block_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('*'),$limit = 1000)->pluck('date')->toArray();
+        $block_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('*'),1000)->pluck('date')->toArray();
         
         $block_dates = json_encode($block_dates);
         //dd($block_dates);    
@@ -118,6 +119,9 @@ class BookingController extends Controller
         return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
     }
 
+    /**
+     * Not used, for testing purposes only
+     */
     public function completeBooking(/*BillingAddress*/Request $request)
     {
        
@@ -316,11 +320,7 @@ class BookingController extends Controller
                       throw new \Exception('Already placed order.');
 
                  } 
-
-                 /*if ($input['payment_option']=='stripe' && !empty($input['customer_id']) && !empty($input['setup_intent']) )
-                    $this->deletePreviousStripeOrder($input['customer_id'],$input['setup_intent']);
-                 */
-
+                
                 //store in billing_addresses, orders, order_details, bookings
     
                 $BillingAddressRepository = new BillingAddressRepository(app()) ;
@@ -491,6 +491,51 @@ class BookingController extends Controller
          }    
        }
   
+    public function send_order_notification_email_to_customer($order)
+    {
+      try
+        {
+            $body = [
+                'name'=>ucwords($order->billing_address->first_name.' '.$order->billing_address->last_name),
+                'email'=>$order->billing_address->email
+            ];
+    
+            Mail::to($body['email'])->send(new OrderNotificationToCustomer($body,$order));
+            return ['success'=>true];
+        }
+        catch(\Exception $e)
+        {
+            return ['success'=>false,'error_message'=>$e->getMessage()];
+        }
+    }
+    
+    public function ajSendOrderNotificationEmailToCustomer(Request $request)
+    {
+        if ($request->ajax())
+        {
+          try
+            {
+                $order_id = $request->order_id;
+                if (empty($order_id))
+                    throw new \Exception('Empty order id');
+                
+                $OrderRepository = new OrderRepository(app());
+                $order = $OrderRepository->findWithCondition(['transaction_id'=>$order_id]);
+                if (empty($order))
+                    throw new \Exception('Order not found.');
+                
+                $response = $this->send_order_notification_email_to_customer($order);    
+                if (!$response['success'])
+                    throw new \Exception($response['error_message']);
+                
+                return ['success'=>true];    
+            }
+          catch(\Exception $e)
+            {
+                return ['success'=>false,'error_message'=>$e->getMessage()];
+            }  
+        }
+    }
     
     /**
      * make item list json for submitting to paypal
@@ -643,6 +688,9 @@ class BookingController extends Controller
         return json_encode($items);
    }
    
+   /**
+    * Not used, for testing purpose only
+    */
    public function deletePreviousStripeOrder($customer_id,$setup_intent_id)
    {
         $OrderRepository = new OrderRepository(app()) ;
@@ -670,6 +718,9 @@ class BookingController extends Controller
         }  
    }
 
+   /**
+    * Not used, for testing purpose only
+    */
    public function deleteStripeOrder(Request $request)
    {
     if($request->ajax()) 
@@ -728,8 +779,6 @@ class BookingController extends Controller
        }
     }  
    }
-
-
 
   /* public function getPaymentIntentClientSecret(Request $request)
    {

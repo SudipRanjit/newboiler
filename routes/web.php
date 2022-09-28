@@ -64,4 +64,5 @@ Route::post('/get-customer-client-secret','Pages\BookingController@createStripeC
 //Route::post('/delete-stripe-order','Pages\BookingController@deleteStripeOrder')->name('delete-stripe-order');
 Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.thankyou');
 Route::post('/update-customer','Pages\BookingController@updateStripeCustomer')->name('update-stripe-customer');
+Route::post('/order-notification-email-to-customer','Pages\BookingController@ajSendOrderNotificationEmailToCustomer')->name('order-notification-email-to-customer');
 

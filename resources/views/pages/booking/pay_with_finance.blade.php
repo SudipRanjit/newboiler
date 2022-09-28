@@ -43,7 +43,10 @@ function pay_with_finance_submit(event)
                 {
                    //redirect to thank you page
                    if (data.success)
-                    location.href = "{!! route('page.thankyou') !!}?payment_option=pay_with_finance";    
+                    {
+                        send_order_notification_email(data.order_id);
+                        location.href = "{!! route('page.thankyou') !!}?payment_option=pay_with_finance";
+                    }    
                    else
                     alert('Something went wrong. Please try again.');
                    
@@ -51,7 +54,29 @@ function pay_with_finance_submit(event)
 
             });    
   }
-  
+ 
+  function send_order_notification_email(order_id)
+  {
+    $.ajax({
+                url:"{!! route('order-notification-email-to-customer') !!}", 
+                type: "POST",
+                data: {order_id:order_id},
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                   
+                },
+                complete: function () {
+                   
+                },     
+                success:function(data)
+                {
+                     
+                }
+
+          });    
+ } 
 </script>
 
 @endsection

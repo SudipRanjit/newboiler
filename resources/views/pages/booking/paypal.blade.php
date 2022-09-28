@@ -198,12 +198,37 @@
                 {
                    //redirect to thank you page
                    //alert('Thank you. We will contact you soon.');
+                   if (data.success)
+                    send_order_notification_email(data.order_id);
+
                    location.href = "{!! route('page.thankyou') !!}?payment_option=paypal";    
                 }
 
             });    
  }
-  
+
+ function send_order_notification_email(order_id)
+  {
+    $.ajax({
+                url:"{!! route('order-notification-email-to-customer') !!}", 
+                type: "POST",
+                data: {order_id:order_id},
+                headers: {
+                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+                },
+                beforeSend: function () {
+                   
+                },
+                complete: function () {
+                   
+                },     
+                success:function(data)
+                {
+                     
+                }
+
+          });    
+ }
 </script>
 
 @endsection
