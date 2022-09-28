@@ -16,7 +16,7 @@
       
       <div class="form-group">
         {!! Form::label('amount','Amount') !!}
-        {!! Form::number('amount',null,['class'=>'form-control', 'placeholder'=>'Enter Amount', 'id'=>'amount', 'step' => '.01']) !!}
+        {!! Form::number('amount',null,['class'=>'form-control', 'placeholder'=>'Enter Amount', 'id'=>'amount', 'step' => '.01', 'readonly'=>'readonly']) !!}
       </div>
 
       <div class="form-group">

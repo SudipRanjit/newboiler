@@ -32,6 +32,6 @@ class OrderNotificationToCustomer extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Notification')->markdown('pages.booking.order_notification_to_customer_email')->with('body',$this->body)->with('order',$this->order);
+        return $this->subject('Booking Notification')->markdown('pages.booking.order_notification_to_customer_email')->with('body',$this->body)->with('order',$this->order);
     }
 }

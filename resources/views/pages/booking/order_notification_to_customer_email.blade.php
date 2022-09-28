@@ -1,6 +1,6 @@
 @component('mail::message')
 <h2>Dear {{$body['name']}},</h2>
-Your booking for boiler installment is successfull.
+Your booking with amount <b>&pound;{{  $order->amount }}</b> for boiler installment is successfull.
 <br/><br/>
 <h3>Details:</h3>
 Order ID: {{ $order->transaction_id }} <br/>

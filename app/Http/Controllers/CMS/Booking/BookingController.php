@@ -109,7 +109,20 @@ class BookingController extends Controller
       ]);
       
       $this->booking->update($id, $input);
-      $this->db->commit();
+
+      //if status is Finance Approved for Pay with Finance then update order  
+      if ($input['status']==4 && $booking->order->payment_gateway_id==3)
+        {
+                $updates = [];
+                $updates['status'] = 1;
+                $payout_amount = round($input['amount'] - $input['discount'],2); 
+                $updates['payout_amount'] = $payout_amount;
+                //$updates['payout_date'] = date('Y-m-d H:i:s');
+                $this->order->update($booking->order->id, $updates);
+
+        }
+
+        $this->db->commit();  
 
       return redirect()->route('cms::bookings.index')
         ->with('success', 'Booking updated successfully.');
@@ -123,6 +136,11 @@ class BookingController extends Controller
     }
   }
 
+  /**
+   * does payment from customer card
+   * 
+   * @param Request $request  
+   */
   public function stripe_payout(Request $request)  
      {
         $this->authorize('stripe_payout', Booking::class);
@@ -206,6 +224,12 @@ class BookingController extends Controller
         }
     }
 
+  /**
+   * sends payout notification email to customer
+   *
+   * @param Booking $booking
+   * @return array
+   */    
   public function send_payout_notification_email_to_customer($booking)
   {
     try

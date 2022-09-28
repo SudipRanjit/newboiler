@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->date('appointment_date');
             $table->float('amount');
             $table->float('discount')->default(0);
-            $table->tinyInteger('status')->default(0)->comment('0 = ongoing, 1 = completed, 2 = canceled');
+            $table->tinyInteger('status')->default(0)->comment('0 = ongoing, 1 = completed, 2 = canceled, 3 = Finance Awaiting, 4 = Finance Approved, 5 = Finance Rejected');
             $table->timestamps();
         });
     }
