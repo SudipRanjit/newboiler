@@ -362,7 +362,10 @@ class BookingController extends Controller
                 }
 
                 if ($input['payment_option']=='paypal')
-                    $order['payout_amount'] = $order['amount'];    
+                    {
+                        $order['payout_amount'] = $order['amount'];
+                        $order['payout_date'] = date('Y-m-d H:i:s');
+                    }   
     
                 $order_record = $OrderRepository->store($order);
     

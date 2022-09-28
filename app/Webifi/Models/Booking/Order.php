@@ -32,7 +32,8 @@ class Order extends Model
     'stripe_customer_id',
     'stripe_payment_method_id',
     'stripe_setup_intent_id',
-    'payout_amount'
+    'payout_amount',
+    'payout_date'
     ];
 
     /**

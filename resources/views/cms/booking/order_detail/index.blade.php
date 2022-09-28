@@ -26,6 +26,9 @@
         <div>Amount(&pound;): <b>{!! $booking->amount !!}</b></div>
         <div>Discount(&pound;): <b>{!! $booking->discount !!}</b></div>
         <div>Payout/Paid Amount (&pound;): <b>{!! $booking->order->payout_amount !!}</b></div>
+        @if(!empty($booking->order->payout_date) && $booking->order->status) 
+        <div>Payout/Paid Date: <b>{!! date('Y-m-d', strtotime($booking->order->payout_date)) !!}</b></div>
+        @endif
         <div>Appointment Date: <b>{!! date('Y-m-d',strtotime($booking->appointment_date)) !!}</b></div>
         <div>Status: <b>@if($booking->status===0)
                         On process (Installment not complete)
@@ -55,7 +58,7 @@
       <div>City/Town: <b>{!! $billing_address->city !!}</b></div>
       <div>County: <b>{!! $billing_address->county !!}</b></div>
       <div>PostCode: <b>{!! $billing_address->postcode !!}</b></div>
-      <div>Note for engineer: <b>{!! $billing_address->note !!}</b></div>                                
+      <div>Note for engineer: <div style="overflow:auto;"><b>{!! $billing_address->note !!}</b></div></div>                                
     </div>    
 
     <div class="col-md-4  mb-4">
@@ -66,6 +69,9 @@
       <div>Amount(&pound;): <b>{!! $order->amount !!}</b></div>
       <div>Discount(&pound;): <b>{!! $order->discount !!}</b></div>
       <div>Payout/Paid Amount (&pound;): <b>{!! $order->payout_amount !!}</b></div>
+      @if(!empty($order->payout_date) && $order->status) 
+      <div>Payout/Paid Date: <b>{!! date('Y-m-d', strtotime($order->payout_date)) !!}</b></div>
+      @endif
       <div>Status: <b>{!! $order->status?'Payment complete':'Payment incomplete' !!}</b></div>
       <div>Created: <b>{!! date('Y-m-d',strtotime($order->created_at)) !!}</b></div>                                
     </div>    

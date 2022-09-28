@@ -117,7 +117,7 @@ class BookingController extends Controller
                 $updates['status'] = 1;
                 $payout_amount = round($input['amount'] - $input['discount'],2); 
                 $updates['payout_amount'] = $payout_amount;
-                //$updates['payout_date'] = date('Y-m-d H:i:s');
+                $updates['payout_date'] = date('Y-m-d H:i:s');
                 $this->order->update($booking->order->id, $updates);
 
         }
@@ -196,6 +196,7 @@ class BookingController extends Controller
                 $updates['stripe_payment_method_id'] = $payment_method_id;
                 $updates['status'] = 1;
                 $updates['payout_amount'] = $payout_amount;
+                $updates['payout_date'] = date('Y-m-d H:i:s');
 
                 $id = $order->id;
                 $this->order->update($id, $updates);
