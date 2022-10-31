@@ -69,7 +69,14 @@ class BookingController extends Controller
         
         //dd($devices);    
 
-        $Boiler = new BoilerRepository(app()) ;        
+        $Boiler = new BoilerRepository(app()) ;
+        if (empty($selection['boiler']))
+        {
+            //redirect to boiler listing page
+            return redirect()->route('page.boilers')
+                             ->with('error', "Please choose a boiler." );
+        }
+
         $boiler = $Boiler->find($selection['boiler']);
         if (!$boiler)
         {
