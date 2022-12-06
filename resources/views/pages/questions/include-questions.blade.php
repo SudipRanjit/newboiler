@@ -1118,11 +1118,22 @@ $('.question-wrapper').hide();
         jQuery(".loader").show();
         answers.question3.option = jQuery(this).attr("id");
         answers.question3.optionTxt = jQuery("#" + answers.question3.option + " > .figure > .option-title").html();
-        answers.current = "question__4";
+        answers.current = "question__3a";
         jQuery("#question__3").fadeOut(0);
+        jQuery("#question__3a").fadeIn(400);
+        jQuery(".loader").hide();
+      });
+
+      jQuery(".q3a").click(function() {
+        jQuery(".loader").show();
+        answers.question3a.option = jQuery(this).attr("id");
+        answers.question3a.optionTxt = jQuery("#" + answers.question3a.option + " > .figure > .option-title").html();
+        answers.current = "question__4";
+        jQuery("#question__3a").fadeOut(0);
         jQuery("#question__4").fadeIn(400);
         jQuery(".loader").hide();
       });
+
   
       jQuery(".q4").click(function() {
         jQuery(".loader").show();

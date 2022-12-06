@@ -3,7 +3,7 @@
     <h2 class="text-center mb-4">Is your current boiler working? </h2>
   </div>
   <div class="options want-radiator">
-    <div class="row justify-content-center" id="question__1">
+    <div class="row justify-content-center">
       <div class="col-lg-4 col-6">
         <div class="option-wrapper q3" id="q3o1">
           <a href="javascript:void(0)" class="want-radiator-item want-radiator-yes p-4 p-md-5 figure">
