@@ -1,6 +1,7 @@
 <div class="row justify-content-center question-wrapper" id="question__8b">
   <div class="col-md-8 question">
     <h2 class="text-center mb-4">Is it a power shower?</h2>
+    <p class="text-center text-black-light mb-5 info__line_2">It uses a pump to increase your water pressure, making a loud noise when you turn it on.</p>
   </div>
   <div class="options want-radiator">
     <div class="row justify-content-center">

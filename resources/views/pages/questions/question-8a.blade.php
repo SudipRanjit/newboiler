@@ -1,6 +1,7 @@
 <div class="row justify-content-center question-wrapper" id="question__8a">
   <div class="col-md-8 question">
     <h2 class="text-center mb-4">Do you have an electric shower?</h2>
+    <p class="text-center text-black-light mb-5 info__line_2">Electric showers heat water themselves, rather than getting hot water from the boiler.</p>
   </div>
   <div class="options want-radiator">
     <div class="row justify-content-center">

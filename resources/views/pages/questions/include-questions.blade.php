@@ -1384,9 +1384,16 @@ $('.question-wrapper').hide();
         jQuery(".loader").show();
         answers.question8b.option = jQuery(this).attr("id");
         answers.question8b.optionTxt = jQuery("#" + answers.question8b.option + " > .figure > .option-title").html();
-        answers.current = "question__8c";
-        jQuery("#question__8b").fadeOut(0);
-        jQuery("#question__8c").fadeIn(400);
+        if(answers.question8b.option == "q8bo1")
+        {
+          answers.current = "question__8c";
+          jQuery("#question__8b").fadeOut(0);
+          jQuery("#question__8c").fadeIn(400);
+        }else{
+          answers.current = "question__9";
+          jQuery("#question__8c").fadeOut(0);
+          jQuery("#question__9").fadeIn(400);
+        }
         jQuery(".loader").hide();
       });
       jQuery(".q8c").click(function() {
