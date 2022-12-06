@@ -1375,9 +1375,16 @@ $('.question-wrapper').hide();
         jQuery(".loader").show();
         answers.question8a.option = jQuery(this).attr("id");
         answers.question8a.optionTxt = jQuery("#" + answers.question8a.option + " > .figure > .option-title").html();
-        answers.current = "question__8b";
-        jQuery("#question__8a").fadeOut(0);
-        jQuery("#question__8b").fadeIn(400);
+        if(answers.question8a.option == "q8ao1")
+        {
+          answers.current = "question__8b";
+          jQuery("#question__8a").fadeOut(0);
+          jQuery("#question__8b").fadeIn(400);
+        }else{
+          answers.current = "question__9";
+          jQuery("#question__8a").fadeOut(0);
+          jQuery("#question__9").fadeIn(400);
+        }
         jQuery(".loader").hide();
       });
       jQuery(".q8b").click(function() {
@@ -1391,7 +1398,7 @@ $('.question-wrapper').hide();
           jQuery("#question__8c").fadeIn(400);
         }else{
           answers.current = "question__9";
-          jQuery("#question__8c").fadeOut(0);
+          jQuery("#question__8b").fadeOut(0);
           jQuery("#question__9").fadeIn(400);
         }
         jQuery(".loader").hide();
