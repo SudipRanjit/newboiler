@@ -24,6 +24,7 @@
 @include('pages.questions.question-8b')
 @include('pages.questions.question-8c')
 @include('pages.questions.question-9')
+@include('pages.questions.question-9a')
 @include('pages.questions.question-10')
 @include('pages.questions.question-10a')
 @include('pages.questions.question-10b')
@@ -1026,6 +1027,10 @@ $('.question-wrapper').hide();
         option: "",
         optionTxt: ""
       },
+      question9a: {
+        option: "",
+        optionTxt: ""
+      },
       question10: {
         option: "",
         optionTxt: ""
@@ -1389,8 +1394,25 @@ $('.question-wrapper').hide();
         jQuery(".loader").show();
         answers.question9.option = jQuery(this).attr("id");
         answers.question9.optionTxt = jQuery("#" + answers.question9.option + " > .figure > .option-title").html();
+        answers.current = "question__9a";
+        if (answers.question9.option === "q9o1") {
+          answers.current = "question__9a";
+          jQuery("#question__9").fadeOut(0);
+          jQuery("#question__9a").fadeIn(400);
+        } else {
+          answers.current = "question__10";
+          jQuery("#question__9").fadeOut(0);
+          jQuery("#question__10").fadeIn(400);
+        }
+        
+        jQuery(".loader").hide();
+      });
+      jQuery(".q9a").click(function() {
+        jQuery(".loader").show();
+        answers.question9a.option = jQuery(this).attr("id");
+        answers.question9a.optionTxt = jQuery("#" + answers.question9a.option + " > .figure > .option-title").html();
         answers.current = "question__10";
-        jQuery("#question__9").fadeOut(0);
+        jQuery("#question__9a").fadeOut(0);
         jQuery("#question__10").fadeIn(400);
         jQuery(".loader").hide();
       });
