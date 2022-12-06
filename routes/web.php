@@ -37,3 +37,32 @@ Route::get('/api/smart-devices', 'API\APIController@smartDevice')->name('smartDe
 
 Route::get('/api/control-devices/{id}', 'API\APIController@controlDevices')->name('control.devices');
 
+
+Route::get('/api/new/boilers/{type}/{power}/{limit?}/{page?}', 'API\BoilerController@boilers')->name('new.boilers');
+Route::get('/api/new/controls/{ids?}/{limit?}/{page?}', 'API\AddonController@controls_by_ids')->name('new.controls');
+Route::get('/api/new/devices/{limit?}/{page?}', 'API\DeviceController@devices')->name('new.devices');
+
+Route::get('/', 'Pages\IndexController@index')->name('page.index');
+Route::get('/boilers', 'Pages\BoilerController@index')->name('page.boilers');
+Route::get('/controls', 'Pages\ControlController@index')->name('page.controls');
+Route::get('/radiators', 'Pages\RadiatorController@index')->name('page.radiators');
+Route::get('/smart-devices', 'Pages\DeviceController@index')->name('page.smart-devices');
+Route::get('/booking', 'Pages\BookingController@index')->name('page.booking');
+Route::post('/save-answer','Pages\IndexController@saveAnswer')->name('save-answer');
+Route::post('/update-answer','Pages\IndexController@updateAnswer')->name('update-answer');
+Route::get('/boiler/{id}','Pages\BoilerController@view')->name('page.boiler');
+//Route::post('/complete-booking','Pages\BookingController@completeBooking')->name('complete-booking');
+Route::post('/save-order','Pages\BookingController@saveOrder')->name('save-order');
+Route::post('/get-radiator-price','Pages\RadiatorController@getPrice')->name('get-radiator-price');
+Route::post('/get-radiator-heights','Pages\RadiatorController@getHeights')->name('get-radiator-heights');
+Route::post('/get-radiator-lengths','Pages\RadiatorController@getLengths')->name('get-radiator-lengths');
+
+//Route::post('/get-client-secret','Pages\BookingController@getPaymentIntentClientSecret')->name('get-secret');
+Route::post('/get-customer-client-secret','Pages\BookingController@createStripeCustomerAndClientSecret')->name('get-customer-secret');
+
+//Route::post('/test-future-payout','Pages\BookingController@testStripeFuturePayout')->name('test-future-payout');
+//Route::post('/delete-stripe-order','Pages\BookingController@deleteStripeOrder')->name('delete-stripe-order');
+Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.thankyou');
+Route::post('/update-customer','Pages\BookingController@updateStripeCustomer')->name('update-stripe-customer');
+Route::post('/order-notification-email-to-customer','Pages\BookingController@ajSendOrderNotificationEmailToCustomer')->name('order-notification-email-to-customer');
+

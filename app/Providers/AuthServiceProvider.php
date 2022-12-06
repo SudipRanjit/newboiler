@@ -11,6 +11,11 @@ use App\Webifi\Models\User\Role;
 use App\Webifi\Models\Boiler\Boiler;
 use App\Webifi\Models\Addon\Addon;
 use App\Webifi\Models\Device\Device;
+use App\Webifi\Models\Booking\Order;
+use App\Webifi\Models\Booking\OrderDetail;
+use App\Webifi\Models\Booking\Booking;
+use App\Webifi\Models\Booking\BlockDate;
+use App\Webifi\Models\Booking\PaymentGateway;
 use App\Policies\UserPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\BrandPolicy;
@@ -20,6 +25,12 @@ use App\Policies\PowerPolicy;
 use App\Policies\BoilerPolicy;
 use App\Policies\AddonPolicy;
 use App\Policies\DevicePolicy;
+use App\Policies\RadiatorPolicy;
+use App\Policies\OrderPolicy;
+use App\Policies\OrderDetailPolicy;
+use App\Policies\BookingPolicy;
+use App\Policies\BlockDatePolicy;
+use App\Policies\PaymentGatewayPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -41,6 +52,12 @@ class AuthServiceProvider extends ServiceProvider
         Boiler::class => BoilerPolicy::class,
         Addon::class => AddonPolicy::class,
         Device::class => DevicePolicy::class,
+        Radiator::class => RadiatorPolicy::class,
+        Order::class => OrderPolicy::class,
+        OrderDetail::class => OrderDetailPolicy::class,
+        Booking::class => BookingPolicy::class,
+        BlockDate::class => BlockDatePolicy::class,
+        PaymentGateway::class => PaymentGatewayPolicy::class,
     ];
 
     /**

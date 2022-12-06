@@ -4,6 +4,7 @@ namespace App\Webifi\Models\Boiler;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Webifi\Models\Addon\Addon;
 
 class Boiler extends Model
 {
@@ -52,4 +53,19 @@ class Boiler extends Model
     'effiency_rating',
   ];
 
+    /**
+     * The addon that belong to the boiler.
+     */
+    public function addon()
+    {
+        return $this->belongsTo(Addon::class);
+    }
+
+    /**
+     * The addons that belong to the boiler.
+     */
+    public function addons()
+    {
+        return $this->belongsToMany(Addon::class, 'boiler_addons')->withTimestamps();
+    }
 }

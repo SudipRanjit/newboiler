@@ -151,7 +151,7 @@ $router->get('logout', function () {
 
  $router->get('boilers/search','Boiler\BoilerController@search')->name('boilers.search');
 
-   /* ==================================================================================
+  /*=====================================================================================
                          Addon Module
   ====================================================================================*/
 
@@ -169,7 +169,7 @@ $router->get('logout', function () {
  
   $router->get('addons/search','Addon\AddonController@search')->name('addons.search');
 
-     /* ==================================================================================
+  /*====================================================================================
                          Smart Devices Module
   ====================================================================================*/
 
@@ -186,3 +186,86 @@ $router->get('logout', function () {
   $router->post('devices/store','Device\DeviceController@store')->name('devices.store');
  
   $router->get('devices/search','Device\DeviceController@search')->name('devices.search');
+
+  /*===================================================================================
+                         Radiator Module
+  ====================================================================================*/
+
+  $router->get('radiators', 'Radiator\RadiatorController@index')->name('radiators.index');
+ 
+  $router->get('radiators/add', 'Radiator\RadiatorController@create')->name('radiators.create');
+  
+  $router->get('radiators/edit/{radiator}', 'Radiator\RadiatorController@edit')->name('radiators.edit');
+  
+  $router->delete('radiators/delete/{radiator}', 'Radiator\RadiatorController@delete')->name('radiators.delete');
+  
+  $router->patch('radiators/update/{radiator}', 'Radiator\RadiatorController@update')->name('radiators.update');
+  
+  $router->post('radiators/store','Radiator\RadiatorController@store')->name('radiators.store');
+ 
+  $router->get('radiators/search','Radiator\RadiatorController@search')->name('radiators.search');
+
+
+  $router->get('radiator-prices', 'Radiator\RadiatorPriceController@index')->name('radiator_prices.index');
+ 
+  $router->get('radiator-prices/add', 'Radiator\RadiatorPriceController@create')->name('radiator_prices.create');
+  
+  $router->get('radiator-prices/edit/{radiator_price}', 'Radiator\RadiatorPriceController@edit')->name('radiator_prices.edit');
+  
+  $router->delete('radiator-prices/delete/{radiator_price}', 'Radiator\RadiatorPriceController@delete')->name('radiator_prices.delete');
+  
+  $router->patch('radiator-prices/update/{radiator_price}', 'Radiator\RadiatorPriceController@update')->name('radiator_prices.update');
+  
+  $router->post('radiator-prices/store','Radiator\RadiatorPriceController@store')->name('radiator_prices.store');
+ 
+  $router->get('radiator-prices/search','Radiator\RadiatorPriceController@search')->name('radiator_prices.search');
+
+  /*===================================================================================
+                         Booking Module
+  ====================================================================================*/
+
+  $router->get('payment-gateways', 'Booking\PaymentGatewayController@index')->name('payment_gateways.index');
+ 
+  $router->get('payment-gateways/add', 'Booking\PaymentGatewayController@create')->name('payment_gateways.create');
+  
+  $router->get('payment-gateways/edit/{payment_gateway}', 'Booking\PaymentGatewayController@edit')->name('payment_gateways.edit');
+  
+  $router->delete('payment-gateways/delete/{payment_gateway}', 'Booking\PaymentGatewayController@delete')->name('payment_gateways.delete');
+  
+  $router->patch('payment-gateways/update/{payment_gateway}', 'Booking\PaymentGatewayController@update')->name('payment_gateways.update');
+  
+  $router->post('payment-gateways/store','Booking\PaymentGatewayController@store')->name('payment_gateways.store');
+ 
+  $router->get('payment-gateways/search','Booking\PaymentGatewayController@search')->name('payment_gateways.search');
+
+  $router->get('custom-prices', 'Booking\CustomPriceController@create')->name('custom_prices.create');
+
+  $router->get('block-dates', 'Booking\BlockDateController@index')->name('block_dates.index');
+
+  $router->get('block-dates/add', 'Booking\BlockDateController@create')->name('block_dates.create');
+  
+  $router->get('block-dates/edit/{block_date}', 'Booking\BlockDateController@edit')->name('block_dates.edit');
+  
+  $router->delete('block-dates/delete/{block_date}', 'Booking\BlockDateController@delete')->name('block_dates.delete');
+  
+  $router->patch('block-dates/update/{block_date}', 'Booking\BlockDateController@update')->name('block_dates.update');
+  
+  $router->post('block-dates/store','Booking\BlockDateController@store')->name('block_dates.store');
+ 
+  $router->get('block-dates/search','Booking\BlockDateController@search')->name('block_dates.search');
+
+  $router->get('orders', 'Booking\OrderController@index')->name('orders.index');
+
+  $router->get('orders/search','Booking\OrderController@search')->name('orders.search');
+
+  $router->get('order-details/{order}', 'Booking\OrderDetailController@index')->name('order_details.index');
+
+  $router->get('bookings', 'Booking\BookingController@index')->name('bookings.index');
+
+  $router->get('bookings/search','Booking\BookingController@search')->name('bookings.search');
+
+  $router->get('bookings/edit/{booking}', 'Booking\BookingController@edit')->name('bookings.edit');
+ 
+  $router->patch('bookings/update/{booking}', 'Booking\BookingController@update')->name('bookings.update');
+  
+  $router->post('bookings/stripe-payout', 'Booking\BookingController@stripe_payout')->name('bookings.stripe-payout');
