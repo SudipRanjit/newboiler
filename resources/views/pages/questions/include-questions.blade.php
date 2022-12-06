@@ -7,6 +7,7 @@
 @include('pages.questions.question-2a')
 @include('pages.questions.question-2b')
 @include('pages.questions.question-3')
+@include('pages.questions.question-3a')
 @include('pages.questions.question-4')
 @include('pages.questions.question-4a')
 @include('pages.questions.question-4a1')
@@ -954,6 +955,10 @@ $('.question-wrapper').hide();
         optionTxt: ""
       },
       question3: {
+        option: "",
+        optionTxt: ""
+      },
+      question3a: {
         option: "",
         optionTxt: ""
       },
