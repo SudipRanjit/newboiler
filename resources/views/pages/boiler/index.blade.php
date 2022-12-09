@@ -13,7 +13,7 @@
 @php $Selection = Session()->get('selection') @endphp
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center question-wrapper">
             <div class="col-md-8">
                 <h2 class="text-center mb-4">Select a new boiler</h2>
             </div>
@@ -48,6 +48,18 @@
                 </ul>
                 <input type="hidden" name="cat" id="cat" value="" class="filter-list"/>
             </div>
+
+            <div class="gasking-btn-container d-sm-flex">
+              <a href="#" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center" data-bs-toggle="modal" data-bs-target="#see-everything">
+                  <i class="fa-solid fa-plus me-2"></i>
+                  See everything included
+              </a>
+              <a href="{!! route('page.index') !!}" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
+                  <i class="fa-solid fa-arrow-rotate-right me-2"></i>
+                  Restart
+              </a>
+          </div>
+
             <div class="btn-group my-2">
                 <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-sort">Sort by: <span id="show-sort">Recommended</span></button>
                 <ul class="dropdown-menu">
@@ -62,6 +74,15 @@
        </div>
 
         <div class="boiler-listing">
+          <div class="boiler-item" >
+            <img class="extras" src="{{asset('assets/img/extras.png')}}" />
+          </div>
+            {{-- <div class="boiler-item free-items">
+              <div class="free-title">
+                <div class="free-title-img"><img src="{{asset('assets/img/free/free.png')}}"></div>
+                <div class="free-title-text">£100s of free extras when you order a New Boiler</div>
+              </div>
+            </div> --}}
                 <div class="boiler-item" id="boiler-item-0" style="display:none">
                     <div class="boiler-img order-md-1 order-xl-1">
                         <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler" class="boiler-pic">
@@ -201,6 +222,7 @@
 
 @section('custom-scripts')
 <script>
+
 function listProductsFromAPI_old(selection) {
     jQuery(".loader").show();
     var all = apiBase + "all";
@@ -566,8 +588,8 @@ function create_list_item(data, append=false)
             item.removeAttr('id');
             item.addClass('boiler-record');
             
-            item.find('.boiler-pic').attr("src",value.image);      
-            item.find('.boiler-name').html(value.boiler_name);
+            item.find('.boiler-pic').attr("src",value.image).attr("alt", "{!! url('boiler') !!}"+"/"+value.id+"");      
+            item.find('.boiler-name').html("<a href='{!! url('boiler') !!}"+"/"+value.id+"' target='_blank'>"+value.boiler_name+"</a>");
             item.find('.boiler-summary').html(value.summary);
             item.find('.boiler-flow-rate').html(value.flow_rate);
             item.find('.boiler-central-heating-output').html(value.central_heating_output);
@@ -591,6 +613,11 @@ function create_list_item(data, append=false)
             $('.boiler-listing').append(item);  
 
         });
+
+    $(".boiler-pic").click(function(){
+      var link = $(this).attr('alt');
+      window.open(link, '_blank');
+    });
 }
 
 var selection = JSON.parse('{!! json_encode($Selection) !!}');

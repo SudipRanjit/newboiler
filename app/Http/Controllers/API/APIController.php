@@ -198,7 +198,7 @@ class APIController extends Controller
    */
   public function controlDevices($id)
   {
-    return ["device" => $this->addon->getWithCondition(['publish' => 1], 'addon_name', 'asc', ["*"], 100)];
+    return ["device" => $this->addon->findWithCondition(['id' => $id], ['*'])];
   }
   
 }

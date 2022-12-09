@@ -13,7 +13,7 @@
 @php $Selection = Session()->get('selection') @endphp
 
 @section('content')
-<div class="want-radiator-container">
+<div class="want-radiator-container question-wrapper">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h2 class="text-center mb-4">Do you require radiators?</h2>
@@ -39,7 +39,9 @@
                 </div>
             </div>
         </div>
-        <div class="choose-radiator">
+
+
+        <div class="choose-radiator question-wrapper">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h2 class="text-center mb-4">Choose radiator</h2>
@@ -47,20 +49,36 @@
                 </div>
             </div>
 
+            
+        <div class="filter_params d-flex flex-wrap justify-content-between mb-4">
+          <div class="gasking-btn-container d-sm-flex">
+            <a href="#" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center" data-bs-toggle="modal" data-bs-target="#see-everything">
+                <i class="fa-solid fa-plus me-2"></i>
+                See everything included
+            </a>
+            <a href="{!! route('page.index') !!}" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
+                <i class="fa-solid fa-arrow-rotate-right me-2"></i>
+                Restart
+            </a>
+        </div>
+     </div>
+
             <div class="control-listing">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="card p-4 p-lg-5">
                             <div class="row justify-content-center">
-                                <div class="col-md-5 text-center">
+                                <div class="col-md-10 text-center">
+                                  <div class="radiatorImageBox">
                                     <img src="{!! $radiator->image !!}" alt="Radiator" class="img-fluid w-100 choose-radiator mb-5 mx-auto">
+                                  </div>
                                     <h5 class="f-20">{{ $radiator->radiator_name }}</h5>
                                     {{--
                                     <p class="font-semibold text-secondary mb-4">£{{ $radiator->price }}</p>
                                     --}}
                                     <input type="hidden" id="radiator-rate" />    
-                                    <p><small>{{ $radiator->summary }}</small></p>
-                                    <a href="#" class="text-secondary"><small>More Info</small></a>
+                                    <p>{{ $radiator->limited_summary }}</p>
+                                    <a href="javascript:void(0);" class="text-secondary d-block mb-4 more-radiator-info" data-bs-toggle="modal" data-bs-target="#radiator-info"><small>More Info</small></a>
                                 </div>
                             </div>
                             <div class="row border-top-1 pt-4 mt-5">
@@ -79,7 +97,7 @@
                                         @endforeach    
                                     </select>
                                     <small class="text-black-light d-block mb-3">If we don’t offer the exact size you need please choose the nearest smaller size to your current radiator.</small>
-                                    <a href="#" class="text-danger"><small>Help me choose</small></a>
+                                    {{-- <a href="#" class="text-danger"><small>Help me choose</small></a> --}}
                                 </div>
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="height" class="ps-4 mb-2">Height (mm)</label>
@@ -95,7 +113,7 @@
                                             <option value="{!! $radiator_height_id !!}">{{ $radiator_height }}</option>
                                         @endforeach
                                     </select>
-                                    <a href="#" class="text-danger"><small>Help me choose</small></a>
+                                    {{-- <a href="#" class="text-danger"><small>Help me choose</small></a> --}}
                                 </div>
                                 <div class="col-xl-4 col-md-6 mb-4">
                                     <label for="length" class="ps-4 mb-2">Length (mm)</label>
@@ -110,7 +128,7 @@
                                             <option value="{!! $radiator_length_id !!}">{{ $radiator_length }}</option>
                                         @endforeach
                                     </select>
-                                    <a href="#" class="text-danger"><small>Help me choose</small></a>
+                                    {{-- <a href="#" class="text-danger"><small>Help me choose</small></a> --}}
                                 </div>
                             </div>
                             <div class="row border-top-light-1 pt-4">
@@ -287,6 +305,16 @@
 
 @section('custom-scripts')
 <script>
+    var radiatorName = "{{$radiator->radiator_name}}";
+    var radiatorImage = "{{$radiator->image}}";
+    var radiatorDesc = "{{$radiator->description}}";
+
+    $(".more-radiator-info").click(function(){
+      $("#radiatorLabel").html(radiatorName);
+      $("#radiatorImage").attr("src", radiatorImage);
+      $("#radiatorDescription").html(radiatorDesc);
+    });
+
     $('.btn-add-radiator').click(function(){
 
      var quantity = $('#quantity').val();   

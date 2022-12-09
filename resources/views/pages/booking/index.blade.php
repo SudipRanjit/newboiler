@@ -13,7 +13,7 @@
 @php $Selection = Session()->get('selection') @endphp
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center question-wrapper">
             <div class="col-md-8">
                 <h2 class="text-center mb-4">Booking</h2>
                 <p class="text-center text-black-light mb-5">Choose up to 10 new radiators and we’ll fit these during your boiler installation. We can only fit new radiators in place of existing ones, not in new locations.</p>

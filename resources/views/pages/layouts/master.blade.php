@@ -13,7 +13,7 @@
 </div>
 
 <div class="main-container mt-4r">
-    <div class="gasking-title-top">
+    <div class="gasking-title-top hidden">
         <div class="container">
             <div class="gasking-title-container d-lg-flex align-items-center justify-content-md-between">
                 <div class="gasking-title">
@@ -143,6 +143,53 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="control-info" tabindex="-1" aria-labelledby="control-infoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body p-4 p-lg-5">
+              <button type="button" class="btn-close" id="controlInfoClose" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10 text-center">
+                      <h2 class="modal-title mb-4" id="controlLabel">Control Title</h2>
+                      <p class="mb-5 text-secondary" id="controlPrice">Control Summary</p>
+                  </div>
+              </div>
+              <div class="row justify-content-center controlDesc">
+                  <div class="col-lg-8 col-md-10">
+                      <div class="controlImageBox">
+                        <img src="" id="controlImage" />
+                      </div>
+                      <div id="controlDescription"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="radiator-info" tabindex="-1" aria-labelledby="radiator-infoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body p-4 p-lg-5">
+              <button type="button" class="btn-close" id="radiatorInfoClose" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10 text-center">
+                      <h2 class="modal-title mb-4" id="radiatorLabel">Control Title</h2>
+                  </div>
+              </div>
+              <div class="row justify-content-center controlDesc">
+                  <div class="col-lg-8 col-md-10">
+                      <div class="controlImageBox">
+                        <img src="" id="radiatorImage" />
+                      </div>
+                      <div id="radiatorDescription"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 @include('pages.layouts.partials._scripts')

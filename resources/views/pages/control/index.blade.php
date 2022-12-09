@@ -13,12 +13,25 @@
 @php $Selection = Session()->get('selection') @endphp
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center question-wrapper">
             <div class="col-md-8">
                 <h2 class="text-center mb-4">Choose a Control</h2>
                 <p class="text-center text-black-light mb-5">Choose a control for the boiler. We will help you with the installation and usage</p>
             </div>
         </div>
+
+        <div class="filter_params d-flex flex-wrap justify-content-between mb-4">
+            <div class="gasking-btn-container d-sm-flex">
+              <a href="#" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center" data-bs-toggle="modal" data-bs-target="#see-everything">
+                  <i class="fa-solid fa-plus me-2"></i>
+                  See everything included
+              </a>
+              <a href="{!! route('page.index') !!}" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
+                  <i class="fa-solid fa-arrow-rotate-right me-2"></i>
+                  Restart
+              </a>
+          </div>
+       </div>
 
         <div class="control-listing">
             <div class="row">
@@ -33,7 +46,7 @@
                                     <h4 class="f-20 font-medium control-name">Google Nest 3rd Gen</h4>
                                     <span class="font-semibold text-secondary d-block mb-4 control-price">FREE</span>
                                     <p class="m-0"><small class="control-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida.</small></p>
-                                    <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
+                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#control-info" class="text-secondary d-block mb-4 more_info"><small>More Info</small></a>
                                     
                                     <a href="javascript:void(0)" class="btn btn-outline-secondary d-block btn-action-control btn-added-control">Added</a>
                                     <a href="javascript:void(0)" class="btn btn-outline-secondary w-100 btn-action-control btn-choose-control" >Choose</a>
@@ -53,7 +66,7 @@
                                     <h4 class="f-20 font-medium control-name">{{$boiler->addon->addon_name}}</h4>
                                     <span class="font-semibold text-secondary d-block mb-4 control-price">{{ $boiler->addon->price?'£'.$boiler->addon->price:'FREE'}}</span>
                                     <p class="m-0"><small class="control-summary">{{$boiler->addon->summary}}</small></p>
-                                    <a href="#" class="text-secondary d-block mb-4"><small>More Info</small></a>
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#control-info" class="text-secondary d-block mb-4"><small>More Info</small></a>
                                     
                                    @if($boiler->addon->id==$Selection['control']) 
                                     <a href="javascript:void(0)" class="btn btn-outline-secondary d-block btn-action-control btn-added-control" data-control="{{$boiler->addon->id}}">Added</a>
@@ -224,7 +237,8 @@
                 </div>
             </div>
         </div>
-@endsection
+
+        @endsection
 
 @section('custom-scripts')
 <script>
@@ -268,6 +282,7 @@ function fetch(url = '', append = false)
                     $('#div_view_more').hide();
 
                    choose_control_click(); 
+                   more_info_click();
                 }
 
         });
@@ -289,7 +304,7 @@ function create_list_item(data, append=false)
             
             item.find('.control-pic').attr("src",value.image);      
             item.find('.control-name').html(value.addon_name);
-            item.find('.control-summary').html(value.summary);
+            item.find('.control-summary').html(value.limited_summary);
             
             if (value.price)
                 item.find('.control-price').html("£"+value.price);
@@ -304,6 +319,8 @@ function create_list_item(data, append=false)
             else    
                 item.find('.btn-added-control').remove();
 
+            item.find(".more_info").attr("id", value.id);
+
             $('.control-items').append(item);  
 
         });
@@ -312,6 +329,50 @@ function create_list_item(data, append=false)
 fetch('',true);
 
 choose_control_click();
+
+more_info_click();
+
+function more_info_click(){
+  $(".more_info").click(function(){
+    var id = $(this).attr('id');
+
+    var url = "/api/control-devices/"+id;
+
+  if (xhr)
+    xhr.abort();
+
+  xhr = $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+        var value = data.device;
+        console.log(value.addon_name);
+        $('#controlLabel').html(value.addon_name);
+        $('#controlDescription').html(value.description);
+        $('#controlImage').attr("src",value.image);
+        if (value.price)
+            $('#controlPrice').html("£"+value.price);
+        else
+            $('#controlPrice').html("FREE");    
+        // $("#control-info").css("opacity", "1");
+        // $("#control-info").fadeIn(200);
+
+        // $("#controlInfoClose").click(function(){
+        //   $("#control-info").fadeOut(200);
+        // })
+      }
+
+      });
+  });
+}
 
 function choose_control_click()
 {

@@ -7,19 +7,23 @@
     <div class="row justify-content-center">
       <div class="col-lg-4 col-6">
         <div class="option-wrapper q9" id="q9o1">
-          <a href="javascript:void(0)" class="want-radiator-item want-radiator-yes p-4 p-md-5 figure">
+          <a href="javascript:void(0)" class="card-questionaire p-4 p-md-5 figure">
             <img class="img-fluid mb-4 option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q9/o1.svg"; ?>" />
             <span class="h4 font-medium option-title">YES</span>
-            <span class="btn btn-secondary text-white">Select</span>
+            <div class="questionaire-detail">
+              <span class="btn btn-secondary text-white">Select</span>
+            </div>
           </a>
         </div>
       </div>
       <div class="col-md-3 text-center">
         <div class="option-wrapper q9" id="q9o2">
-          <a href="javascript:void(0)" class="want-radiator-item want-radiator-no p-4 p-md-5 figure">
+          <a href="javascript:void(0)" class="card-questionaire p-4 p-md-5 figure">
             <img class="img-fluid mb-4 option-image" src="<?php echo WEBIFI_NEW_BOILER_IMAGE_PATH . "images/q9/o2.svg"; ?>" />
             <span class="h4 font-medium option-title">NO</span>
-            <span class="btn btn-secondary text-white">Select</span>
+            <div class="questionaire-detail">
+              <span class="btn btn-secondary text-white">Select</span>
+            </div>
           </a>
         </div>
       </div>

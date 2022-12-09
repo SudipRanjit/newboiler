@@ -13,12 +13,26 @@
 @php $Selection = Session()->get('selection') @endphp
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center question-wrapper">
             <div class="col-md-8">
                 <h2 class="text-center mb-4">Add Smart Devices</h2>
                 <p class="text-center text-black-light mb-5">We’ll install your smart home devices, connect them up & show you how they work</p>
             </div>
         </div>
+
+        
+        <div class="filter_params d-flex flex-wrap justify-content-between mb-4">
+          <div class="gasking-btn-container d-sm-flex">
+            <a href="#" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center" data-bs-toggle="modal" data-bs-target="#see-everything">
+                <i class="fa-solid fa-plus me-2"></i>
+                See everything included
+            </a>
+            <a href="{!! route('page.index') !!}" class="btn btn-secondary text-white px-2 px-sm-4 my-2 m-sm-2 d-flex justify-content-center  align-items-center">
+                <i class="fa-solid fa-arrow-rotate-right me-2"></i>
+                Restart
+            </a>
+        </div>
+     </div>
 
         <div class="control-listing">
             <div class="row">
