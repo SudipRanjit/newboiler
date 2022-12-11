@@ -56,6 +56,8 @@
               @endif
             </td>
             <td>
+              <a href="{!! route('page.boiler',['id' => $boiler->id]) !!}" target="_blank" class="btn btn-success" title="View"><span class="fa fa-eye"></span></a>
+
               <a href="{!! route('cms::boilers.edit',['boiler' => $boiler->id]) !!}" class="btn btn-default" title="Edit"><span class="fa fa-edit"></span></a>
 
               {!! Form::open(['route' => ['cms::boilers.delete',$boiler->id],'method' => 'delete','onsubmit' =>'return confirm("Are you sure?")', 'class' => 'action-form']) !!}

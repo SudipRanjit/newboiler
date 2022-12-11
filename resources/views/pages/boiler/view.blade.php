@@ -21,7 +21,7 @@
 </div>
 
 <div class="main-container mt-4r">
-    <div class="gasking-title-top">
+    {{-- <div class="gasking-title-top">
         <div class="container">
             <div class="gasking-title-container d-lg-flex align-items-center justify-content-md-between">
                 <div class="gasking-title">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="bg-white">  
         <div class="container pb-5">

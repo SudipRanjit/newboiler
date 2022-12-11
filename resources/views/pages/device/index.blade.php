@@ -404,13 +404,14 @@ function create_list_item(data, append=false)
   $.each(data.device.data, function(key, value)
         {
             var item = $('#control-item_0').clone();
+            var quantity = 0;
             item.show();
             item.attr('id','control-item_'+value.id);
             item.addClass('control-record');
             
             item.find('.control-pic').attr("src",value.image);      
             item.find('.control-name').html(value.device_name);
-            item.find('.control-summary').html(value.summary);
+            item.find('.control-summary').html(value.limited_summary);
             
             if (value.price)
                 item.find('.control-price').html(value.price);
@@ -419,8 +420,9 @@ function create_list_item(data, append=false)
 
             if (selection.devices &&  Object.keys(selection.devices).indexOf(value.id.toString())>-1)
                 {
-                    item.find('.btn-action').removeClass('btn-add').addClass('btn-remove').text('Remove');
-                    item.find('.control-quantity').val(selection.devices[value.id.toString()]['quantity']);    
+                  quantity = selection.devices[value.id.toString()]['quantity'];
+                  item.find('.btn-action').removeClass('btn-add').addClass('btn-remove').text(quantity + " added");
+                  item.find('.control-quantity').val(selection.devices[value.id.toString()]['quantity']);    
                 }
             else    
                 item.find('.btn-action').removeClass('btn-remove').addClass('btn-add').text('Add');
@@ -479,7 +481,7 @@ function btn_click(el)
                   
                   if (action)
                     {
-                        el.removeClass('btn-add').addClass('btn-remove').text('Remove');
+                        el.removeClass('btn-add').addClass('btn-remove').text(quantity + " added");
                         $('#added_devices_li_'+device).remove();
 
                         var li = $('#added_devices_li_0').clone();
@@ -500,8 +502,8 @@ function btn_click(el)
                     }
                   else
                     {
-                        el.removeClass('btn-remove').addClass('btn-add').text('Add');  
-                        $('#added_devices_li_'+device).remove();
+                        // el.removeClass('btn-remove').addClass('btn-add').text('Add');  
+                        // $('#added_devices_li_'+device).remove();
                     }
 
                     //$('#added_devices_count').text(Object.keys(data.selection.devices).length);

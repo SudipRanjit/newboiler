@@ -169,6 +169,30 @@
   </div>
 </div>
 
+<div class="modal fade" id="device-info" tabindex="-1" aria-labelledby="device-infoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body p-4 p-lg-5">
+              <button type="button" class="btn-close" id="deviceInfoClose" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10 text-center">
+                      <h2 class="modal-title mb-4" id="deviceLabel">Control Title</h2>
+                      <p class="mb-5 text-secondary" id="devicePrice">Control Summary</p>
+                  </div>
+              </div>
+              <div class="row justify-content-center controlDesc">
+                  <div class="col-lg-8 col-md-10">
+                      <div class="controlImageBox">
+                        <img src="" id="deviceImage" />
+                      </div>
+                      <div id="deviceDescription"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
 <div class="modal fade" id="radiator-info" tabindex="-1" aria-labelledby="radiator-infoLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">

@@ -115,7 +115,7 @@
                             <li class="boiler-feature mb-2">
                                 <span class="boiler-feature-title">
                                     <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
-                                    Centrala heating output
+                                    Central heating output
                                 </span>
                                 <span class="boiler-feature-desc">
                                     <span class="boiler-central-heating-output">25</span>

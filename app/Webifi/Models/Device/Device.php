@@ -30,4 +30,17 @@ class Device extends Model
     'image',
     'publish'
   ];
+
+  protected $appends = [
+    'limited_summary'
+  ];
+
+  /**
+   * Limited summary
+   * 
+   * @return String
+   */
+  public function getLimitedSummaryAttribute() {
+    return limitText($this->summary, 20);
+  }
 }
