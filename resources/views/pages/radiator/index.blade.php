@@ -237,6 +237,16 @@
                                         </p>
                                     </li>
                                     @endif
+
+                                    @if (!empty($Selection['scaffolding']['type']))
+                                    <li>
+                                        <p class="f-15 text-secondary mb-0">Scaffolding</p>
+                                        <p class="f-15 font-medium mb-2">
+                                            <span class="d-block">{{ $Selection['scaffolding']['type'] }}</span>
+                                            £{{ $Selection['scaffolding']['price'] }}
+                                        </p>
+                                    </li>
+                                    @endif
     
                                     @if (!empty($Selection['conversion_charge']))
                                     <li>

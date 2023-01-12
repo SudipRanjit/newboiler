@@ -913,6 +913,7 @@ $('.question-wrapper').hide();
 
     var conversion_charge = 0;
     var moving_boiler = {};
+    var scaffolding = {};
     var selectedBoiler = "";
     var screenWidth = 0;
     var postalCode = "";
@@ -937,6 +938,10 @@ $('.question-wrapper').hide();
     var bedroom = false;
     var loft_attic_price = 1000;
     var loft_attic = false;
+    var roof = false;
+    var roof_charge = 625;
+    var highest_two_third = false;
+    var highest_two_third_charge = 675;
     var answers = {
       current: "question__1",
       question1: {
@@ -1444,6 +1449,7 @@ $('.question-wrapper').hide();
         answers.question10.optionTxt = jQuery("#" + answers.question10.option + " > .figure > .option-title").html();
         /////////////////////////////////////////////////
         if (answers.question10.option === "q10o1") {
+          roof = true;
           answers.current = "question__10b";
           jQuery("#question__10").fadeOut(0);
           jQuery("#question__10b").fadeIn(400);
@@ -1482,6 +1488,9 @@ $('.question-wrapper').hide();
         jQuery(".loader").show();
         answers.question10c.option = jQuery(this).attr("id");
         answers.question10c.optionTxt = jQuery("#" + answers.question10c.option + " > .figure > .option-title").html();
+        if (answers.question10c.option === "q10co1") {
+          highest_two_third = true;
+        }
         answers.current = "postal__code";
         jQuery("#question__10c").fadeOut(0);
         jQuery("#postal__code").fadeIn(400);
@@ -1598,6 +1607,15 @@ jQuery("#show__products").click(function() {
           } else {
             //jQuery(".moving__boiler").hide();
           }
+
+          if(roof && highest_two_third == false)
+          {
+            scaffolding = {type: 'Scaffolding Charge for roof', price: roof_charge}
+            totalPrice += roof_charge;
+          }else{
+            scaffolding = {type: 'Scaffolding Charge for highest two-third position', price: highest_two_third_charge}
+            totalPrice += highest_two_third_charge;
+          }
       
           //console.log('totalPrice:'+totalPrice);
           //console.log(moving_boiler);
@@ -1635,6 +1653,7 @@ jQuery("#show__products").click(function() {
                       bConvert: bConvert,
                       conversion_charge: conversion_charge,
                       moving_boiler: moving_boiler,
+                      scaffolding: scaffolding,
                       post_code_first_part: postalCode 
                      },
                 headers: {

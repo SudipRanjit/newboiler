@@ -23,10 +23,15 @@ use App\Http\Requests\BillingAddressRequest;
 use Illuminate\Support\Str;
 use App\Webifi\Services\StripeService;
 use App\Mail\OrderNotificationToCustomer;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
+
+  /**
+   * StripeService $StripeService
+   */
+  private $StripeService;
 
   /**
    * Constructor
@@ -181,6 +186,8 @@ class BookingController extends Controller
             $order['conversion_charge'] = $selection['conversion_charge'];
             $order['moving_boiler_to'] = $selection['moving_boiler']['type'];
             $order['moving_boiler_charge'] = $selection['moving_boiler']['price'];
+            $order['scaffolding'] = $selection['scaffolding']['type'];
+            $order['scaffolding_charge'] = $selection['scaffolding']['price'];
             $order['status'] = 1;
             $order['card_payment'] = 0;
 
@@ -357,6 +364,8 @@ class BookingController extends Controller
                 $order['conversion_charge'] = $selection['conversion_charge'];
                 $order['moving_boiler_to'] = $selection['moving_boiler']['type'];
                 $order['moving_boiler_charge'] = $selection['moving_boiler']['price'];
+                $order['scaffolding'] = $selection['scaffolding']['type'];
+                $order['scaffolding_charge'] = $selection['scaffolding']['price'];
                 if (isset($input['transaction_status']))
                     $order['status'] = $input['transaction_status'];
                 
@@ -692,6 +701,19 @@ class BookingController extends Controller
                     
                         $items[] = $item;
                     }
+
+                if (!empty($selection['scaffolding']))
+                {
+                    $price =  $selection['scaffolding']['price'];
+                    $item = [];
+                    $item['name'] = "Scaffolding: ".$selection['scaffolding']['type'];
+                    $item['description'] = 'Amount: '.$price;
+                    $item['unit_amount']['currency_code'] = 'GBP';
+                    $item['unit_amount']['value'] = $price;
+                    $item['quantity'] = 1;
+                
+                    $items[] = $item;
+                }
                   
         }
 

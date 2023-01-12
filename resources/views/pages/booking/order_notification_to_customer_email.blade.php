@@ -44,6 +44,10 @@ Paid Amount (&pound;): {{  $order->payout_amount }} <br/>
 <b>{{ ++$sno }}. Moving Boiler Charge (moving to {{ $order->moving_boiler_to }}, &pound;): {{ $order->moving_boiler_charge }} </b><br/>
 @php $product_total_amount+=$order->moving_boiler_charge @endphp
 @endif 
+@if(!empty($order->scaffolding_charge))
+<b>{{ ++$sno }}. Scaffolding Charge {{ $order->scaffolding_charge }} </b><br/>
+@php $product_total_amount+=$order->scaffolding_charge @endphp
+@endif 
 <br/>
 <b>Grand Total(&pound;): {{ $product_total_amount }} </b> <br/><br/>
  

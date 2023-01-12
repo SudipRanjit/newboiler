@@ -62,9 +62,15 @@ class IndexController extends Controller
             
             if (isset($input['moving_boiler']))
                 $selection['moving_boiler'] = $input['moving_boiler'];
+
+            if(isset($input['scaffolding']))
+              $selection['scaffolding'] = $input['scaffolding'];
             
             if (isset($input['post_code_first_part']))
                 $selection['post_code_first_part'] = $input['post_code_first_part'];
+
+            if (isset($input['scaffolding']))
+              $selection['scaffolding'] = $input['scaffolding'];
             
             $request->session()->put('selection', $selection);
             if ($request->session()->has('selection'))
@@ -113,6 +119,9 @@ class IndexController extends Controller
                 
             if (isset($input['moving_boiler']))
                 $selection['moving_boiler'] = $input['moving_boiler'];
+
+            if(isset($input['scaffolding']))
+                $selection['scaffolding'] = $input['scaffolding'];
                 
             if (isset($input['boiler']))    
                 $selection['boiler'] = $input['boiler'];
@@ -189,6 +198,9 @@ class IndexController extends Controller
             
             if (!empty($selection['moving_boiler']))
                 $total_price+=  $selection['moving_boiler']['price'];
+
+            if(!empty($selection['scaffolding']))
+                $total_price += $selection['scaffolding']['price'];
             
             if (!empty($selection['boiler']))    
                 {
