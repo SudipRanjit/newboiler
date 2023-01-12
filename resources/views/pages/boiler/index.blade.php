@@ -147,11 +147,13 @@
                     </div>
                     <div class="boiler-pricing text-center order-md-2 order-xl-3">
                         <p class="m-0">
-                            Your fix price including installation
+                            Your fix price including installation 
                         </p>
                         <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
                         <h3 class="boiler-price boiler-net-price">£2542.79</h3>
                         <h5 class="text-danger mb-3 boiler-actual-price"><s>£2562.79</s></h5>
+                        <h3 class="boiler-discount-price">Save up to £0.00</h3>
+
                         <a href="javascript:void(0)" class="btn btn-secondary text-white w-100 mt-3 mb-4 choose-boiler" >Choose Boiler</a>
                         <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                     </div>
@@ -390,6 +392,7 @@ function listProductsFromAPI_old(selection) {
           content += "<div class='product__price'>";
           content += "<p>Your fix price including installation</p>";
           content += "<div class='price__block'><span class='price__discount'>£" + value.price + "</span> £" + dPrice + "</div>";
+          content += "<div class='price__block'><span class='price__discount'>Save up to £" + dPrice + "</span></div>";
           content += "</div>";
           content += "<div class='proceed__btns'>";
           content += "<div class='row'>";
@@ -606,6 +609,11 @@ function create_list_item(data, append=false)
                 item.find('.boiler-actual-price').html("<s>£"+price+"</s>");
             else        
                 item.find('.boiler-actual-price').remove();
+
+            if(discount > 0)
+              item.find('.boiler-discount-price').html('Save up to £'+value.discount);
+            else
+              item.find('.boiler-discount-price').remove();
             
             item.find('.more-info').attr('href',"{!! url('boiler') !!}"+"/"+value.id); 
             item.find('.choose-boiler').attr('data-boiler',value.id);       

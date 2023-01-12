@@ -854,7 +854,7 @@
             content += "<div class='table__block'><span class='block__title'>Dimension</span> <span class='block__value'>" + value.measurements + "</span></div>";
             content += "</div>";
             content += "<div class='product__price'>";
-            content += "<p>Your fix price including installation</p>";
+            content += "<p>Your fix price including installation !@#</p>";
             content += "<div class='price__block'><span class='price__discount'>£" + value.price + "</span> £" + dPrice + "</div>";
             content += "</div>";
             content += "<div class='proceed__btns'>";
@@ -922,7 +922,7 @@ $('.question-wrapper').hide();
     var apiBase = "https://new-boiler.gasking.co.uk/api/";
     var totalPrice = 0;
     var controlPrice = 0;
-    var combi_convert_price = 900;
+    var combi_convert_price = 1300;
     var combi_convert = false;
     var same_room_price = 500;
     var same_room = false;
@@ -942,6 +942,7 @@ $('.question-wrapper').hide();
     var roof_charge = 625;
     var highest_two_third = false;
     var highest_two_third_charge = 675;
+    var power_shower_skip = false;
     var answers = {
       current: "question__1",
       question1: {
@@ -1095,6 +1096,7 @@ $('.question-wrapper').hide();
         answers.question2.option = jQuery(this).attr("id");
         answers.question2.optionTxt = jQuery("#" + answers.question2.option + " > .figure > .option-title").html();
         if (answers.question2.option === "q2o1") {
+          power_shower_skip = true;
           jQuery("#question__2").fadeOut(0);
           jQuery("#question__3").fadeIn(400);
           jQuery("#back__3").attr("alt", "question__2");
@@ -1370,9 +1372,16 @@ $('.question-wrapper').hide();
           jQuery("#question__8").fadeOut(0);
           jQuery("#question__8a").fadeIn(400);
         }else{
-          answers.current = "question__8b";
-          jQuery("#question__8").fadeOut(0);
-          jQuery("#question__8b").fadeIn(400);
+          if(power_shower_skip)
+          {
+            answers.current = "question__9";
+            jQuery("#question__8").fadeOut(0);
+            jQuery("#question__9").fadeIn(400);
+          }else{
+            answers.current = "question__8b";
+            jQuery("#question__8").fadeOut(0);
+            jQuery("#question__8b").fadeIn(400);
+          }
         }
         jQuery(".loader").hide();
       });
@@ -1570,8 +1579,8 @@ jQuery("#show__products").click(function() {
   
           if (answers.question2a.option === "q2ao1"){
             //jQuery(".conversion__charge").html("£900");
-            conversion_charge = 900;
-            totalPrice += 900;
+            conversion_charge = combi_convert_price;
+            totalPrice += combi_convert_price;
           }else{
             jQuery(".conversion__charge_box").hide();
           }

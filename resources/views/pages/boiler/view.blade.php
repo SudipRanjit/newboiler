@@ -79,9 +79,11 @@
                             <h3>£{{ $boiler->price }}</h3>
                             @endif
 
-                            <h5 class="text-danger mb-3"> @if ($boiler->discount)<s>£{{ $boiler->price }}</s> @endif</h5>
-                            
+                            @if ($boiler->discount)
+                            <h5 class="text-danger mb-3"><s>£{{ $boiler->price }}</s> </h5>
 
+                            <h3>Save up to £{{ $boiler->discount }}</h3>
+                            @endif
                             <div class="d-flex flex-wrap m-n-2">
                                 <a href="javascript:void(0)" class="btn btn-secondary text-white m-2 choose-boiler">Choose Boiler</a>
                                 <a href="#" class="btn btn-light text-secondary d-flex align-items-center m-2" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
@@ -352,6 +354,9 @@
                                         We'll install your new boiler and won't leave until it's working and tested. We know every job is different so we include all pipework alterations to accommodate your new boiler within your fixed price. We will also install your condensate pipe, and upgrade the pipe from your gas meter to boiler, if required.
                                     </div>
                                 </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="heading__2">New Flue Installation and any required brickwork</h2>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">

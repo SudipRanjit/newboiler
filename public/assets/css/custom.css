@@ -47,3 +47,11 @@
 .controlImageBox img{
   width:100%;
 }
+
+.boiler-actual-price{
+  font-size: 48px;
+}
+
+.boiler-discount-price{
+  font-size: 1.5rem;
+}
