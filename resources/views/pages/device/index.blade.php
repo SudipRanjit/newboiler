@@ -314,7 +314,7 @@
                                 <li>
                                     <p class="f-15 font-medium">
                                         <span class="side-card-extra-title">Extended Warranty</span>
-                                        <span>12 years</span>
+                                        <span>{{$boiler->warranty}} years</span>
                                     </p>
                                 </li>
                                 <li>
