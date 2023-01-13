@@ -59,14 +59,18 @@
                     <div class="col-md-7 col-lg-6">
                         <div class="boiler-detail pt-md-4">
                             <div class="boiler-pro mb-3">
+                              @if($boiler->latest)
                                 <span class="boiler-latest">
                                     <img src="{!! asset('assets/img/boiler-icons/sun.jpg') !!}" alt="Latest">
                                     Latest
                                 </span>
+                              @endif 
+                              @if($boiler->popular)
                                 <span class="boiler-popular">
                                     <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
                                     Popular
                                 </span>
+                              @endif
                             </div>
                             <h1 class="border-bottom pb-4 mb-4">{{ $boiler->boiler_name }}</h1>
                             

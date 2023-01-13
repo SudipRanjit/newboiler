@@ -39,6 +39,8 @@ class Boiler extends Model
     'image',
     'gallery',
     'publish',
+    'latest',
+    'popular',
     'measurements',
     'height',
     'width',

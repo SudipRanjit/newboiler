@@ -236,6 +236,40 @@
             </label>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="switch-box">
+          <span class="switch-label">Latest</span>
+  
+              <label class="switch">
+                  {{ Form::hidden('latest', false) }}
+  
+                  @if(isset($boiler) && $boiler->latest == '1' || old('latest'))
+                      <input type="checkbox" name="latest" checked>
+                  @else
+                      <input type="checkbox" name="latest">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="switch-box">
+            <span class="switch-label">Popular</span>
+    
+                <label class="switch">
+                    {{ Form::hidden('popular', false) }}
+    
+                    @if(isset($boiler) && $boiler->popular == '1' || old('popular'))
+                        <input type="checkbox" name="popular" checked>
+                    @else
+                        <input type="checkbox" name="popular">
+                    @endif
+                    <span class="slider round"></span>
+                </label>
+            </div>
+          </div>
       
     </div>
     <!-- /.box-body -->

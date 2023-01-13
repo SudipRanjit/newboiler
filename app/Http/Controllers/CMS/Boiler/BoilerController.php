@@ -155,9 +155,16 @@ class BoilerController extends Controller
         $input['image'] = asset('uploads/default.png');
 
       $input['publish'] = 0;
+      $input['latest'] = 0;
+      $input['popular'] = 0;
 
       if (isset($request->publish))
         $input['publish'] = 1;
+
+      if (isset($request->latest))
+        $input['latest'] = 1;
+      if (isset($request->popular))
+        $input['popular'] = 1;
 
       $boiler = $this->boiler->store($input);
 
@@ -245,7 +252,14 @@ class BoilerController extends Controller
       if (isset($request->publish))
         $input['publish'] = 1;
 
+      $input['latest'] = 0;
+      $input['popular'] = 0;
       
+      if (isset($request->latest))
+        $input['latest'] = 1;
+      if (isset($request->popular))
+        $input['popular'] = 1;
+        
       if (!empty($input['multiple_addons']))
         $boiler->addons()->sync($input['multiple_addons']);
       else

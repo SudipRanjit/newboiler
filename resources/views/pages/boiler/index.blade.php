@@ -590,6 +590,7 @@ function create_list_item(data, append=false)
             item.show();
             item.removeAttr('id');
             item.addClass('boiler-record');
+            item.attr('id', value.id);
             
             item.find('.boiler-pic').attr("src",value.image).attr("alt", "{!! url('boiler') !!}"+"/"+value.id+"");      
             item.find('.boiler-name').html("<a href='{!! url('boiler') !!}"+"/"+value.id+"' target='_blank'>"+value.boiler_name+"</a>");
@@ -599,6 +600,11 @@ function create_list_item(data, append=false)
             item.find('.boiler-warranty').html(value.warranty);
             item.find('.boiler-measurements').html(value.measurements);
             
+            if(value.latest == 0)
+              item.find('.boiler-latest').hide();
+            if(value.popular == 0)
+              item.find('.boiler-popular').hide();
+
             var price = parseFloat(value.price);
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
             var dPrice = price - discount;
