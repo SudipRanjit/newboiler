@@ -17,6 +17,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'cms.layouts.partials._nav','App\Http\ViewComposers\CMSSideBarComposer'
         );
+        View::composer(
+          'pages.layouts.partials._tooltip', 'App\Http\ViewComposers\ToolTipComposer'
+        );
     }
 
     /**

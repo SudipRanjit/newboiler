@@ -289,6 +289,7 @@
       </div>
   </div>
 </div>
+@include('pages.layouts.partials._tooltip')
 
 @include('pages.layouts.partials._scripts')
 

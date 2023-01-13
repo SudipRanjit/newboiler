@@ -103,7 +103,7 @@
                         <a href="#" class="text-secondary d-block mb-4 more-info" target="_blank"><small>More Info</small></a>
                         <ul class="list-unstyled boiler-features">
                             <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
+                                <span class="boiler-feature-title _link" data-bs-toggle="modal" data-bs-target="#hot-water">
                                     <img src="{!! asset('assets/img/boiler-icons/water-drop.png') !!}" alt="Water Flow">
                                     Hot water flow rate
                                 </span>
@@ -113,7 +113,7 @@
                                 </span>
                             </li>
                             <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
+                                <span class="boiler-feature-title _link" data-bs-toggle="modal" data-bs-target="#central-heating">
                                     <img src="{!! asset('assets/img/boiler-icons/fire.png') !!}" alt="KiloWats">
                                     Central heating output
                                 </span>
@@ -123,7 +123,7 @@
                                 </span>
                             </li>
                             <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
+                                <span class="boiler-feature-title _link" data-bs-toggle="modal" data-bs-target="#warranty">
                                     <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Warranty">
                                     Warranty
                                 </span>
@@ -133,7 +133,7 @@
                                 </span>
                             </li>
                             <li class="boiler-feature mb-2">
-                                <span class="boiler-feature-title">
+                                <span class="boiler-feature-title _link" data-bs-toggle="modal" data-bs-target="#dimension">
                                     <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
                                     Dimension
                                     <span class="text-black-50">(HxWxD)</span>
