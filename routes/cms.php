@@ -151,6 +151,20 @@ $router->get('logout', function () {
 
  $router->get('boilers/search','Boiler\BoilerController@search')->name('boilers.search');
 
+ $router->get('tooltips', 'ToolTip\ToolTipController@index')->name('tooltips.index');
+ 
+$router->get('tooltips/add', 'ToolTip\ToolTipController@create')->name('tooltips.create');
+
+$router->get('tooltips/edit/{tip}', 'ToolTip\ToolTipController@edit')->name('tooltips.edit');
+
+$router->delete('tooltips/delete/{tip}', 'ToolTip\ToolTipController@delete')->name('tooltips.delete');
+
+$router->patch('tooltips/update/{tip}', 'ToolTip\ToolTipController@update')->name('tooltips.update');
+
+$router->post('tooltips/store','ToolTip\ToolTipController@store')->name('tooltips.store');
+
+$router->get('tooltips/search','ToolTip\ToolTipController@search')->name('tooltips.search');
+
   /*=====================================================================================
                          Addon Module
   ====================================================================================*/

@@ -18,6 +18,7 @@ class PermissionTableSeeder extends Seeder
       //\App\Webifi\Permissions\PowerPermission::class,
       \App\Webifi\Permissions\AddonPermission::class,
       \App\Webifi\Permissions\BoilerPermission::class,
+      \App\Webifi\Permissions\ToolTipPermission::class,
       \App\Webifi\Permissions\DevicePermission::class,
       \App\Webifi\Permissions\UserPermission::class,
       \App\Webifi\Permissions\RadiatorPermission::class,

@@ -16,6 +16,7 @@ use App\Webifi\Models\Booking\OrderDetail;
 use App\Webifi\Models\Booking\Booking;
 use App\Webifi\Models\Booking\BlockDate;
 use App\Webifi\Models\Booking\PaymentGateway;
+use App\Webifi\Models\Boiler\ToolTip;
 use App\Policies\UserPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\BrandPolicy;
@@ -31,6 +32,7 @@ use App\Policies\OrderDetailPolicy;
 use App\Policies\BookingPolicy;
 use App\Policies\BlockDatePolicy;
 use App\Policies\PaymentGatewayPolicy;
+use App\Policies\ToolTipPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -58,6 +60,7 @@ class AuthServiceProvider extends ServiceProvider
         Booking::class => BookingPolicy::class,
         BlockDate::class => BlockDatePolicy::class,
         PaymentGateway::class => PaymentGatewayPolicy::class,
+        ToolTip::class => ToolTipPolicy::class,
     ];
 
     /**
