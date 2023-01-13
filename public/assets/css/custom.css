@@ -59,3 +59,79 @@
 ._link{
   cursor: pointer;
 }
+
+.collapsed{
+  box-shadow: none;
+}
+.accordion__header{
+  margin-top: 10px;
+  margin-bottom:0;
+}
+.accordion__button {
+  width: 100%;
+  text-align: center;
+  border: none;
+  background: #4db8ba;
+  color: #FFFFFF;
+  padding: 10px;
+  font-size: 24px;
+}
+.info__box{
+  background:#FFFFFF;
+}
+.__info_image{
+  margin-bottom: 10px;
+  text-align: center;
+}
+.info__table{
+  width:100%;
+}
+.info__table tr{
+  height: 100px;
+}
+._row_title{
+  text-align: left;
+  padding: 5px;
+}
+._row_value{
+  text-align: right;
+  padding: 5px;
+}
+._wd10{
+  width:10%;
+  text-align: center;
+}
+.__title_img{
+  width:100%;
+}
+
+._hr{
+  width:100%;
+  height: 2px;
+  background-color: #4db8ba;
+  margin:10px 0px;
+}
+
+.__next_date{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.__next_date button{
+  width:100%;
+}
+#priceAccordion {transition: none;}
+.display_none{
+  display: none;
+}
+.date_title{
+  text-align: center;
+}
+.__total_price {
+  font-size: 1.5rem;
+  color: #62b9ba;
+}
+@media only screen and (max-width: 768px) {
+.extras{
+  width:100%;
+}
+}

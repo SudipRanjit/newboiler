@@ -13,8 +13,8 @@
 @section('content')
 <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="mb-4" id="h2-title">Submitted successfully</h2>
-                <p class="text-black-light mb-5" id="message"></p>
+                <h2 class="mb-4 text-center" id="h2-title">Submitted successfully</h2>
+                <p class="text-black-light mb-5 text-center" id="message"></p>
                 
             </div>
 </div>

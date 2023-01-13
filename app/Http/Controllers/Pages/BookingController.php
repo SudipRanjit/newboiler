@@ -122,13 +122,14 @@ class BookingController extends Controller
         
         $BlockDate = new BlockDateRepository(app()) ;
         $block_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('*'),1000)->pluck('date')->toArray();
-        
+        array_push($block_dates, date("Y-m-d"));
         $block_dates = json_encode($block_dates);
+
         //dd($block_dates);    
 
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);
-        return view('pages.booking.index',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
+        return view('pages.booking.booking',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
     }
 
     /**
