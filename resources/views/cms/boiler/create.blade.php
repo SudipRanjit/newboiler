@@ -536,6 +536,78 @@ console.warn('Build id: 1wenxz12z32c-nlfnsv4zz7h3');
 console.error(error);
 });
 
+ClassicEditor.create(document.querySelector('#summary'), {
+
+toolbar: {
+  items: [
+    'heading',
+    '|',
+    'bold',
+    'italic',
+    'link',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'outdent',
+    'indent',
+    '|',
+    'ImageResize',
+    'blockQuote',
+    'insertTable',
+    'mediaEmbed',
+    'undo',
+    'redo',
+    '-',
+    'alignment',
+    'findAndReplace',
+    'fontColor',
+    'fontSize',
+    'htmlEmbed',
+    'sourceEditing'
+  ],
+  shouldNotGroupWhenFull: true
+},
+language: 'en',
+image: {
+  toolbar: [
+    'toggleImageCaption',
+    'imageTextAlternative',
+    '|',
+    'imageStyle:inline',
+    'imageStyle:block',
+    '|',
+    'imageStyle:alignLeft',
+    'imageStyle:alignCenter',
+    'imageStyle:alignRight',
+    '|',
+    'resizeImage'
+  ],
+  styles: [
+    'full',
+    'alignLeft',
+    'alignRight'
+  ]
+},
+table: {
+  contentToolbar: [
+    'tableColumn',
+    'tableRow',
+    'mergeTableCells',
+    'tableCellProperties',
+    'tableProperties'
+  ]
+},
+extraPlugins: [ AllowLinkTarget, ConvertDivAttributes, CustomFigureAttributes  ]
+})
+.then(editor => {
+window.editor = editor;
+})
+.catch(error => {
+console.error('Oops, something went wrong!');
+console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+console.warn('Build id: 1wenxz12z32c-nlfnsv4zz7h3');
+console.error(error);
+});
 
 </script>
 @endsection

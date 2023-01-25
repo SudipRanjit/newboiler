@@ -79,10 +79,17 @@
                                     <input type="hidden" id="radiator-rate" />    
                                     <p>{{ $radiator->limited_summary }}</p>
                                     <a href="javascript:void(0);" class="text-secondary d-block mb-4 more-radiator-info" data-bs-toggle="modal" data-bs-target="#radiator-info"><small>More Info</small></a>
+                                
                                 </div>
                             </div>
                             <div class="row border-top-1 pt-4 mt-5">
+                                <div class="col-xl-12 col-md-12 mb-12">
+                                    <div class="how__radiator">
+                                    </div>
+                                </div>
                                 <div class="col-xl-4 col-md-12 mb-4">
+                                    
+
                                     <label for="type" class="ps-4 mb-2">Type</label>
                                     <select class="form-select mb-4" aria-label="Type" id="type">
                                         {{--
