@@ -149,7 +149,7 @@
                         <p class="m-0">
                             Your fix price including installation 
                         </p>
-                        <a href="#" class="text-secondary d-block mb-4">+ See everything included</a>
+                        <a href="javascript:void(0);" class="text-secondary d-block mb-4" data-bs-toggle="modal" data-bs-target="#see-everything">+ See everything included</a>
                         <h3 class="boiler-price boiler-net-price">£2542.79</h3>
                         <h5 class="text-danger mb-3 boiler-actual-price"><s>£2562.79</s></h5>
                         <h3 class="boiler-discount-price">Save up to £0.00</h3>

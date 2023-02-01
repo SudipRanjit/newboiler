@@ -193,7 +193,7 @@
                             <p class="text-primary">Your fixed price including installation & radiators</p>
                             <h3 class="m-0">£<span class="net-total-price">{{ $Selection['total_price'] }}</span></h3>
                             <small class="d-block mb-4">including VAT</small>
-                            <a href="{!! route('page.booking') !!}" class="btn btn-secondary d-block mb-4">Next</a>
+                            <a href="{!! route('page.booking') !!}" id="next-booking" class="btn btn-secondary d-block mb-4">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
@@ -508,6 +508,21 @@ function btn_click(el)
                         li.find('.btn-device-remove').attr('onclick',"added_devices_remove("+device+")");
 
                         $('#added_devices').append(li);
+
+                        Swal.fire({
+                                title: 'Done',
+                                text: device_name + " added",
+                                icon: 'success',
+                                showCancelButton: false,
+                                showCloseButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Next'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    //window.location.href = $("#next-booking").attr("href");
+                                }
+                                });
                         
                     }
                   else
@@ -566,6 +581,21 @@ function added_devices_remove(device)
                     selection = data.selection;
 
                     $(".net-total-price").html(data.selection.total_price);
+
+                    Swal.fire({
+                                title: 'Done',
+                                text: "Device removed",
+                                icon: 'success',
+                                showCancelButton: false,
+                                showCloseButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Next'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    //window.location.href = $("#next-booking").attr("href");
+                                }
+                                });
 
                 }
 

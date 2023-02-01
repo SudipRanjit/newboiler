@@ -140,6 +140,10 @@
     margin-bottom: 30px;
 }
 
+.included-hidden{
+    display: none;
+}
+
 @media only screen and (max-width: 768px) {
 .extras{
   width:100%;

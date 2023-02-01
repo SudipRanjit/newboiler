@@ -186,7 +186,7 @@
                                 <p class="text-primary">Your fixed price including installation & radiators</p>
                                 <h3 class="m-0">£<span class="net-total-price">{{ $Selection['total_price'] }}</span></h3>
                                 <small class="d-block mb-4">including VAT</small>
-                                <a href="{!! route('page.smart-devices') !!}" class="btn btn-secondary d-block mb-4">Next</a>
+                                <a href="{!! route('page.smart-devices') !!}" id="next-smart-devices" class="btn btn-secondary d-block mb-4">Next</a>
                                 <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                             </div>
                             <div class="card-light p-4 mb-4">
@@ -335,7 +335,7 @@
     $('.btn-add-radiator').click(function(){
 
      var quantity = $('#quantity').val();   
-     if (!quantity)
+     if (parseInt(quantity) == 0)
      {
         $('#cart_error .cart_error_message').html('Please choose quantity.');
         $('#cart_error').show().attr('tabindex','-1').focus().removeAttr('tabindex');
@@ -345,7 +345,7 @@
         return false;
      }
 
-     if (quantity>10)
+     if (parseInt(quantity)>10)
      {
         $('#cart_error .cart_error_message').html('Please choose quantity not more than 10.');
         $('#cart_error').show().attr('tabindex','-1').focus().removeAttr('tabindex');
@@ -385,22 +385,53 @@
                 },     
                 success:function(data)
                 {
-                  
-                  if (data.success)
+                    var radiator_name = "";
+                    if(data.selection.hasOwnProperty('radiator_info'))
                     {
-                       if (action=='0')
-                          {
+                        radiator_name = data.selection.radiator_info.radiator_name;
+                    }
+                    if (data.success)
+                    {
+                        if (action=='0')
+                        {
                             $('.basket_count').html('0');
                             $('.total_price').html('0');
                             $('.btn-remove-radiator').parents('li').remove();
-                          }
-                       else if (action=='1')
-                         {
+                            Swal.fire({
+                                title: 'Done',
+                                text: "Radiator removed",
+                                icon: 'success',
+                                showCancelButton: false,
+                                showCloseButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ok'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    //window.location.href = $("#next-radiators").attr("href");
+                                }
+                                });
+                        }
+                        else if (action=='1')
+                        {
                             $('.btn-add-radiator').html('Added');
-                            location.reload();
-                         }
-                         
-                         $(".net-total-price").html(data.selection.total_price);
+                            Swal.fire({
+                                title: 'Done',
+                                text: quantity + "X" + radiator_name + " added",
+                                icon: 'success',
+                                showCancelButton: false,
+                                showCloseButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Next'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = $("#next-smart-devices").attr("href");
+                                }
+                                });
+                        }
+                        
+                        $(".net-total-price").html(data.selection.total_price);
 
                     }
                   

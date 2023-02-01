@@ -68,7 +68,7 @@
                       <tr>
                         <td class="_row_title _wd10"><img src="{{ $addon->image}}" class="__title_img" /></td>
                         <td class="_row_title"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} </a></td>
-                        <td class="_row_value">£{{ $addon->price }}</td>
+                        <td class="_row_value">@if($addon->price > 0)£{{ $addon->price }}@else Free @endif</td>
                       </tr>
                         
                     
@@ -103,12 +103,88 @@
                         <td class="_row_value">£{{round($Selection['radiator']['quantity']*$radiator_price->price,2);}}</td>
                       </tr>
                       @endif
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Boiler & pipework installation, including any alterations and upgrades</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">New Flue Installation and any required brickwork</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Electrical work</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Removal and disposal of existing boiler</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Removal of existing tanks and cylinder</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Gasking register the warranty & Building Control Certificate</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Magnetic central heating Filter</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Fernox Magnetic Scale Remover</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Carbon Monoxide Detector</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free MagnaCleanse system flush</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Fernox F3 Central Heating Cleaner</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Fernox F1 central heating protector</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free Pipework installation, alterations, and upgrades</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
+                      <tr class="included-hidden">
+                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title">Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)</td>
+                        <td class="_row_value">Included</td>
+                      </tr>
                     </table>
 
                     <div class="_hr"></div>
 
                     <div class="_show_everything" >
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#see-everything"> 
+                      <a href="javascript:void(0);" id="expand-included"> 
                          <i class="fa-solid fa-plus me-2"></i>
                          Show everything included in your installation</a>
                     </div>
@@ -453,6 +529,11 @@ function formvalidate(form)
    return valid;       
   }
 
+  $("#expand-included").click(function(){
+    $(".included-hidden").slideDown(200);
+    $(this).hide(200);
+  });
+
   $('.payment-option').change(function(e){
     
     if (!$('#appointment_date').val())
@@ -590,11 +671,11 @@ function formvalidate(form)
   });
 
   $("#toggleDateBox").click(function(){
-    $("#dateBox").slideToggle(100);
     $("#contactBox").hide(0);
     $("#paymentBox").hide(0);
     $("#addressBox").hide(0);
     $("#priceBox").hide(0);
+    $("#dateBox").slideToggle(100);
     $("html, body").animate({ scrollTop: $('#toggleDateBox').offset().top - 100 }, 1);
   });
 
@@ -607,29 +688,29 @@ function formvalidate(form)
     });
     return false;
     }
-    if($("#address-line1").val() == "" || $("#city-town").val() == "" || $("#postcode").val() == "")
-    {
-      Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Please fill all the required address information!'
-    });
-    return false;
-    }
-    if($("#first-name").val() == "" || $("#last-name").val() == "" || $("#email").val() == "" || $("#contact").val() == "")
-    {
-      Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Please fill all the required contact details!'
-    });
-    return false;
-    }
+    // if($("#address-line1").val() == "" || $("#city-town").val() == "" || $("#postcode").val() == "")
+    // {
+    //   Swal.fire({
+    //   icon: 'error',
+    //   title: 'Oops...',
+    //   text: 'Please fill all the required address information!'
+    // });
+    // return false;
+    // }
+    // if($("#first-name").val() == "" || $("#last-name").val() == "" || $("#email").val() == "" || $("#contact").val() == "")
+    // {
+    //   Swal.fire({
+    //   icon: 'error',
+    //   title: 'Oops...',
+    //   text: 'Please fill all the required contact details!'
+    // });
+    // return false;
+    // }
     $("#dateBox").hide(0);
     $("#contactBox").hide(0);
     $("#paymentBox").hide(0);
-    $("#addressBox").slideToggle(100);
     $("#priceBox").hide(0);
+    $("#addressBox").slideToggle(100);
     $("html, body").animate({ scrollTop: $('#toggleAddressBox').offset().top - 100 }, 1);
   });
 
@@ -651,20 +732,20 @@ function formvalidate(form)
     });
     return false;
     }
-    if($("#first-name").val() == "" || $("#last-name").val() == "" || $("#email").val() == "" || $("#contact").val() == "")
-    {
-      Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Please fill all the required contact details!'
-    });
-    return false;
-    }
+    // if($("#first-name").val() == "" || $("#last-name").val() == "" || $("#email").val() == "" || $("#contact").val() == "")
+    // {
+    //   Swal.fire({
+    //   icon: 'error',
+    //   title: 'Oops...',
+    //   text: 'Please fill all the required contact details!'
+    // });
+    // return false;
+    // }
     $("#dateBox").hide(0);
-    $("#contactBox").slideToggle(100);
     $("#addressBox").hide(0);
     $("#paymentBox").hide(0);
     $("#priceBox").hide(0);
+    $("#contactBox").slideToggle(100);
     $("html, body").animate({ scrollTop: $('#toggleContactBox').offset().top - 100 }, 1);
   });
 
@@ -697,9 +778,9 @@ function formvalidate(form)
     }
     $("#dateBox").hide(0);
     $("#contactBox").hide(0);
-    $("#paymentBox").slideToggle(100);
     $("#addressBox").hide(0);
     $("#priceBox").hide(0);
+    $("#paymentBox").slideToggle(100);
     $("html, body").animate({ scrollTop: $('#togglePaymentBox').offset().top - 100 }, 1);
   });
 

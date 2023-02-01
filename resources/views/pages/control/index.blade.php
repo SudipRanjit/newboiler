@@ -141,7 +141,7 @@
                             <p class="text-primary">Your fixed price including installation & radiators</p>
                             <h3 class="m-0">£<span class="net-total-price">{{ $Selection['total_price'] }}</span></h3>
                             <small class="d-block mb-4">including VAT</small>
-                            <a href="{!! route('page.radiators') !!}" class="btn btn-secondary d-block mb-4">Next</a>
+                            <a href="{!! route('page.radiators') !!}" class="btn btn-secondary d-block mb-4" id="next-radiators">Next</a>
                             <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
@@ -420,6 +420,21 @@ function choose_control_click()
                   
                   $(".btn-action-control").unbind();  
                   choose_control_click();
+
+                  Swal.fire({
+                    title: 'Done',
+                    text: control_name + " added",
+                    icon: 'success',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Next'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = $("#next-radiators").attr("href");
+                    }
+                    });
 
                   $(".net-total-price").html(data.selection.total_price);
                 }
