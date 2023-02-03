@@ -108,7 +108,7 @@ class BoilerController extends Controller
     $query = request()->query();
     
     $cat = $query['cat']??''; 
-    $limit = $query['limit']??5;
+    $limit = $query['limit']??10;
     $page = $query['page']??1;
     $sort_by = $query['sort_by']??'boiler_name';
     $sort = $query['sort']??'asc';
