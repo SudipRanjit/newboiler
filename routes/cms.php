@@ -283,3 +283,7 @@ $router->get('tooltips/search','ToolTip\ToolTipController@search')->name('toolti
   $router->patch('bookings/update/{booking}', 'Booking\BookingController@update')->name('bookings.update');
   
   $router->post('bookings/stripe-payout', 'Booking\BookingController@stripe_payout')->name('bookings.stripe-payout');
+
+  $router->get('quotes', 'Quote\QuoteController@index')->name('quotes.index');
+
+  $router->get('quotes/search','Quote\QuoteController@search')->name('quotes.search');

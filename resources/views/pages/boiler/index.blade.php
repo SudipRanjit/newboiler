@@ -155,7 +155,7 @@
                         <h3 class="boiler-discount-price">Save up to £0.00</h3>
 
                         <a href="javascript:void(0)" class="btn btn-secondary text-white w-100 mt-3 mb-4 choose-boiler" >Choose Boiler</a>
-                        <a href="#" class="text-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#save-quote" class="text-secondary d-flex align-items-center save_this_quote"><i class="fa-solid fa-envelope me-2"></i> Save This Quote</a>
                     </div>
                 </div>
             
@@ -224,6 +224,8 @@
 
 @section('custom-scripts')
 <script>
+var cBoiler = "";
+
 
 function listProductsFromAPI_old(selection) {
     jQuery(".loader").show();
@@ -623,9 +625,17 @@ function create_list_item(data, append=false)
             
             item.find('.more-info').attr('href',"{!! url('boiler') !!}"+"/"+value.id); 
             item.find('.choose-boiler').attr('data-boiler',value.id);       
+            item.find('.save_this_quote').attr('data-boiler',value.id);       
 
             $('.boiler-listing').append(item);  
 
+            
+
+        });
+
+    $(".save_this_quote").click(function(event){
+          cBoiler = $(this).attr("data-boiler");
+          $("#save-quote").show();
         });
 
     $(".boiler-pic").click(function(){
@@ -659,34 +669,34 @@ $('.save-answer').click(function(){
   oldScroll = 0;
 
   $.ajax({
-                url: "{!! route('update-answer') !!}", 
-                type: "POST",
-                data: {beds: bed_count,
-                       baths: bath_count,
-                       showers: shower_count,
-                      },
-                dataType: "json",      
-                headers: {
-                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-                },
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                    var selection = data.selection;
+      url: "{!! route('update-answer') !!}", 
+      type: "POST",
+      data: {beds: bed_count,
+              baths: bath_count,
+              showers: shower_count,
+            },
+      dataType: "json",      
+      headers: {
+          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+      },
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+          var selection = data.selection;
 
-                    if (Object.keys(selection).length)
-                      listProductsFromAPI_modified(selection);
-                    
-                    $('#edit-answer').modal('hide');
+          if (Object.keys(selection).length)
+            listProductsFromAPI_modified(selection);
+          
+          $('#edit-answer').modal('hide');
 
-                }
+      }
 
-            });
+  });
 
 });
 
@@ -779,34 +789,101 @@ function choose_boiler_click()
   $('.choose-boiler').click(function(){
   var boiler = $(this).attr('data-boiler');   
   $.ajax({
-                url: "{!! route('update-answer') !!}", 
-                type: "POST",
-                data: {
-                          completed_wizard: 'page.boilers',
-                          boiler: boiler
-                      },
-                dataType: "json",      
-                headers: {
-                    'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-                },
-                beforeSend: function () {
-                    $('.loader').show();
-                },
-                complete: function () {
-                    $('.loader').hide();
-                },     
-                success:function(data)
-                {
-                    var selection = data.selection;
-                    
-                    if (data.success)
-                      location.href = "{!! route('page.controls') !!}";
-                  
-                }
+      url: "{!! route('update-answer') !!}", 
+      type: "POST",
+      data: {
+                completed_wizard: 'page.boilers',
+                boiler: boiler
+            },
+      dataType: "json",      
+      headers: {
+          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+      },
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+          var selection = data.selection;
+          
+          if (data.success)
+            location.href = "{!! route('page.controls') !!}";
+        
+      }
 
-            });
+  });
   });
 }
+
+$("#save-quote-btn").click(function(event){
+  event.preventDefault();
+  $("#emailErr").html("");
+  var email = $("#email-quote").val();
+  var contact = $("#contact-quote").val();
+  if(email != "")
+  {
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter a valid email");
+      return false;
+    }
+  }else{
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter your email address");
+      return false;
+    }
+  }
+  var choice = JSON.stringify(selection);
+
+  var url = '{!! route("save.quote") !!}';
+
+  $.ajax({
+      url: url, 
+      type: "POST",
+      data: {
+                selection: choice,
+                boiler: cBoiler,
+                email: email,
+                contact: contact
+            },
+      dataType: "json",      
+      headers: {
+          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+      },
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+        Swal.fire({
+          title: 'Done',
+          text: data.message,
+          icon: 'success',
+          showCancelButton: false,
+          showCloseButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Close'
+          }).then((result) => {
+          if (result.isConfirmed) {
+            $('#save-quote').modal('hide');
+          }
+          });
+      }
+
+  });
+
+  
+
+
+});
 
 </script> 
 @endsection

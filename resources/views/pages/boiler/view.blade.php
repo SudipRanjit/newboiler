@@ -214,75 +214,113 @@
                             <div class="col-lg-6">
                                 <div class="accordion pt-5 pt-lg-0" id="accordionBoiler">
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#boilerOne" aria-expanded="true" aria-controls="boilerOne">
-                                            MagnaCleanse system flush
-                                        </button>
+                                        <h2 class="accordion-header" id="headingDescOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Boiler & pipework installation, including any alterations and upgrades</button>
                                         </h2>
-                                        <div id="boilerOne" class="accordion-collapse collapse show" aria-labelledby="boilerHeadingOne" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingDescOne" data-bs-parent="#faqAccordian">
+                                            <div class="accordion-body pb-4">
+                                                We'll install your new boiler and won't leave until it's working and tested. We know every job is different so we include all pipework alterations to accommodate your new boiler within your fixed price. We will also install your condensate pipe, and upgrade the pipe from your gas meter to boiler, if required.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#boilerTwo" aria-expanded="true" aria-controls="boilerTwo">
-                                            Fernox F1 central heating protector
-                                        </h2>
-                                        <div id="boilerTwo" class="accordion-collapse collapse" aria-labelledby="boilerHeadingTwo" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
-                                        </div>
+                                      <h2 class="accordion-header" id="heading__2">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          New Flue Installation and any required brickwork
+                                        </button>
+                                      </h2>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#boilerThree" aria-expanded="true" aria-controls="boilerThree">
-                                            Pipework installation, alterations and upgrades
+                                      <h2 class="accordion-header" id="heading__3">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Electrical work
                                         </button>
-                                        </h2>
-                                        <div id="boilerThree" class="accordion-collapse collapse" aria-labelledby="boilerHeadingThree" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
-                                        </div>
+                                      </h2>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingFour">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#boilerFour" aria-expanded="true" aria-controls="boilerFour">
-                                            Boiler Aftercare: 10 years warranty
+                                      <h2 class="accordion-header" id="heading__4">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Removal and disposal of existing boiler
                                         </button>
-                                        </h2>
-                                        <div id="boilerFour" class="accordion-collapse collapse" aria-labelledby="boilerHeadingFour" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
-                                        </div>
+                                      </h2>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingFive">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#boilerFive" aria-expanded="true" aria-controls="boilerFive">
-                                            Removal and disposal of existing boiler, tanks and cylinder
+                                      <h2 class="accordion-header" id="heading__5">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Removal of existing tanks and cylinder
                                         </button>
-                                        </h2>
-                                        <div id="boilerFive" class="accordion-collapse collapse" aria-labelledby="boilerHeadingFive" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
-                                        </div>
+                                      </h2>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="boilerHeadingSix">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#boilerSix" aria-expanded="true" aria-controls="boilerSix">
-                                            Worcester Bosch Vertical Blue Installation
+                                      <h2 class="accordion-header" id="heading__6">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Gasking register the warranty & Building Control Certificate
                                         </button>
-                                        </h2>
-                                        <div id="boilerSix" class="accordion-collapse collapse" aria-labelledby="boilerHeadingSix" data-bs-parent="#accordionBoiler">
-                                        <div class="accordion-body">
-                                            MagnaCleanse® system flushing removes system debris using specially formulated chemicals and a large twin magnet filter. It shifts hardened debris, reducing the need to remove radiators for cleaning. 
-                                        </div>
-                                        </div>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__7">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__8">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Magnetic central heating Filter
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__9">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Fernox Magnetic Scale Remover
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__10">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Carbon Monoxide Detector
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__11">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free MagnaCleanse system flush
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__12">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Fernox F3 Central Heating Cleaner
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__13">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Fernox F1 central heating protector
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__14">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free Pipework installation, alterations, and upgrades
+                                        </button>
+                                      </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="heading__15">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
+                                          Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)
+                                        </button>
+                                      </h2>
                                     </div>
                                 </div>
                             </div>

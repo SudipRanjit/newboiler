@@ -37,6 +37,8 @@
         </li>
       @endforeach
 
+      <li><a href="{!! route('cms::quotes.index') !!}" class="nav-link"><i class="fa fa-eye"></i> <span>Saved Quotes</span></a></li>
+
       <li>
       <a href="{!! route('cms::logout') !!}" class="nav-link"><i class="fa fa-power-off"></i> <span>Logout</span></a>
       </li>

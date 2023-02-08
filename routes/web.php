@@ -65,4 +65,4 @@ Route::post('/get-customer-client-secret','Pages\BookingController@createStripeC
 Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.thankyou');
 Route::post('/update-customer','Pages\BookingController@updateStripeCustomer')->name('update-stripe-customer');
 Route::post('/order-notification-email-to-customer','Pages\BookingController@ajSendOrderNotificationEmailToCustomer')->name('order-notification-email-to-customer');
-
+Route::post('/save-quote', 'Pages\QuoteController@saveQuote')->name('save.quote');
