@@ -102,7 +102,7 @@
             </td>
             <td>
               @if($booking->order->status=='0')
-              <span class="label label-danger">InComplete</span>
+              <span class="label label-danger">Finance Awaiting</span>
               @elseif($booking->order->status=='1')
               <span class="label label-success">Complete</span>
               @endif
