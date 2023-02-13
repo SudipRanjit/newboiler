@@ -252,8 +252,9 @@ class IndexController extends Controller
                 if (!empty($selection['radiator_type']) && !empty($selection['radiator_height']) && !empty($selection['radiator_length'])) {
                     $record = $RadiatorPrice->findWithCondition(['radiator_type_id' => $selection['radiator_type'], 'radiator_height_id' => $selection['radiator_height'], 'radiator_length_id' => $selection['radiator_length']], ['price', 'btu']);
                     $Radiator = new RadiatorRepository(app());
-
-                    $selection['radiator_info'] = $Radiator->findby('id', $selection['radiator_type']);
+                    
+                    //$selection['radiator_info'] = $Radiator->findby('id', $selection['radiator_type']); //What is this logic? (If only one radiator can be added) - Comment by Sudip Feb 13
+                    $selection['radiator_info'] = $Radiator->findby('id', 1);
                 }
 
                 if ($record) {
