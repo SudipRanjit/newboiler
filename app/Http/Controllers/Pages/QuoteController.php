@@ -9,6 +9,7 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
+use Illuminate\Mail\Mailer;
 
 class QuoteController extends Controller
 {
@@ -33,22 +34,30 @@ class QuoteController extends Controller
     private $log;
 
     /**
+     * Mailer $mailer
+     */
+    private $mailer;
+
+    /**
      * QuoteController constructor.
      * @param QuoteRepository $quote
      * @param BoilerRepository $boiler
      * @param DatabaseManager $db
      * @param LoggerInterface $log
+     * @param Mailer $mailer
      */
     public function __construct(
         QuoteRepository $quote,
         BoilerRepository $boiler,
         DatabaseManager $db,
-        LoggerInterface $log
+        LoggerInterface $log,
+        Mailer $mailer
     ) {
         $this->quote = $quote;
         $this->boiler = $boiler;
         $this->db = $db;
         $this->log = $log;
+        $this->mailer = $mailer;
     }
 
 /**
@@ -82,6 +91,14 @@ class QuoteController extends Controller
 
             $this->quote->store($input);
             $this->db->commit();
+
+            $data = [];
+
+            $this->mailer->send('email.save_quote', $data, function ($message) use ($data) {
+                $message->from("no-reply@gasking.co.uk", "Gasking");
+                $message->to('lycansu@gmail.com');
+                $message->subject("Your fixed price for Boiler");
+            });
 
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
