@@ -75,7 +75,7 @@
 
         <div class="boiler-listing">
           <div class="boiler-item" >
-            <img class="extras" src="{{asset('assets/img/extras.png')}}" />
+            <img class="extras" src="{{asset('assets/img/extras.png?v1.1')}}" />
           </div>
             {{-- <div class="boiler-item free-items">
               <div class="free-title">

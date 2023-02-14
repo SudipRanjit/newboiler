@@ -27,7 +27,7 @@
               <div class="accordion__body">
                 <div class="info__box">
                   <div class="__info_image">
-                    <img src="{{asset('assets/img/extras.png')}}" class="extras" />
+                    <img src="{{asset('assets/img/extras.png?v1.1')}}" class="extras" />
                   </div>
                 
                 
