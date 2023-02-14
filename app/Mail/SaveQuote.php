@@ -55,6 +55,7 @@ class SaveQuote extends Mailable
             $devices = $Device->getInArray([],'id',array_keys($selection['devices']));
 
         $k = 0;
+        if(isset($devices)){
         foreach($devices as $device)
         {
             $extras['smart_device'][$k]['quantity'] = $selection['devices'][$device->id]['quantity'];
@@ -62,15 +63,16 @@ class SaveQuote extends Mailable
             $extras['smart_device'][$k]['price'] = $device->price;
             $k++;
         }
+    }
+        if(isset($selection['control'])){
+            $Addon = new AddonRepository(app()) ;
+            $addon = $Addon->find($selection['control']);
 
-        $Addon = new AddonRepository(app()) ;
-        $addon = $Addon->find($selection['control']);
-        $extras['control_device']['name'] = $addon->addon_name;
-        $extras['control_device']['price'] = $addon->price == "0.0" ? "Free" : $addon->price;
-        
+            $extras['control_device']['name'] = $addon->addon_name;
+            $extras['control_device']['price'] = $addon->price == "0.0" ? "Free" : $addon->price;
+        }
         if (isset($selection['radiator']))
         {
-
             $Radiator = new RadiatorRepository(app()) ;        
             $radiator = $Radiator->find($selection['radiator']['id']);
 
