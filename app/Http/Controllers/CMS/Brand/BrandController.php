@@ -61,7 +61,7 @@ class BrandController extends Controller
   public function index()
   {
     $this->authorize('view', Brand::class);
-    $brands = $this->brand->paginateAllWithCondition(["type" => "Brand"], "id", "desc", 40);
+    $brands = $this->brand->paginateAllWithCondition(["type" => "Brand"], "s_order", "asc", 40);
     return view('cms.brand.index')->with('brands', $brands);
   }
 
@@ -108,7 +108,7 @@ class BrandController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'category', 'slug', 'parent', 'type', 'description', 'url'
+        'category', 'slug', 'parent', 'type', 'description', 'url', 's_order'
       ]);
 
       $input['publish'] = 0;
@@ -178,7 +178,7 @@ class BrandController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'category', 'slug', 'parent', 'type', 'description', 'url'
+        'category', 'slug', 'parent', 'type', 'description', 'url', 's_order'
       ]);
       $input['publish'] = 0;
       $input['show_in_menu'] = 0;

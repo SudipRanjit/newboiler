@@ -29,7 +29,8 @@ class Brand extends Model
     'show_in_menu',
     'description',
     'url',
-    'publish'
+    'publish',
+    's_order'
   ];
 
   /**

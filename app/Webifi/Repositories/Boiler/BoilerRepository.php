@@ -12,12 +12,12 @@ class BoilerRepository extends Repository
      *
      * @return String
      */
-    function getModel()
+    public function getModel()
     {
         return 'App\Webifi\Models\Boiler\Boiler';
     }
 
-     /**
+    /**
      * Get the resources with given condition(s)
      *
      * @param $conditions
@@ -25,16 +25,15 @@ class BoilerRepository extends Repository
      * @return Collection
      */
     public function getWithConditionBetween(
-      $conditions,
-      $betWeenCondition, 
-      $orderBy='id', 
-      $orderType = 'desc', 
-      $columns = array('*'),
-      $limit = 20
-  )
-  {
-      return $this->model->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)->orderBy($orderBy, $orderType)->limit($limit)->get($columns);
-  }
+        $conditions,
+        $betWeenCondition,
+        $orderBy = 'id',
+        $orderType = 'desc',
+        $columns = array('*'),
+        $limit = 20
+    ) {
+        return $this->model->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)->orderBy($orderBy, $orderType)->limit($limit)->get($columns);
+    }
 
     /**
      * Paginate the resources with given condition(s)
@@ -45,13 +44,36 @@ class BoilerRepository extends Repository
      */
     public function paginateWithConditionBetween(
         $conditions,
-        $betWeenCondition, 
-        $orderBy='id', 
-        $orderType = 'desc', 
+        $betWeenCondition,
+        $orderBy = 'id',
+        $orderType = 'desc',
         $columns = array('*'),
         $limit = 20
-    )
-    {
-        return $this->model->select($columns)->where($conditions)->whereBetween("central_heating_output", $betWeenCondition)/*->orderBy($orderBy, $orderType)*/->orderByRaw("$orderBy $orderType")->paginate($limit);
+    ) {
+        return $this->model->select($columns)->where($conditions)->whereBetween("central_heating_output", $betWeenCondition) /*->orderBy($orderBy, $orderType)*/->orderByRaw("$orderBy $orderType")->paginate($limit);
+    }
+
+    /**
+     * Paginate the resources with given condition(s)
+     *
+     * @param $conditions
+     * @param array $columns
+     * @return Collection
+     */
+    public function paginateAndSortWithConditionBetween(
+        $conditions,
+        $betWeenCondition,
+        $orderBy = 'id',
+        $orderType = 'desc',
+        $columns = array('*'),
+        $limit = 20
+    ) {
+        return $this->model->from('boilers as b')
+            ->join('categories as c', 'c.id', 'b.brand')
+            ->select($columns)->where($conditions)
+            ->whereBetween("central_heating_output", $betWeenCondition) 
+            // ->orderBy($orderBy, $orderType)
+            ->orderByRaw("c.s_order asc, $orderBy $orderType")
+            ->paginate($limit);
     }
 }

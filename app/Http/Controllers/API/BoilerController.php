@@ -110,20 +110,20 @@ class BoilerController extends Controller
     $cat = $query['cat']??''; 
     $limit = $query['limit']??10;
     $page = $query['page']??1;
-    $sort_by = $query['sort_by']??'boiler_name';
+    $sort_by = $query['sort_by']??'b.boiler_name';
     $sort = $query['sort']??'asc';
 
     $condition = [];
-    $condition['publish'] = 1;
-    $condition['boiler_type'] = $type;
+    $condition['b.publish'] = 1;
+    $condition['b.boiler_type'] = $type;
     if ($cat)
-      $condition['brand'] = $cat;
+      $condition['b.brand'] = $cat;
 
     if ($sort_by == "net_price")
-      $sort_by = 'price - ifnull(discount,0)';
+      $sort_by = 'b.price - ifnull(b.discount,0)';
 
     $powerRange = explode("-",$power);
-    $boilers = $this->boiler->paginateWithConditionBetween($condition, $powerRange, $sort_by, $sort, ["*"], $limit);
+    $boilers = $this->boiler->paginateAndSortWithConditionBetween($condition, $powerRange, $sort_by, $sort, ["b.*"], $limit);
     return ["boiler" => $boilers];
   }
   
