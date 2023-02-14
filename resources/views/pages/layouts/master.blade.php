@@ -298,9 +298,10 @@ function validateEmail(email) {
 }
 var cBoiler = "";
 $(".save_this_quote").click(function(event){
-          cBoiler = $(this).attr("data-boiler");
-          $("#save-quote").show();
-        });
+  cBoiler = $(this).attr("data-boiler");
+  console.log("Boiler "+cBoiler);
+  $("#save-quote").show();
+});
 $("#save-quote-btn").click(function(event){
   event.preventDefault();
   $("#emailErr").html("");
