@@ -209,7 +209,7 @@
                     <div class="bg-g-light border-r-1 p-4 p-lg-5">
                         <div class="row align-items-center">
                             <div class="col-lg-6 pe-lg-5">                    
-                                <img src="{!! asset('assets/img/boiler-select.png') !!}" alt="Boiler" class="img-fluid w-100">
+                                <img style="width:100%;" src="{!! asset('assets/img/boiler-select.png?v1.1') !!}" alt="Boiler" class="img-fluid w-100">
                             </div>
                             <div class="col-lg-6">
                                 <div class="accordion pt-5 pt-lg-0" id="accordionBoiler">

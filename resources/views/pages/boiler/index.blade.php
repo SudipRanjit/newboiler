@@ -75,7 +75,7 @@
 
         <div class="boiler-listing">
           <div class="boiler-item" >
-            <img class="extras" src="{{asset('assets/img/extras.png?v1.1')}}" />
+            <img class="extras" style="width:100%;" src="{{asset('assets/img/extras.png?v1.1')}}" />
           </div>
             {{-- <div class="boiler-item free-items">
               <div class="free-title">
@@ -134,7 +134,7 @@
                             </li>
                             <li class="boiler-feature mb-2">
                                 <span class="boiler-feature-title _link" data-bs-toggle="modal" data-bs-target="#dimension">
-                                    <img src="{!! asset('assets/img/boiler-icons/warranty.png') !!}" alt="Dimension">
+                                    <img src="{!! asset('assets/img/boiler-icons/cube.png') !!}" alt="Dimension">
                                     Dimension
                                     <span class="text-black-50">(HxWxD)</span>
                                 </span>
@@ -818,72 +818,7 @@ function choose_boiler_click()
   });
 }
 
-$("#save-quote-btn").click(function(event){
-  event.preventDefault();
-  $("#emailErr").html("");
-  var email = $("#email-quote").val();
-  var contact = $("#contact-quote").val();
-  if(email != "")
-  {
-    if(!validateEmail(email))
-    {
-      $("#emailErr").html("Please enter a valid email");
-      return false;
-    }
-  }else{
-    if(!validateEmail(email))
-    {
-      $("#emailErr").html("Please enter your email address");
-      return false;
-    }
-  }
-  var choice = JSON.stringify(selection);
 
-  var url = '{!! route("save.quote") !!}';
-
-  $.ajax({
-      url: url, 
-      type: "POST",
-      data: {
-                selection: choice,
-                boiler: cBoiler,
-                email: email,
-                contact: contact
-            },
-      dataType: "json",      
-      headers: {
-          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
-      },
-      beforeSend: function () {
-          $('.loader').show();
-      },
-      complete: function () {
-          $('.loader').hide();
-      },     
-      success:function(data)
-      {
-        Swal.fire({
-          title: 'Done',
-          text: data.message,
-          icon: 'success',
-          showCancelButton: false,
-          showCloseButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Close'
-          }).then((result) => {
-          if (result.isConfirmed) {
-            $('#save-quote').modal('hide');
-          }
-          });
-      }
-
-  });
-
-  
-
-
-});
 
 </script> 
 @endsection
