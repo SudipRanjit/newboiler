@@ -402,7 +402,7 @@
                                                   <td align="center">
 
                                                     <a href="javascript:void(0);"
-                                                      style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;"><span>Quote Reference<br><small>001-Feb-14</small></span></a>
+                                                      style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;"><span>Quote Reference<br><small>{{$quote->id}}-{{date("M-d")}}</small></span></a>
 
                                                   </td>
                                                   <td class="hide-mobile" align="center" width="10"></td>
@@ -563,7 +563,7 @@
                                               <tr>
                                                 <td align="center">
                                                   <img style="width:256px;border:0px;display: inline!important;"
-                                                    src="https://boiler.gasking.co.uk/uploads/media/2022/09/28/387291664327772.jpg" width="256" border="0" alt="icon">
+                                                    src="{{$boiler['image']}}" width="256" border="0" alt="icon">
                                                 </td>
                                               </tr>
                                               <tr>
@@ -859,7 +859,7 @@
                 <tr>
                   <td align="center"
                     style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:12px;line-height:12px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                    &copy; {{date('Y')}}. Gasking                    
+                    &copy; {{date('Y')}} Gasking. All rights reserved.                    
                   </td>
                 </tr>
                 <tr>
