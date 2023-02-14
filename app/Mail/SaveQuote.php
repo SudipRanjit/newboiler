@@ -103,8 +103,9 @@ class SaveQuote extends Mailable
             $extras['scaffolding']['type'] = $selection["scaffolding"]["type"];
             $extras['scaffolding']['price'] = $selection["scaffolding"]["price"];
         }
-        
-        $extras['totalPrice'] = $selection["total_price"];
+        $extras['totalPrice'] = $this->quote->offered_price;
+        if(isset($selection["total_price"]))
+            $extras['totalPrice'] = $selection["total_price"];
 
         return $this->subject('- Your fixed price quote for '.$this->boiler->boiler_name)->markdown('email.save_quote')->with('boiler',$this->boiler->toArray())->with('quote',$this->quote->toArray())->with('extras', $extras);
     }
