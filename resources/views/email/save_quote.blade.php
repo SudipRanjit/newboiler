@@ -652,7 +652,7 @@
                                                     </tr>
                                                     @endif
 
-                                                    @if($extras['radiator'])
+                                                    @if(isset($extras['radiator']))
                                                     <tr>
                                                         <td>Radiators</td>
                                                         <td></td>
