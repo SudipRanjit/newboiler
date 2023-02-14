@@ -152,7 +152,7 @@
                             <p class="text-primary">Your fixed price including installation & radiators</p>
                             <h3 class="m-0">£{{ $Selection['total_price'] }}</h3>
                             <small class="d-block mb-4">including VAT</small>
-                            <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
+                            <a href="#" class="text-secondary d-flex align-items-center justify-content-center save_this_quote" data-boiler={{$boiler->id}} data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
 
                         @if(!empty($radiator))

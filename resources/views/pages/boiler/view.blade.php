@@ -90,7 +90,7 @@
                             @endif
                             <div class="d-flex flex-wrap m-n-2">
                                 <a href="javascript:void(0)" class="btn btn-secondary text-white m-2 choose-boiler">Choose Boiler</a>
-                                <a href="#" class="btn btn-light text-secondary d-flex align-items-center m-2" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
+                                <a href="#" class="btn btn-light text-secondary d-flex align-items-center m-2 save_this_quote" data-bs-toggle="modal" data-boiler={{$boiler->id}} data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                             </div>
                         </div>
                     </div>

@@ -142,7 +142,7 @@
                             <h3 class="m-0">£<span class="net-total-price">{{ $Selection['total_price'] }}</span></h3>
                             <small class="d-block mb-4">including VAT</small>
                             <a href="{!! route('page.radiators') !!}" class="btn btn-secondary d-block mb-4" id="next-radiators">Next</a>
-                            <a href="#" class="text-secondary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
+                            <a href="#" class="text-secondary d-flex align-items-center justify-content-center save_this_quote" data-bs-toggle="modal" data-boiler={{$boiler->id}} data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                         </div>
                         <div class="card-light p-4 mb-4">
                             <p class="f-18 font-medium side-card-title text-primary">Control</p>

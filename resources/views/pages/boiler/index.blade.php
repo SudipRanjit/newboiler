@@ -633,10 +633,7 @@ function create_list_item(data, append=false)
 
         });
 
-    $(".save_this_quote").click(function(event){
-          cBoiler = $(this).attr("data-boiler");
-          $("#save-quote").show();
-        });
+        
 
     $(".boiler-pic").click(function(){
       var link = $(this).attr('alt');

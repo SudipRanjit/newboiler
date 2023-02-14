@@ -296,7 +296,11 @@ function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
-
+var cBoiler = "";
+$(".save_this_quote").click(function(event){
+          cBoiler = $(this).attr("data-boiler");
+          $("#save-quote").show();
+        });
 $("#save-quote-btn").click(function(event){
   event.preventDefault();
   $("#emailErr").html("");
