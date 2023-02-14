@@ -9,7 +9,8 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
-use Illuminate\Mail\Mailer;
+use App\Mail\SaveQuote;
+use Illuminate\Support\Facades\Mail;
 
 class QuoteController extends Controller
 {
@@ -34,30 +35,22 @@ class QuoteController extends Controller
     private $log;
 
     /**
-     * Mailer $mailer
-     */
-    private $mailer;
-
-    /**
      * QuoteController constructor.
      * @param QuoteRepository $quote
      * @param BoilerRepository $boiler
      * @param DatabaseManager $db
      * @param LoggerInterface $log
-     * @param Mailer $mailer
      */
     public function __construct(
         QuoteRepository $quote,
         BoilerRepository $boiler,
         DatabaseManager $db,
-        LoggerInterface $log,
-        Mailer $mailer
+        LoggerInterface $log
     ) {
         $this->quote = $quote;
         $this->boiler = $boiler;
         $this->db = $db;
         $this->log = $log;
-        $this->mailer = $mailer;
     }
 
 /**
@@ -89,16 +82,17 @@ class QuoteController extends Controller
             $input['total_price'] = $boiler->price;
 
 
-            $this->quote->store($input);
+            $id = $this->quote->store($input);
             $this->db->commit();
 
-            $data = [];
+            $input['boiler_name'] = $boiler->boiler_name;
 
-            $this->mailer->send('email.save_quote', $data, function ($message) use ($data) {
-                $message->from("no-reply@gasking.co.uk", "Gasking");
-                $message->to('lycansu@gmail.com');
-                $message->subject("Your fixed price for Boiler");
-            });
+            // $this->mailer->send('email.save_quote', $input, function ($message) use ($input, $boiler) {
+            //     $message->from("no-reply@gasking.co.uk", "Gasking");
+            //     $message->to($input['email']);
+            //     $message->subject("Your fixed price for ".$boiler->boiler_name);
+            // });
+            Mail::to($input['email'])->send(new SaveQuote($id));
 
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
