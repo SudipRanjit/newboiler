@@ -633,7 +633,10 @@ function create_list_item(data, append=false)
 
         });
 
-        
+      $(".save_this_quote").click(function(event){
+          cBoiler = $(this).attr("data-boiler");
+          $("#save-quote").show();
+        });
 
     $(".boiler-pic").click(function(){
       var link = $(this).attr('alt');
@@ -641,6 +644,68 @@ function create_list_item(data, append=false)
     });
 }
 
+$("#save-quote-btn").click(function(event){
+  event.preventDefault();
+  $("#emailErr").html("");
+  var email = $("#email-quote").val();
+  var contact = $("#contact-quote").val();
+  if(email != "")
+  {
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter a valid email");
+      return false;
+    }
+  }else{
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter your email address");
+      return false;
+    }
+  }
+  var choice = JSON.stringify(selection);
+
+  var url = '{!! route("save.quote") !!}';
+
+  $.ajax({
+      url: url, 
+      type: "POST",
+      data: {
+                selection: choice,
+                boiler: cBoiler,
+                email: email,
+                contact: contact
+            },
+      dataType: "json",      
+      headers: {
+          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+      },
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+        Swal.fire({
+          title: 'Done',
+          text: data.message,
+          icon: 'success',
+          showCancelButton: false,
+          showCloseButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Close'
+          }).then((result) => {
+          if (result.isConfirmed) {
+            $('#save-quote').modal('hide');
+          }
+          });
+      }
+
+  });
+});
 var selection = JSON.parse('{!! json_encode($Selection) !!}');
 //console.log(selection);
 
