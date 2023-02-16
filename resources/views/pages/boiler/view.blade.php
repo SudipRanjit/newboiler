@@ -208,10 +208,10 @@
                     <p class="f-20 font-medium boiler-sub-title"><i class="fa-solid fa-plus"></i>What else is included with the boiler?</p>
                     <div class="bg-g-light border-r-1 p-4 p-lg-5">
                         <div class="row align-items-center">
-                            <div class="col-lg-6 pe-lg-5">                    
+                            <div class="col-lg-12 pe-lg-12">                    
                                 <img style="width:100%;" src="{!! asset('assets/img/boiler-select.png?v1.1') !!}" alt="Boiler" class="img-fluid w-100">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="accordion pt-5 pt-lg-0" id="accordionBoiler">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingDescOne">
@@ -318,7 +318,7 @@
                                     <div class="accordion-item">
                                       <h2 class="accordion-header" id="heading__15">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                          Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)
+                                          Free extended Boiler Aftercare: {{$boiler->warranty}} years warranty ( Warranty must be reactive)
                                         </button>
                                       </h2>
                                     </div>
@@ -491,7 +491,7 @@
                         <div class="accordion-item">
                           <h2 class="accordion-header" id="heading__2">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                              Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)
+                              Free extended Boiler Aftercare warranty ( Warranty must be reactive)
                             </button>
                           </h2>
                         </div>
@@ -509,7 +509,6 @@
 </html>
 
 <script>
-
 $('.choose-boiler').click(function(){
 $.ajax({
               url: "{!! route('update-answer') !!}", 
@@ -534,9 +533,7 @@ $.ajax({
                   
                   if (data.success)
                     location.href = "{!! route('page.controls') !!}";
-                
               }
-
           });
 });
 

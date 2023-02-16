@@ -405,7 +405,7 @@
                                 showCloseButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Close'
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     //window.location.href = $("#next-radiators").attr("href");
@@ -423,10 +423,10 @@
                                 showCloseButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Next'
+                                confirmButtonText: 'Close'
                                 }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = $("#next-smart-devices").attr("href");
+                                    // window.location.href = $("#next-smart-devices").attr("href");
                                 }
                                 });
                         }

@@ -16,6 +16,7 @@ class BlockDate extends Model
    */
   protected $fillable = [
      'date',
+     'time',
      'user_id',
      'publish',
      'note'

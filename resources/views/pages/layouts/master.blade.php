@@ -206,7 +206,7 @@
                             <div class="accordion-item">
                               <h2 class="accordion-header" id="heading__2">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)
+                                  Free extended Boiler Aftercare warranty ( Warranty must be reactive)
                                 </button>
                               </h2>
                             </div>

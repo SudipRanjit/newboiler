@@ -429,10 +429,10 @@ function choose_control_click()
                     showCloseButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Next'
+                    confirmButtonText: 'Close'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = $("#next-radiators").attr("href");
+                        // window.location.href = $("#next-radiators").attr("href");
                     }
                     });
 

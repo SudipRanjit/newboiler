@@ -119,13 +119,24 @@ class BookingController extends Controller
                 $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']]);
      
         }
-        
+        $block_dates = [date("Y-m-d").":00"];
         $BlockDate = new BlockDateRepository(app()) ;
-        $block_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('*'),1000)->pluck('date')->toArray();
-        array_push($block_dates, date("Y-m-d"));
+        $b_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('date', 'time'),1000);
+        $time = date("H");
+        $currentDate = date('Y-m-d');
+        $nextDate = date('Y-m-d', strtotime('+1 day', strtotime($currentDate)));
+        foreach($b_dates as $date)
+        {
+            if($date->time != "00" && $date->date == $nextDate && $date->time <= date("H"))
+            {
+                $block_dates[] = $date->date;
+            }
+            if($date->time == "00")
+            {
+                $block_dates[] = $date->date;
+            }
+        }
         $block_dates = json_encode($block_dates);
-
-        //dd($block_dates);    
 
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);

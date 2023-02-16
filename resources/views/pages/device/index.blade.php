@@ -517,7 +517,7 @@ function btn_click(el)
                                 showCloseButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Next'
+                                confirmButtonText: 'Close'
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     //window.location.href = $("#next-booking").attr("href");
@@ -590,7 +590,7 @@ function added_devices_remove(device)
                                 showCloseButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Next'
+                                confirmButtonText: 'Close'
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     //window.location.href = $("#next-booking").attr("href");
@@ -633,7 +633,7 @@ $(".save_this_quote").click(function(event){
           cBoiler = $(this).attr("data-boiler");
           $("#save-quote").show();
         });
-        $("#save-quote-btn").click(function(event){
+$("#save-quote-btn").click(function(event){
   event.preventDefault();
   $("#emailErr").html("");
   var email = $("#email-quote").val();

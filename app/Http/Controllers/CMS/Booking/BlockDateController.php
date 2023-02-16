@@ -95,7 +95,7 @@ class BlockDateController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'date', 'note'
+        'date', 'note', 'time'
         
       ]);
 
@@ -155,7 +155,7 @@ class BlockDateController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'date', 'note'
+        'date', 'note', 'time'
       ]);
 
      

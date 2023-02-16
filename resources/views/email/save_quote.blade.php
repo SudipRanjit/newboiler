@@ -776,7 +776,7 @@
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
-                                                      <td>Free extended Boiler Aftercare: 10 years warranty ( Warranty must be reactive)</td>
+                                                      <td>Free extended Boiler Aftercare warranty ( Warranty must be reactive)</td>
                                                       <td>Included</td>
                                                     </tr>
                                                     <tr>
