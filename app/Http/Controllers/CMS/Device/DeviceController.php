@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\CMS\Device;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DeviceRequest;
 use App\Webifi\Models\Device\Device;
-use App\Webifi\Repositories\Device\DeviceRepository;
 use App\Webifi\Repositories\Brand\BrandRepository;
 use App\Webifi\Repositories\Category\CategoryRepository;
-use App\Webifi\Repositories\Power\PowerRepository;
+use App\Webifi\Repositories\Device\DeviceRepository;
 use App\Webifi\Repositories\Media\MediaRepository;
-use App\Http\Requests\DeviceRequest;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Webifi\Repositories\Power\PowerRepository;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
 
@@ -21,6 +21,21 @@ class DeviceController extends Controller
      * DeviceRepository $device
      */
     private $device;
+
+    /**
+     * BrandRepository $brand
+     */
+    private $brand;
+
+    /**
+     * CategoryRepository $category
+     */
+    private $category;
+
+    /**
+     * PowerRepository $power
+     */
+    private $power;
 
     /**
      * MediaRepository $media
@@ -40,6 +55,9 @@ class DeviceController extends Controller
     /**
      * DeviceController constructor.
      * @param DeviceRepository $device
+     * @param BrandRepository $brand
+     * @param CategoryRepository $category
+     * @param PowerRepository $power
      * @param MediaRepository $media
      * @param DatabaseManager $db
      * @param LoggerInterface $log
@@ -58,8 +76,8 @@ class DeviceController extends Controller
         $this->category = $category;
         $this->power = $power;
         $this->media = $media;
-        $this->db   = $db;
-        $this->log  = $log;
+        $this->db = $db;
+        $this->log = $log;
     }
 
     /**
@@ -75,11 +93,11 @@ class DeviceController extends Controller
     }
 
     /**
-    * Show all device
-    *
-    * @param Request $request
-    * @return View
-    */
+     * Show all device
+     *
+     * @param Request $request
+     * @return View
+     */
     public function search(Request $request)
     {
         $this->authorize('view', Device::class);
@@ -102,12 +120,11 @@ class DeviceController extends Controller
         $brands = $this->brand->getWithCondition(['publish' => 1, 'type' => 'Brand']);
         $powers = $this->power->getWithCondition(['publish' => 1, 'type' => 'Power']);
 
-
         return view('cms.device.create')
-      ->with('categories', $categories)
-      ->with('brands', $brands)
-      ->with('powers', $powers)
-      ->with('lastPage', $medias->lastPage());
+            ->with('categories', $categories)
+            ->with('brands', $brands)
+            ->with('powers', $powers)
+            ->with('lastPage', $medias->lastPage());
     }
 
     /**
@@ -123,8 +140,8 @@ class DeviceController extends Controller
             $this->db->beginTransaction();
 
             $input = $request->only([
-        'device_name', 'price', 'summary', 'description'
-      ]);
+                'device_name', 'price', 'summary', 'description',
+            ]);
 
             $input['image'] = $request->featured_image;
             $input['user_id'] = auth()->user()->id;
@@ -139,19 +156,37 @@ class DeviceController extends Controller
                 $input['publish'] = 1;
             }
 
+            $input['combi'] = 0;
+
+            if (isset($request->combi)) {
+                $input['combi'] = 1;
+            }
+
+            $input['standard'] = 0;
+
+            if (isset($request->standard)) {
+                $input['standard'] = 1;
+            }
+
+            $input['system'] = 0;
+
+            if (isset($request->system)) {
+                $input['system'] = 1;
+            }
+
             $this->device->store($input);
 
             $this->db->commit();
 
             return redirect()->route('cms::devices.index')
-        ->with('success', "Device added successfully.");
+                ->with('success', "Device added successfully.");
         } catch (\Exception $e) {
             $this->db->rollback();
-            $this->log->error((string)$e);
+            $this->log->error((string) $e);
 
             return redirect()->route('cms::devices.create')
-        ->with('error', "Failed to add device. " . $e->getMessage())
-        ->withInput();
+                ->with('error', "Failed to add device. " . $e->getMessage())
+                ->withInput();
         }
     }
 
@@ -171,11 +206,11 @@ class DeviceController extends Controller
         $powers = $this->power->getWithCondition(['publish' => 1, 'type' => 'Power']);
 
         return view('cms.device.edit')
-      ->with('device', $device)
-      ->with('categories', $categories)
-      ->with('brands', $brands)
-      ->with('powers', $powers)
-      ->with('lastPage', $medias->lastPage());
+            ->with('device', $device)
+            ->with('categories', $categories)
+            ->with('brands', $brands)
+            ->with('powers', $powers)
+            ->with('lastPage', $medias->lastPage());
     }
 
     /**
@@ -194,8 +229,8 @@ class DeviceController extends Controller
             $this->db->beginTransaction();
 
             $input = $request->only([
-        'device_name', 'price', 'summary', 'description'
-      ]);
+                'device_name', 'price', 'summary', 'description',
+            ]);
 
             $input['image'] = $request->featured_image;
             $input['user_id'] = auth()->user()->id;
@@ -209,20 +244,37 @@ class DeviceController extends Controller
             if (isset($request->publish)) {
                 $input['publish'] = 1;
             }
+            
+            $input['combi'] = 0;
+
+            if (isset($request->combi)) {
+                $input['combi'] = 1;
+            }
+
+            $input['standard'] = 0;
+
+            if (isset($request->standard)) {
+                $input['standard'] = 1;
+            }
+
+            $input['system'] = 0;
+
+            if (isset($request->system)) {
+                $input['system'] = 1;
+            }
 
             $this->device->update($id, $input);
             $this->db->commit();
 
-
             return redirect()->route('cms::devices.index')
-        ->with('success', 'Device updated successfully.');
+                ->with('success', 'Device updated successfully.');
         } catch (\Exception $e) {
             $this->db->rollback();
-            $this->log->error((string)$e);
+            $this->log->error((string) $e);
 
             return redirect()->route('cms::devices.edit', ['device' => $id])
-        ->with('error', 'Filed to update device. ' . $e->getMessage())
-        ->withInput();
+                ->with('error', 'Filed to update device. ' . $e->getMessage())
+                ->withInput();
         }
     }
 
@@ -242,14 +294,14 @@ class DeviceController extends Controller
 
             $this->db->commit();
             return redirect()->route('cms::devices.index')
-        ->with('success', 'Device deleted successfully.');
+                ->with('success', 'Device deleted successfully.');
         } catch (\Exception $e) {
             $this->db->rollback();
-            $this->log->error((string)$e);
+            $this->log->error((string) $e);
 
             return redirect()->route('cms::devices.index')
-        ->with('error', 'Filed to delete device. '.$e->getMessage())
-        ->withInput();
+                ->with('error', 'Filed to delete device. ' . $e->getMessage())
+                ->withInput();
         }
     }
 

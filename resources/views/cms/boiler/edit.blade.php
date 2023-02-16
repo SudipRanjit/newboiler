@@ -43,6 +43,11 @@ $(document).ready(function(){
   $(".select2").select2({
   width: '100%'
 });
+$(".multi__select").select2({
+  width: '100%',
+  tags: true
+});
+
 $("#submit_btn").click(function(event){
   event.preventDefault();
 

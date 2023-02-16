@@ -39,7 +39,7 @@
                 <div class="col-lg-8">
                     <div class="row control-items">
                         <div class="col-md-6 mb-4" id="control-item_0" style="display:none">
-                            <div class="card control-item">
+                            <div class="card control-item device-control-card">
                                 <div class="card-img control-img">
                                     <img src="{!! asset('assets/img/trv.jpg') !!}" alt="Thermostatic radiator valve (TRV)" class="control-pic">
                                 </div>

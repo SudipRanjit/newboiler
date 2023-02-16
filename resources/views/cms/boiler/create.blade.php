@@ -87,6 +87,10 @@ $(document).ready(function(){
 $(".select2").select2({
   width: '100%'
 });
+$(".multi__select").select2({
+  width: '100%',
+  tags: true
+});
 var video = $("#featured-video").val();
 var image = $("#featured_image_field").val();
 var featuredImageType = true;

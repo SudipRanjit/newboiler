@@ -97,6 +97,8 @@
                                 <img src="{!! asset('assets/img/boiler-icons/star.jpg') !!}" alt="Popular">
                                 Popular
                             </span>
+                           
+                          
                         </div>
                         <h3 class="boiler-name">Vaillant ecoFIT pure combi 25kw</h3>
                         <p class="text-small boiler-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lacus vitae urna auctor gravida. Curabitur eu lectus ac arcu vulputate.</p>
@@ -588,6 +590,7 @@ function create_list_item(data, append=false)
 
   $.each(data.boiler.data, function(key, value)
         {
+            var tags = value.tags;
             var item = $('#boiler-item-0').clone();
             item.show();
             item.removeAttr('id');
@@ -606,6 +609,14 @@ function create_list_item(data, append=false)
               item.find('.boiler-latest').hide();
             if(value.popular == 0)
               item.find('.boiler-popular').hide();
+
+            if(value.tags.length == 0)
+              item.find('.boiler-tags').hide();
+
+            $.each(tags, function(key, val) {
+              console.log(val.tag);
+              item.find(".boiler-pro").append("<span class='boiler-tags'><img src='{!! asset('assets/img/boiler-icons/tick.jpg') !!}'>"+val.tag+"</span>");
+            });
 
             var price = parseFloat(value.price);
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;

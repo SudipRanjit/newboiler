@@ -70,6 +70,69 @@
     <!-- /.box-body -->
   </div>
 
+  <div class="card card-default devices-box">
+    <div class="card-header">
+      <h3 class="card-title">Type</h3>
+    </div>
+    <div class="card-body">
+      <!-- Minimal style -->
+
+      <!-- radio -->
+      <div class="form-group">
+      <div class="switch-box">
+        <span class="switch-label">Combi</span>
+
+            <label class="switch">
+                {{ Form::hidden('combi', false) }}
+
+                @if(isset($device) && $device->combi == '1' || old('combi'))
+                    <input type="checkbox" name="combi" checked>
+                @else
+                    <input type="checkbox" name="combi">
+                @endif
+                <span class="slider round"></span>
+            </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-box">
+          <span class="switch-label">Standard</span>
+  
+              <label class="switch">
+                  {{ Form::hidden('standard', false) }}
+  
+                  @if(isset($device) && $device->standard == '1' || old('standard'))
+                      <input type="checkbox" name="standard" checked>
+                  @else
+                      <input type="checkbox" name="standard">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="switch-box">
+            <span class="switch-label">System</span>
+    
+                <label class="switch">
+                    {{ Form::hidden('system', false) }}
+    
+                    @if(isset($device) && $device->system == '1' || old('system'))
+                        <input type="checkbox" name="system" checked>
+                    @else
+                        <input type="checkbox" name="system">
+                    @endif
+                    <span class="slider round"></span>
+                </label>
+            </div>
+          </div>
+      
+    </div>
+    <!-- /.box-body -->
+  </div>
+
   <div class="card devices-box mt-30">
     <div class="card-header">
       <h3 class="card-title">Featured Image</h3>

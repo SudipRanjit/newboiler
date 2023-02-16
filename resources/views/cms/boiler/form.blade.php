@@ -271,6 +271,19 @@
             </div>
           </div>
       
+          <div class="form-group">
+            <span class="switch-label">Additional Tags <i class="fa fa-question" style="float:right;" title="Select existing ones or type and press enter to create NEW"></i></span>
+            <select name="tags[]" id="tags" class="multi__select form-control" multiple="multiple">
+              @foreach($tags as $tag)
+              <option value="{{$tag->id}}"
+              @if(isset($boiler) && in_array($tag->id, $boiler->tags()->pluck('tag_id')->toArray()))
+              selected="selected"
+              @endif  
+                >{{$tag->tag}}</option>
+              @endforeach
+            </select>
+    
+          </div>
     </div>
     <!-- /.box-body -->
   </div>

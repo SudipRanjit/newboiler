@@ -74,6 +74,7 @@ class BoilerRepository extends Repository
             ->whereBetween("central_heating_output", $betWeenCondition) 
             // ->orderBy($orderBy, $orderType)
             ->orderByRaw("c.s_order asc, $orderBy $orderType")
+            ->with(['tags'])
             ->paginate($limit);
     }
 }

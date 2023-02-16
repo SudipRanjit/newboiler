@@ -70,4 +70,13 @@ class Boiler extends Model
     {
         return $this->belongsToMany(Addon::class, 'boiler_addons')->withTimestamps();
     }
+
+    
+    /**
+     * The tags that belong to the boiler.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'boiler_tags')->withTimestamps();
+    }
 }

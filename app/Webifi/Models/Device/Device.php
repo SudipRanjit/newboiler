@@ -28,7 +28,10 @@ class Device extends Model
     'summary',
     'description',
     'image',
-    'publish'
+    'publish',
+    'system',
+    'standard',
+    'combi'
   ];
 
   protected $appends = [

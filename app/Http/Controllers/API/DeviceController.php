@@ -2,77 +2,91 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Webifi\Repositories\Device\DeviceRepository;
 use App\Webifi\Repositories\Media\MediaRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Database\DatabaseManager;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Psr\Log\LoggerInterface;
-use \Illuminate\Pagination\Paginator;
 
 class DeviceController extends Controller
 {
-  
-  /**
-   * DeviceRepository $device
-   */
-  private $device;
 
-  /**
-   * MediaRepository $media
-   */
-  private $media;
+    /**
+     * DeviceRepository $device
+     */
+    private $device;
 
-  /**
-   * @var DatabaseManager
-   */
-  private $db;
+    /**
+     * MediaRepository $media
+     */
+    private $media;
 
-  /**
-   * @var LoggerInterface
-   */
-  private $log;
+    /**
+     * @var DatabaseManager
+     */
+    private $db;
 
-  /**
-   * APIController constructor.
-   * @param DeviceRepository $device
-   * @param MediaRepository $media
-   * @param DatabaseManager $db
-   * @param LoggerInterface $log
-   */
-  public function __construct(
-    DeviceRepository $device,
-    MediaRepository $media,
-    DatabaseManager $db,
-    LoggerInterface $log
-  ) {
-    $this->device   = $device;
-    $this->media    = $media;
-    $this->db       = $db;
-    $this->log      = $log;
-  }
+    /**
+     * @var LoggerInterface
+     */
+    private $log;
 
-  /**
-   * Get all devices with pagination
-   * 
-   * @return Array
-   */
-  public function devices()
-  {
-    $query = request()->query();
-    
-    $limit = $query['limit']??4;
-    $page = $query['page']??1;
-    $sort_by = $query['sort_by']??'device_name';
-    $sort = $query['sort']??'asc';
-   
-    $condition = [];
-    $condition['publish'] = 1;
-       
-    $devices = $this->device->paginateWithCondition($condition, $sort_by, $sort, ["*"], $limit);
-    return ["device" => $devices];
-  }
+    /**
+     * APIController constructor.
+     * @param DeviceRepository $device
+     * @param MediaRepository $media
+     * @param DatabaseManager $db
+     * @param LoggerInterface $log
+     */
+    public function __construct(
+        DeviceRepository $device,
+        MediaRepository $media,
+        DatabaseManager $db,
+        LoggerInterface $log
+    ) {
+        $this->device = $device;
+        $this->media = $media;
+        $this->db = $db;
+        $this->log = $log;
+    }
 
-  
+    /**
+     * Get all devices with pagination
+     *
+     * @return Array
+     */
+    public function devices()
+    {
+        $query = request()->query();
+
+        $selection = Session::get('selection');
+
+        $limit = $query['limit'] ?? 4;
+        $page = $query['page'] ?? 1;
+        $sort_by = $query['sort_by'] ?? 'device_name';
+        $sort = $query['sort'] ?? 'asc';
+
+        $condition = [];
+        $condition['publish'] = 1;
+
+        $type = $selection["boiler_type"];
+
+        if (strtolower($type) == "combi") {
+            $condition['combi'] = true;
+        }
+
+        if (strtolower($type) == "standard") {
+            $condition['standard'] = true;
+        }
+
+        if (strtolower($type) == "system") {
+            $condition['system'] = true;
+        }
+
+        $devices = $this->device->paginateWithCondition($condition, $sort_by, $sort, ["*"], $limit);
+        return ["device" => $devices];
+    }
+
 }

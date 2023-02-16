@@ -1,3 +1,26 @@
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.control-item {
+  /* scrollbar-width: auto;
+  scrollbar-color: #ffffffff #ffffffff; */
+  scrollbar-color: #99999900 #99999900;
+  scrollbar-width: thin;
+}
+
+/* Chrome, Edge, and Safari */
+.control-item::-webkit-scrollbar {
+  width: 1px;
+}
+
+.control-item::-webkit-scrollbar-track {
+  background: #99999900;
+}
+
+.control-item::-webkit-scrollbar-thumb {
+  background-color: #99999900;
+  border-radius: 1px;
+  border: 1px none #99999900;
+}
 .hidden{
   display:none !important;
 }
@@ -144,6 +167,14 @@
     display: none;
 }
 
+.control-item{
+  height:620px;
+  overflow: auto;
+}
+.device-control-card{
+  height:680px;
+}
+
 @media only screen and (max-width: 768px) {
 .extras{
   width:100%;
@@ -156,5 +187,11 @@
     background-repeat: no-repeat;
     background-size: contain;
     margin-bottom: 30px;
+}
+.gasking-btn-container{
+  width:100%;
+}
+.wizard-container {
+  margin-top: 14rem;
 }
 }
