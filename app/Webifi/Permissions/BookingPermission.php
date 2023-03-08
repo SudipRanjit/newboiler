@@ -53,11 +53,32 @@ class BookingPermission
                 'menu_name' => "All Block Dates"
             ],
             [
+                'name' => 'Create Block Date',
+                'slug' => 'cms::block_dates.create',
+                'description' => 'Allow to create block date.',
+                'menu_name' => "Add Control"
+            ],
+            [
+                'name' => 'Update Block Date',
+                'slug' => 'cms::block_dates.update',
+                'description' => 'Allow to update block date.'
+            ],
+            [
+                'name' => 'Delete Block Date',
+                'slug' => 'cms::block_dates.delete',
+                'description' => 'Allow to delete block date.'
+            ],
+            [
                 'name' => 'View all orders',
                 'slug' => 'cms::orders.index',
                 'description' => 'Allow to view all orders.',
                 'view_on_sidebar' => true,
                 'menu_name' => "All Orders"
+            ],
+            [
+                'name' => 'View order details',
+                'slug' => 'cms::order_details.delete',
+                'description' => 'Allow to delete block date.'
             ],
             [
                 'name' => 'View all bookings',

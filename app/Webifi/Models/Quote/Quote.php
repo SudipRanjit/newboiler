@@ -29,7 +29,9 @@ class Quote extends Model
     'email',
     'total_price',
     'offered_price',
-    'contact'
+    'contact',
+    'saved_url',
+    'token'
   ];
 
   /**

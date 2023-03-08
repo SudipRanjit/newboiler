@@ -805,6 +805,12 @@
                                                     <tr>
                                                       <td style="font-family:'Roboto', sans-serif;font-size:14px;line-height:16px;font-weight:800;font-style:normal;color:#1c3157;text-align:center;text-decoration:none;letter-spacing:0px;"><small style="font-size:12px; font-weight: 400;">Including VAT<br>Flexible payments also available</small></td>
                                                     </tr>
+                                                    <tr>
+                                                      <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td><a href="{{$extras["step_url"]}}">Click here to continue your query</a></td>
+                                                    </tr>
                                                     </table>
                                                 </td>
                                               </tr>

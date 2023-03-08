@@ -65,7 +65,10 @@
             </label>
         </div>
       </div>
-      
+      <div class="form-group">
+        {!! Form::label('s_order','Sort Order [Lowest number will be displayed first]') !!}
+        {!! Form::text('s_order',null,['class'=>'form-control', 'placeholder'=>'Brand sort order', 'id'=>'s_order']) !!}
+      </div>
     </div>
     <!-- /.box-body -->
   </div>

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SaveQuote;
 use App\Webifi\Repositories\Boiler\BoilerRepository;
 use App\Webifi\Repositories\Quote\QuoteRepository;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
-use App\Mail\SaveQuote;
 use Illuminate\Support\Facades\Mail;
 
 class QuoteController extends Controller
@@ -53,18 +53,18 @@ class QuoteController extends Controller
         $this->log = $log;
     }
 
-/**
- * Save quote
- *
- * @return View
- */
+    /**
+     * Save quote
+     *
+     * @return View
+     */
     public function saveQuote(Request $request)
     {
-        $quote = $this->quote->findWithCondition(['email' => $request->email, 'boiler' => $request->boiler]);
-        if($quote != null)
-        {
-            return ['message' => 'You\'ve already saved quote for this boiler!'];
-        }
+        // $quote = $this->quote->findWithCondition(['email' => $request->email, 'boiler' => $request->boiler]);
+        // if($quote != null)
+        // {
+        //     return ['message' => 'You\'ve already saved quote for this boiler!'];
+        // }
 
         try {
             $this->db->beginTransaction();
@@ -74,13 +74,14 @@ class QuoteController extends Controller
                 'boiler',
                 'email',
                 'contact',
+                'saved_url',
             ]);
 
             $boiler = $this->boiler->find($request->boiler);
 
             $input['offered_price'] = $boiler->price - $boiler->discount;
             $input['total_price'] = $boiler->price;
-
+            $input['token'] = rand(11111, 99999) . time();
 
             $id = $this->quote->store($input);
             $this->db->commit();
@@ -101,6 +102,32 @@ class QuoteController extends Controller
             $this->log->error((string) $e);
             return ['message' => 'Error occured!'];
         }
+    }
+
+    /**
+     * Saved quote
+     *
+     * @return View
+     */
+    public function savedQuote(Request $request)
+    {
+        $id = $request->id;
+
+        $token = $request->token;
+
+        $quote = $this->quote->find($id);
+
+        if($quote == null)
+           return redirect()->route('page.index');
+        
+        if($quote->token != $token)
+            return redirect()->route('page.index');
+
+        $url = $quote->saved_url;
+
+        $request->session()->put('selection', json_decode($quote->selection, true));
+
+        return redirect($url);
     }
 
 }

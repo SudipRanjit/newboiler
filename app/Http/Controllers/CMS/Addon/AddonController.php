@@ -21,17 +21,26 @@ class AddonController extends Controller
    * AddonRepository $addon
    */
   private $addon;
-
+  /**
+   * BrandRepository $brand
+   */
+  private $brand;
+  /**
+   * CategoryRepository $category
+   */
+  private $category;
+  /**
+   * PowerRepository $power
+   */
+  private $power;
   /**
    * MediaRepository $media
    */
   private $media;
-
   /**
    * @var DatabaseManager
    */
   private $db;
-
   /**
    * @var LoggerInterface
    */
@@ -40,6 +49,9 @@ class AddonController extends Controller
   /**
    * AddonController constructor.
    * @param AddonRepository $addon
+   * @param BrandRepository $brand
+   * @param CategoryRepository $category
+   * @param PowerRepository $power
    * @param MediaRepository $media
    * @param DatabaseManager $db
    * @param LoggerInterface $log
@@ -123,7 +135,7 @@ class AddonController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'addon_name', 'price', 'summary', 'description'
+        'addon_name', 'price', 'summary', 'description', 's_order'
       ]);
 
       $input['image'] = $request->featured_image;
@@ -192,7 +204,7 @@ class AddonController extends Controller
       $this->db->beginTransaction();
 
       $input = $request->only([
-        'addon_name', 'price', 'summary', 'description'
+        'addon_name', 'price', 'summary', 'description', 's_order'
       ]);
 
       $input['image'] = $request->featured_image;

@@ -66,3 +66,5 @@ Route::get('/thankyou','Pages\BookingController@thankyou_page')->name('page.than
 Route::post('/update-customer','Pages\BookingController@updateStripeCustomer')->name('update-stripe-customer');
 Route::post('/order-notification-email-to-customer','Pages\BookingController@ajSendOrderNotificationEmailToCustomer')->name('order-notification-email-to-customer');
 Route::post('/save-quote', 'Pages\QuoteController@saveQuote')->name('save.quote');
+
+Route::get('/saved-quote/{id?}/{token?}', 'Pages\QuoteController@savedQuote')->name('saved.quote');

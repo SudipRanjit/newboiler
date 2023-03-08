@@ -325,7 +325,7 @@
     var radiatorName = "{{$radiator->radiator_name}}";
     var radiatorImage = "{{$radiator->image}}";
     var radiatorDesc = "{{$radiator->description}}";
-
+    var selection = JSON.parse('{!! json_encode($Selection) !!}');
     $(".more-radiator-info").click(function(){
       $("#radiatorLabel").html(radiatorName);
       $("#radiatorImage").attr("src", radiatorImage);
@@ -704,6 +704,7 @@ $(".save_this_quote").click(function(event){
   var choice = JSON.stringify(selection);
 
   var url = '{!! route("save.quote") !!}';
+  var saved_url = "{{url()->current()}}";
 
   $.ajax({
       url: url, 
@@ -712,7 +713,8 @@ $(".save_this_quote").click(function(event){
                 selection: choice,
                 boiler: cBoiler,
                 email: email,
-                contact: contact
+                contact: contact,
+                saved_url: saved_url
             },
       dataType: "json",      
       headers: {

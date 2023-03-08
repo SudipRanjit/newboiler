@@ -104,6 +104,9 @@ class SaveQuote extends Mailable
             $extras['scaffolding']['price'] = $selection["scaffolding"]["price"];
         }
         $extras['totalPrice'] = $this->quote->offered_price;
+        $extras['quote_id'] = $this->quote->id;
+        $extras['quote_token'] = $this->quote->token;
+        $extras['step_url'] = route('saved.quote', ['id' => $this->quote->id, 'token' => $this->quote->token]);
         if(isset($selection["total_price"]))
             $extras['totalPrice'] = $selection["total_price"];
 

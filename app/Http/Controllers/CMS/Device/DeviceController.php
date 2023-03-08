@@ -140,7 +140,7 @@ class DeviceController extends Controller
             $this->db->beginTransaction();
 
             $input = $request->only([
-                'device_name', 'price', 'summary', 'description',
+                'device_name', 'price', 'summary', 'description', 's_order'
             ]);
 
             $input['image'] = $request->featured_image;
@@ -229,7 +229,7 @@ class DeviceController extends Controller
             $this->db->beginTransaction();
 
             $input = $request->only([
-                'device_name', 'price', 'summary', 'description',
+                'device_name', 'price', 'summary', 'description', 's_order'
             ]);
 
             $input['image'] = $request->featured_image;

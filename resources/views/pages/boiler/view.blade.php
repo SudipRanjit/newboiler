@@ -335,43 +335,6 @@
 
 @include('pages.layouts.partials._footer')
 
-<div class="modal fade" id="save-quote" tabindex="-1" aria-labelledby="save-quoteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body p-4 p-lg-5">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-10 text-center">
-                        <h2 class="modal-title mb-4" id="save-quoteLabel">Save Your Quote</h2>
-                        <p class="mb-5">Maecenas consequat felis nisi, in ullamcorper tortor viverra quis. Sed gravida diam ullamcorper purus vulputate accumsan. </p>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 col-md-10">
-                        <form action="#">
-                            <div class="mb-4">
-                                <label for="email-quota" class="form-label ps-4">Email address</label>
-                                <input type="text" class="form-control" id="email-quota" placeholder="Email address">
-                            </div>
-                            <div class="mb-4">
-                                <label for="contact-quota" class="form-label ps-4">Contact number</label>
-                                <input type="text" class="form-control" id="contact-quota" placeholder="Contact number">
-                            </div>
-                            <div class="form-check mb-5">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="agree-quota">
-                                <label class="form-check-label" for="agree-quota">
-                                    <small>I’m happy to...Fusce eget leo at lacus blandit luctus. Donec lacus libero, ultrices sed molestie sed, elementum nec sem. Phasellus dapibus molestie massa id mattis. Fusce in ligula augue. Donec euismod nibh ac lacinia consectetur.</small>
-                                    <a href="#" class="text-secondary"><small>Privacy Policy</small></a>
-                                </label>
-                            </div>
-                            <button class="btn btn-secondary w-100">Save Quote</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="see-everything" tabindex="-1" aria-labelledby="see-everythingLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -502,6 +465,42 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="save-quote" tabindex="-1" aria-labelledby="save-quoteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body p-4 p-lg-5">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10 text-center">
+                      <h2 class="modal-title mb-4" id="save-quoteLabel">Save This Quote</h2>
+                      {{-- <p class="mb-5">Maecenas consequat felis nisi, in ullamcorper tortor viverra quis. Sed gravida diam ullamcorper purus vulputate accumsan. </p> --}}
+                  </div>
+              </div>
+              <div class="row justify-content-center">
+                  <div class="col-lg-6 col-md-10">
+                          <div class="mb-4">
+                              <label for="email-quote" class="form-label ps-4">Email address <small class="text-danger" id="emailErr"></small></label>
+                              <input type="text" class="form-control" id="email-quote" placeholder="Email address">
+                          </div>
+                          <div class="mb-4">
+                              <label for="contact-quote" class="form-label ps-4">Contact number</label>
+                              <input type="text" class="form-control" id="contact-quote" placeholder="Contact number">
+                          </div>
+                          <div class="form-check mb-5">
+                              <label class="form-check-label" for="agree-quote">
+                                  <small>By saving this quote, you'll receive a fixed price email quote from Gasking.<br>
+                                    Gasking will also contact you if there are discounts available on certain days within your quote period.*
+                                  <br>
+                                  For more information see our <a href="https://gasking.co.uk/privacy-policy/" target="_blank" class="text-secondary">Privacy Policy</a></small>
+                              </label>
+                          </div>
+                          <button class="btn btn-secondary w-100" id="save-quote-btn">Save Quote</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 @include('pages.layouts.partials._tooltip')
 @include('pages.layouts.partials._scripts')
 
@@ -509,6 +508,81 @@
 </html>
 
 <script>
+  var selection = JSON.parse('{!! json_encode($Selection) !!}');
+  function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+  var cBoiler = "";
+  $(".save_this_quote").click(function(event){
+          cBoiler = $(this).attr("data-boiler");
+          $("#save-quote").show();
+        });
+  $("#save-quote-btn").click(function(event){
+  event.preventDefault();
+  $("#emailErr").html("");
+  var email = $("#email-quote").val();
+  var contact = $("#contact-quote").val();
+  if(email != "")
+  {
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter a valid email");
+      return false;
+    }
+  }else{
+    if(!validateEmail(email))
+    {
+      $("#emailErr").html("Please enter your email address");
+      return false;
+    }
+  }
+  var choice = JSON.stringify(selection);
+
+  var url = '{!! route("save.quote") !!}';
+
+  var saved_url = "{{url()->current()}}";
+
+  $.ajax({
+      url: url, 
+      type: "POST",
+      data: {
+                selection: choice,
+                boiler: cBoiler,
+                email: email,
+                contact: contact,
+                saved_url: saved_url
+            },
+      dataType: "json",      
+      headers: {
+          'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+      },
+      beforeSend: function () {
+          $('.loader').show();
+      },
+      complete: function () {
+          $('.loader').hide();
+      },     
+      success:function(data)
+      {
+        Swal.fire({
+          title: 'Done',
+          text: data.message,
+          icon: 'success',
+          showCancelButton: false,
+          showCloseButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Close'
+          }).then((result) => {
+          if (result.isConfirmed) {
+            $('#save-quote').modal('hide');
+          }
+          });
+      }
+
+  });
+});
 $('.choose-boiler').click(function(){
 $.ajax({
               url: "{!! route('update-answer') !!}", 

@@ -474,7 +474,7 @@ $(".save_this_quote").click(function(event){
   var choice = JSON.stringify(selection);
 
   var url = '{!! route("save.quote") !!}';
-
+  var saved_url = "{{url()->current()}}";
   $.ajax({
       url: url, 
       type: "POST",
@@ -482,7 +482,8 @@ $(".save_this_quote").click(function(event){
                 selection: choice,
                 boiler: cBoiler,
                 email: email,
-                contact: contact
+                contact: contact,
+                saved_url: saved_url
             },
       dataType: "json",      
       headers: {

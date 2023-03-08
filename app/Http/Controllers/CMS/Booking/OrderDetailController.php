@@ -50,7 +50,6 @@ class OrderDetailController extends Controller
    */
   public function index($order_id)
   {
-    $this->authorize('view', OrderDetail::class);
     $order_details = $this->order_detail->getWithCondition(['order_id'=>$order_id],'id','asc',array('*'),1000);
     if ($order_details->isEmpty())
         abort(404); 

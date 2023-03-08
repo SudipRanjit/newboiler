@@ -28,7 +28,8 @@ class Addon extends Model
     'summary',
     'description',
     'image',
-    'publish'
+    'publish',
+    's_order'
   ];
 
   protected $appends = [

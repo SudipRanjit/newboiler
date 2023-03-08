@@ -31,7 +31,8 @@ class Device extends Model
     'publish',
     'system',
     'standard',
-    'combi'
+    'combi',
+    's_order'
   ];
 
   protected $appends = [

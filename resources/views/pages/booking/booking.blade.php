@@ -43,11 +43,22 @@
                         <td class="_row_value">£{{ $boiler->price - $boiler->discount??0 }}</td>
                       </tr>
                       <tr>
-                        <td class="_row_title _wd10"><img src="{{asset('assets/img/our-promise.jpg')}}" class="__title_img" /></td>
+                        <td class="_row_title _wd10"><img src="{{asset('assets/img/gas-safe.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Gas Safe Installation</td>
                         <td class="_row_value">Included</td>
                       </tr>
-                      
+                      <tr>
+                        <td class="_row_title _wd10"><img src="{{ $addon->image}}" class="__title_img" /></td>
+                        <td class="_row_title"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} </a></td>
+                        <td class="_row_value">@if($addon->price > 0)£{{ $addon->price }}@else Free @endif</td>
+                      </tr>
+                      @if(!empty($radiator))
+                      <tr>
+                        <td class="_row_title _wd10"><img src="{{ asset('assets/img/radiator.jpg') }}" class="__title_img" /></td>
+                        <td class="_row_title">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</td>
+                        <td class="_row_value">£{{round($Selection['radiator']['quantity']*$radiator_price->price,2);}}</td>
+                      </tr>
+                      @endif
                       @if($devices)
                       @foreach($devices as $device)
                       <tr>
@@ -65,12 +76,6 @@
                       </tr>
                       @endforeach
                       @endif
-                      <tr>
-                        <td class="_row_title _wd10"><img src="{{ $addon->image}}" class="__title_img" /></td>
-                        <td class="_row_title"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} </a></td>
-                        <td class="_row_value">@if($addon->price > 0)£{{ $addon->price }}@else Free @endif</td>
-                      </tr>
-                        
                     
                       @if (!empty($Selection['moving_boiler']['type']))
                       <tr>
@@ -96,13 +101,7 @@
                       </tr>
                       @endif
 
-                      @if(!empty($radiator))
-                      <tr>
-                        <td class="_row_title _wd10"><img src="{{ asset('assets/img/radiator.jpg') }}" class="__title_img" /></td>
-                        <td class="_row_title">{{$Selection['radiator']['quantity']}}</span>x {{$radiator->radiator_name}}</td>
-                        <td class="_row_value">£{{round($Selection['radiator']['quantity']*$radiator_price->price,2);}}</td>
-                      </tr>
-                      @endif
+                      
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"></td>
                         <td class="_row_title">Boiler & pipework installation, including any alterations and upgrades</td>

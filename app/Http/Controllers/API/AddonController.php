@@ -117,9 +117,9 @@ class AddonController extends Controller
       $ids = explode(',',$ids);
     
       
-    $limit = $query['limit']??4;
+    $limit = $query['limit']??8;
     $page = $query['page']??1;
-    $sort_by = $query['sort_by']??'addon_name';
+    $sort_by = $query['sort_by']??'s_order';
     $sort = $query['sort']??'asc';
    
     $condition = [];

@@ -65,7 +65,7 @@ class DeviceController extends Controller
 
         $limit = $query['limit'] ?? 4;
         $page = $query['page'] ?? 1;
-        $sort_by = $query['sort_by'] ?? 'device_name';
+        $sort_by = $query['sort_by'] ?? 's_order';
         $sort = $query['sort'] ?? 'asc';
 
         $condition = [];
