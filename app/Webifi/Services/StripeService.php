@@ -7,9 +7,11 @@ class StripeService
 {
     
     /**
-     * @var $stripe_scret_key
+     * @var $stripe_secret_key
      */
-    private $stripe_scret_key;
+    private $stripe_secret_key;
+
+    private $stripe;
 
     public function __construct()
     {

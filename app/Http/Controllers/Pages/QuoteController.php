@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
 use Illuminate\Support\Facades\Mail;
+use App\Webifi\Services\SMSService;
 
 class QuoteController extends Controller
 {
@@ -35,22 +36,30 @@ class QuoteController extends Controller
     private $log;
 
     /**
+     * SMSService $sms
+     */
+    private $sms;
+
+    /**
      * QuoteController constructor.
      * @param QuoteRepository $quote
      * @param BoilerRepository $boiler
      * @param DatabaseManager $db
      * @param LoggerInterface $log
+     * @param SMSService $sms
      */
     public function __construct(
         QuoteRepository $quote,
         BoilerRepository $boiler,
         DatabaseManager $db,
-        LoggerInterface $log
+        LoggerInterface $log,
+        SMSService $sms
     ) {
         $this->quote = $quote;
         $this->boiler = $boiler;
         $this->db = $db;
         $this->log = $log;
+        $this->sms = $sms;
     }
 
     /**
@@ -94,7 +103,7 @@ class QuoteController extends Controller
             //     $message->subject("Your fixed price for ".$boiler->boiler_name);
             // });
             Mail::to($input['email'])->send(new SaveQuote($id));
-
+            $this->sms->sendSMS($request->contact, "Your quotation has been sent to email ".$request->email. ". We'll follow back shortly.");
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
         } catch (\Exception $e) {
