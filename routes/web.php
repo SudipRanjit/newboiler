@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\API\TwilioSMSController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,3 +69,5 @@ Route::post('/order-notification-email-to-customer','Pages\BookingController@ajS
 Route::post('/save-quote', 'Pages\QuoteController@saveQuote')->name('save.quote');
 
 Route::get('/saved-quote/{id?}/{token?}', 'Pages\QuoteController@savedQuote')->name('saved.quote');
+
+Route::get('sendSMS', [TwilioSMSController::class, 'index']);
