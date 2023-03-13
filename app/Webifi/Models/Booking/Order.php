@@ -2,12 +2,12 @@
 
 namespace App\Webifi\Models\Booking;
 
+use App\Webifi\Models\Booking\BillingAddress;
+use App\Webifi\Models\Booking\Booking;
+use App\Webifi\Models\Booking\OrderDetail;
+use App\Webifi\Models\Booking\PaymentGateway;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Webifi\Models\Booking\PaymentGateway;
-use App\Webifi\Models\Booking\BillingAddress;
-use App\Webifi\Models\Booking\OrderDetail;
-use App\Webifi\Models\Booking\Booking;
 
 class Order extends Model
 {
@@ -19,21 +19,22 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-    'payment_gateway_id',
-    'billing_address_id',
-    'transaction_id',
-    'vendor_transaction_id',
-    'amount',
-    'discount',
-    'conversion_charge',
-    'moving_boiler_charge',
-    'moving_boiler_to',
-    'status',
-    'stripe_customer_id',
-    'stripe_payment_method_id',
-    'stripe_setup_intent_id',
-    'payout_amount',
-    'payout_date'
+        'payment_gateway_id',
+        'billing_address_id',
+        'transaction_id',
+        'vendor_transaction_id',
+        'amount',
+        'discount',
+        'conversion_charge',
+        'moving_boiler_charge',
+        'moving_boiler_to',
+        'status',
+        'stripe_customer_id',
+        'stripe_payment_method_id',
+        'stripe_setup_intent_id',
+        'payout_amount',
+        'payout_date',
+        'call_requested',
     ];
 
     /**
@@ -67,7 +68,5 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
-
-
 
 }

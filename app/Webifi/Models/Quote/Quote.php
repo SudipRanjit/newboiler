@@ -31,7 +31,8 @@ class Quote extends Model
     'offered_price',
     'contact',
     'saved_url',
-    'token'
+    'token',
+    'call_requested'
   ];
 
   /**

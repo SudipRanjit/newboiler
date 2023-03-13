@@ -89,6 +89,7 @@
               @else
               <span class="label label-danger">InComplete</span>
               @endif
+              @if($order->call_requested)<br><span class="label label-success">Call_Requested</span>@endif
             </td>
             <td>{!! date('Y-m-d',strtotime($order->booking->appointment_date)) !!}</td>
             <td>{!! date('Y-m-d',strtotime($order->created_at)) !!}</td>

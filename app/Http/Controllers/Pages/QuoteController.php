@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
 use Illuminate\Support\Facades\Mail;
 use App\Webifi\Services\SMSService;
+use App\Webifi\Repositories\Booking\OrderRepository;
 
 class QuoteController extends Controller
 {
@@ -41,25 +42,33 @@ class QuoteController extends Controller
     private $sms;
 
     /**
+     * OrderRepository $order
+     */
+    private $order;
+
+    /**
      * QuoteController constructor.
      * @param QuoteRepository $quote
      * @param BoilerRepository $boiler
      * @param DatabaseManager $db
      * @param LoggerInterface $log
      * @param SMSService $sms
+     * @param OrderRepository $order
      */
     public function __construct(
         QuoteRepository $quote,
         BoilerRepository $boiler,
         DatabaseManager $db,
         LoggerInterface $log,
-        SMSService $sms
+        SMSService $sms,
+        OrderRepository $order
     ) {
         $this->quote = $quote;
         $this->boiler = $boiler;
         $this->db = $db;
         $this->log = $log;
         $this->sms = $sms;
+        $this->order = $order;
     }
 
     /**
@@ -103,7 +112,10 @@ class QuoteController extends Controller
             //     $message->subject("Your fixed price for ".$boiler->boiler_name);
             // });
             Mail::to($input['email'])->send(new SaveQuote($id));
-            $this->sms->sendSMS($request->contact, "Your quotation has been sent to email ".$request->email. ". We'll follow back shortly.");
+            $link = route('call.request.quote', ['id' => $id, 'token' => $input['token']]);
+
+            $smsMessage = "Your GasKing fixed price of £".$input['offered_price']." is locked in for 7 days. Go to the following link if you would like us to call you to discussion about your quote. ".$link;
+            $this->sms->sendSMS($request->contact, $smsMessage);
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
         } catch (\Exception $e) {
@@ -138,5 +150,52 @@ class QuoteController extends Controller
 
         return redirect($url);
     }
+
+    /**
+     * 
+     */
+    public function quoteCallRequest(Request $request)
+    {
+        $id = $request->id;
+
+        $token = $request->token;
+
+        $quote = $this->quote->find($id);
+
+        if($quote == null)
+        return redirect()->route('page.index');
+     
+        if($quote->token != $token)
+         return redirect()->route('page.index');
+
+        
+        $this->quote->update($id, ['call_requested' => true]);
+
+        //Return view
+    }
+
+    /**
+     * 
+     */
+    public function bookingCallRequest(Request $request)
+    {
+        $id = $request->id;
+
+        $token = $request->token;
+
+        $order = $this->order->find($id);
+
+        if($order == null)
+        return redirect()->route('page.index');
+     
+        if($order->transaction_id != $token)
+         return redirect()->route('page.index');
+
+        $this->order->update($id, ['call_requested' => true]);
+
+        //Return view
+        return view('pages.index.call');
+    }
+
 
 }

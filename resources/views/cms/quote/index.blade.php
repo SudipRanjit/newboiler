@@ -53,7 +53,7 @@
                 {{$quote->email}}
             </td>
             <td>
-                {{$quote->contact}}
+                {{$quote->contact}} @if($quote->call_requested)<br><span class="label label-success">Call Requested</span>@endif
             </td>
             <td>
                 £ {{$quote->offered_price}} (At the time, client saved the quote)

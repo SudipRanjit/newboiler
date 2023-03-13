@@ -69,3 +69,8 @@ Route::post('/order-notification-email-to-customer','Pages\BookingController@ajS
 Route::post('/save-quote', 'Pages\QuoteController@saveQuote')->name('save.quote');
 
 Route::get('/saved-quote/{id?}/{token?}', 'Pages\QuoteController@savedQuote')->name('saved.quote');
+
+Route::get('/call-requested-quote/{id?}/{token?}', 'Pages\QuoteController@quoteCallRequest')->name('call.request.quote');
+
+Route::get('/call-requested-booking/{id?}/{token?}', 'Pages\QuoteController@bookingCallRequest')->name('call.request.booking');
+

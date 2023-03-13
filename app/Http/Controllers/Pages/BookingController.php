@@ -23,6 +23,7 @@ use App\Http\Requests\BillingAddressRequest;
 use Illuminate\Support\Str;
 use App\Webifi\Services\StripeService;
 use App\Mail\OrderNotificationToCustomer;
+use App\Webifi\Services\SMSService;
 use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
@@ -34,13 +35,19 @@ class BookingController extends Controller
   private $StripeService;
 
   /**
+   * SMSService $sms
+   */
+  private $sms;
+
+  /**
    * Constructor
    * @param StripeService $StripeService
    *
    */
-  public function __construct(StripeService $StripeService)
+  public function __construct(StripeService $StripeService, SMSService $sms)
   {
      $this->StripeService = $StripeService;
+     $this->sms = $sms;
   }
 
     /**
@@ -532,6 +539,11 @@ class BookingController extends Controller
             ];
     
             Mail::to($body['email'])->send(new OrderNotificationToCustomer($body,$order));
+
+            $link = route('call.request.booking', ['id' => $order->id, 'token' => $order->transaction_id]);
+            $smsMessage = "Your order has been confirmed. Go to the following link if you would like us to call you to discuss about your booking. ".$link;
+
+            $this->sms->sendSMS($order->billing_address->contact_number, $smsMessage);
             return ['success'=>true];
         }
         catch(\Exception $e)
