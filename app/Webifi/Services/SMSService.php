@@ -3,6 +3,7 @@
 namespace App\Webifi\Services;
 
 use Twilio\Rest\Client;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class UserVerification
@@ -10,6 +11,20 @@ use Twilio\Rest\Client;
  */
 class SMSService
 {
+    /**
+     * LoggerInterface $log
+     */
+    private $log;
+
+    /**
+     * SMSService
+     * 
+     * @param LoggerInterface $log
+     */
+    public function __construct(LoggerInterface $log)
+    {   
+        $this->log = $log;
+    }
 
     /**
      * Send SMS
@@ -31,10 +46,11 @@ class SMSService
             $client->messages->create($receiverNumber, [
                 'from' => $twilio_number, 
                 'body' => $message]);
-  
+            $this->log->info("SMS sent to ".$receiverNumber);
             return ['success' => "SMS Sent!"];
   
         } catch (\Exception $e) {
+            $this->log->error((string) $e);
             return ['error' => $e->getMessage()];
         }
     }
@@ -47,15 +63,15 @@ class SMSService
      */
     private function convertNumber($number)
     {
+        $countryCode = '+44'; // Country code for UK
+
         // Check if the phone number starts with '0'
         if (substr($number, 0, 1) === '0') {
             // Add the country code prefix
-            $countryCode = '+44'; // Country code for UK
             $phoneNumberWithCode = $countryCode . substr($number, 1);
 
             return $phoneNumberWithCode; 
         } else {
-            $countryCode = '+44';
             return $countryCode . $number;
         }
     }
