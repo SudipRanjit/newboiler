@@ -43,7 +43,7 @@
                         <td class="_row_value">£{{ $boiler->price - $boiler->discount??0 }}</td>
                       </tr>
                       <tr>
-                        <td class="_row_title _wd10"><img src="{{asset('assets/img/gas-safe.png')}}" class="__title_img" /></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/gas-safe.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Gas Safe Installation</td>
                         <td class="_row_value">Included</td>
                       </tr>

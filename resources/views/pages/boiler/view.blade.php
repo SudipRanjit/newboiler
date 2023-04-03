@@ -209,7 +209,8 @@
                     <div class="bg-g-light border-r-1 p-4 p-lg-5">
                         <div class="row align-items-center">
                             <div class="col-lg-12 pe-lg-12">                    
-                                <img style="width:100%;" src="{!! asset('assets/img/boiler-select.png?v1.1') !!}" alt="Boiler" class="img-fluid w-100">
+                                <img style="width:100%;" src="{!! asset('assets/img/boiler-select.png?v1.1') !!}" alt="Boiler" class="img-fluid w-100 mobile-only">
+                                <img style="width:100%;" src="{!! asset('assets/img/what-else-desktop.jpg?v1.1') !!}" alt="Boiler" class="img-fluid w-100 desktop-only">
                             </div>
                             <div class="col-lg-12">
                                 <div class="accordion pt-5 pt-lg-0" id="accordionBoiler">
