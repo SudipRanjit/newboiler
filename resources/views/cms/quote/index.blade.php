@@ -35,6 +35,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Boiler</th>
             <th scope="col">Email</th>
             <th scope="col">Contact</th>
@@ -46,6 +47,9 @@
         <tbody>
           @foreach($quotes as $quote)
           <tr>
+            <td scope="row">
+              {!! $quote->id !!} 
+          </td>
             <td scope="row">
                 {!! $quote->quoteBoiler->boiler_name !!} ({!! $quote->quoteBoiler->boiler_type !!})
             </td>
