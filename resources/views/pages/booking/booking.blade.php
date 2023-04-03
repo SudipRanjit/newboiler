@@ -103,78 +103,78 @@
 
                       
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/boiler-installation.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Boiler & pipework installation, including any alterations and upgrades</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/new-flue.png')}}" class="__title_img" /></td>
                         <td class="_row_title">New Flue Installation and any required brickwork</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/electrical-work.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Electrical work</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-tanks.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Removal and disposal of existing boiler</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-tanks.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Removal of existing tanks and cylinder</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/register-warranty.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Gasking register the warranty & Building Control Certificate</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-nest.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-magnetic.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Magnetic central heating Filter</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-fernox-scale.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Fernox Magnetic Scale Remover</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-carbon-mono.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Carbon Monoxide Detector</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-magnacleanse.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free MagnaCleanse system flush</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-ferox-f3.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Fernox F3 Central Heating Cleaner</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-fernox-f1.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Fernox F1 central heating protector</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-pipework.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Pipework installation, alterations, and upgrades</td>
                         <td class="_row_value">Included</td>
                       </tr>
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-extended.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free extended Boiler Aftercare warranty ( Warranty must be reactive)</td>
                         <td class="_row_value">Included</td>
                       </tr>
