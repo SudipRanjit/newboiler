@@ -172,6 +172,8 @@ class QuoteController extends Controller
         $this->quote->update($id, ['call_requested' => true]);
 
         //Return view
+
+        return view('pages.index.call');
     }
 
     /**
