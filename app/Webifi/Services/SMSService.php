@@ -55,7 +55,8 @@ class SMSService
 
             return $phoneNumberWithCode; 
         } else {
-            return $number;
+            $countryCode = '+44';
+            return $countryCode . $number;
         }
     }
 
