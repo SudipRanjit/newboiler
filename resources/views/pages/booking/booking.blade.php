@@ -114,7 +114,7 @@
                       </tr>
 
                       @if (!empty($Selection['moving_boiler']['type']))
-                      <tr>
+                      <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/questions/images/q4a/o8.svg')}}" class="__title_img" /></td>
                         <td class="_row_title">Moving boiler to {{ $Selection['moving_boiler']['type'] }}</td>
                         <td class="_row_value">£{{ $Selection['moving_boiler']['price'] }}</td>
@@ -122,7 +122,7 @@
                       @endif
 
                       @if(!empty($Selection['scaffolding']['type']))
-                      <tr>
+                      <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/questions/images/q10b/o1.svg')}}" class="__title_img" /></td>
                         <td class="_row_title">{{ $Selection['scaffolding']['type'] }}</td>
                         <td class="_row_value">£{{ $Selection['scaffolding']['price'] }}</td>
@@ -159,7 +159,7 @@
                       </tr>
                       
                       <tr class="included-hidden">
-                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-tanks.png')}}" class="__title_img" /></td>
+                        <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-cylinder.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Removal of existing tanks and cylinder</td>
                         <td class="_row_value">Included</td>
                       </tr>
