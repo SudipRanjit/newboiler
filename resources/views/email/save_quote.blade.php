@@ -622,7 +622,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>{{$extras['control_device']['name']}}</td>
-                                                        <td>@if($extras['control_device']['price'] != "Free")£@endif{{$extras['control_device']['price']}}</td>
+                                                        <td>@if($extras['control_device']['price'] != "Free")£@endif{{strtoupper($extras['control_device']['price'])}}</td>
                                                       </tr>
                                                     <tr>
                                                         <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
