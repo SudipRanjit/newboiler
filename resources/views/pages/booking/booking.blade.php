@@ -50,7 +50,7 @@
                       <tr>
                         <td class="_row_title _wd10"><img src="{{ $addon->image}}" class="__title_img" /></td>
                         <td class="_row_title"><a href="{!! route('page.controls') !!}">{{ $addon->addon_name}} </a></td>
-                        <td class="_row_value">@if($addon->price > 0)£{{ $addon->price }}@else Free @endif</td>
+                        <td class="_row_value">@if($addon->price > 0)£{{ $addon->price }}@else FREE @endif</td>
                       </tr>
                       @if(!empty($radiator))
                       <tr>
@@ -130,7 +130,7 @@
                       @endif
 
                       @if (!empty($Selection['conversion_charge']))
-                      <tr>
+                      <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/questions/images/q2/o1.svg')}}" class="__title_img" /></td>
                         <td class="_row_title">Conversion charge (converting to a Combi boiler)</td>
                         <td class="_row_value">£{{ $Selection['conversion_charge'] }}</td>
