@@ -38,8 +38,7 @@ class QuoteRepository extends Repository
   
           $q = $q->where(function($query) use ($searchCondition) {
           $query->where('id', '=', $searchCondition)
-            ->orWhere('email', 'like', '%'.$searchCondition.'%')
-            ->orWhere('contact', 'like', '%'.$searchCondition.'%');
+            ->orWhere('email', 'like', '%'.$searchCondition.'%');
         });
   
         return $q->orderBy($orderBy, $orderType)->paginate($limit, $columns);
