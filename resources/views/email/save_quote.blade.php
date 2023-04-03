@@ -672,112 +672,112 @@
                                                    
                                                     <tr>
                                                       <td>Gas Safe Installation</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Boiler & pipework installation, including any alterations and upgrades</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>New Flue Installation and any required brickwork</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Electrical work</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Removal and disposal of existing boiler</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Removal of existing tanks and cylinder</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Gasking register the warranty & Building Control Certificate</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Magnetic central heating Filter</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Fernox Magnetic Scale Remover</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Carbon Monoxide Detector</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free MagnaCleanse system flush</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Fernox F3 Central Heating Cleaner</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Fernox F1 central heating protector</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free Pipework installation, alterations, and upgrades</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"><hr></td>
                                                     </tr>
                                                     <tr>
                                                       <td>Free extended Boiler Aftercare warranty ( Warranty must be reactive)</td>
-                                                      <td>Included</td>
+                                                      <td>FREE</td>
                                                     </tr>
                                                     <tr>
                                                       <td height="25" colspan="2" style="font-size:25px;line-height:25px;"></td>
