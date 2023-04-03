@@ -101,6 +101,7 @@
               @endif
             </td>
             <td>
+              @if($booking->order->call_requested)<br><span class="label label-success">Call Requested</span>@endif
               @if($booking->order->status=='0')
               <span class="label label-danger">Finance Awaiting</span>
               @elseif($booking->order->status=='1')
