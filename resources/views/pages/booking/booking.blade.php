@@ -45,7 +45,7 @@
                       <tr>
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/gas-safe.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Gas Safe Installation</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr>
                         <td class="_row_title _wd10"><img src="{{ $addon->image}}" class="__title_img" /></td>
@@ -140,44 +140,44 @@
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/boiler-installation.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Boiler & pipework installation, including any alterations and upgrades</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/new-flue.png')}}" class="__title_img" /></td>
                         <td class="_row_title">New Flue Installation and any required brickwork</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/electrical-work.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Electrical work</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-tanks.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Removal and disposal of existing boiler</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/removal-cylinder.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Removal of existing tanks and cylinder</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/register-warranty.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Gasking register the warranty & Building Control Certificate</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-pipework.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free Pipework installation, alterations, and upgrades</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                       <tr class="included-hidden">
                         <td class="_row_title _wd10"><img style="width:60%;" src="{{asset('assets/img/free/free-extended.png')}}" class="__title_img" /></td>
                         <td class="_row_title">Free extended Boiler Aftercare warranty ( Warranty must be reactive)</td>
-                        <td class="_row_value">Included</td>
+                        <td class="_row_value">FREE</td>
                       </tr>
                     </table>
 
