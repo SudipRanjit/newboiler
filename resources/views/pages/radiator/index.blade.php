@@ -192,7 +192,7 @@
                             <div class="card-light p-4 mb-4">
                                 <p class="f-18 font-medium side-card-title text-primary">Radiator</p>
                                 <ul class="side-card-list list-unstyled">
-                                    <li>
+                                    <li id="radiator-selected-list">
                                         <p class="f-15 font-medium mb-0"><span class="basket_count">{{$cart_count}}</span>x {{$radiator->radiator_name}}</p>
                                         <p class="m-0">£<span class="total_price">{{$cart_price}}</span></p>
                                         @if(!empty($Selection['radiator_type']))
@@ -382,6 +382,15 @@
                 },
                 complete: function () {
                     $('.loader').hide();
+                    var content = '<p class="f-15 font-medium mb-0"><span class="basket_count">count_radiator</span>x radiator_name</p>'+
+                                  '<p class="m-0">£<span class="total_price">total_price</span></p>' + 
+                                  '<p class="m-0">Type: type</p>' +
+                                  '<p class="m-0">Height: height mm</p>' +
+                                  '<p class="m-0">Length: length mm</p>' +
+                                  '<p class="m-0">BTU: btu</p>'+
+                                  '<a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>';
+                    $("#radiator-selected-list").html(content);
+
                 },     
                 success:function(data)
                 {
@@ -409,6 +418,7 @@
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     //window.location.href = $("#next-radiators").attr("href");
+                                    location.reload(true);
                                 }
                                 });
                         }
@@ -430,7 +440,6 @@
                                 }
                                 });
                         }
-                        
                         $(".net-total-price").html(data.selection.total_price);
 
                     }
