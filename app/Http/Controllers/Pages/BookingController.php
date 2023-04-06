@@ -20,6 +20,7 @@ use App\Webifi\Repositories\Booking\BlockDateRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BillingAddressRequest;
+use App\Mail\AdminOrderNotificationCopy;
 use Illuminate\Support\Str;
 use App\Webifi\Services\StripeService;
 use App\Mail\OrderNotificationToCustomer;
@@ -312,7 +313,6 @@ class BookingController extends Controller
             
             return redirect()->route('page.booking')
             ->with('error', "Something went wrong! Please try again. ".$e->getMessage());
-            
         }
         
     }
@@ -513,7 +513,7 @@ class BookingController extends Controller
 
                 $success = true;
 
-                $request->session()->forget('selection'); 
+               // $request->session()->forget('selection'); 
 
                 return response()->json(['success'=>$success,'order_id'=>$order_record->transaction_id]);
     
@@ -537,8 +537,14 @@ class BookingController extends Controller
                 'name'=>ucwords($order->billing_address->first_name.' '.$order->billing_address->last_name),
                 'email'=>$order->billing_address->email
             ];
+
+            $OrderDetail = new OrderDetailRepository(app());
+
+            $details = $OrderDetail->findWithCondition(['order_id' => $order->id, 'product' => 'Boiler'],['id', 'product_id']);
     
-            Mail::to($body['email'])->send(new OrderNotificationToCustomer($body,$order));
+            Mail::to($body['email'])->send(new OrderNotificationToCustomer($body,$order,$details->product_id));
+
+            Mail::to(env("BOOKING_EMAIL", "aharvey@gasking.co.uk"))->send(new AdminOrderNotificationCopy($body,$order,$details->product_id));
 
             $link = route('call.request.booking', ['id' => $order->id, 'token' => $order->transaction_id]);
             $smsMessage = "Your order has been confirmed. Go to the following link if you would like us to call you to discuss about your booking. ".$link;
@@ -548,7 +554,7 @@ class BookingController extends Controller
         }
         catch(\Exception $e)
         {
-            return ['success'=>false,'error_message'=>$e->getMessage()];
+            return ['success'=>false,'error_message'=>$e];
         }
     }
     
@@ -965,6 +971,8 @@ class BookingController extends Controller
         if (strpos($referer,'/booking')===false) 
             return redirect()->route('page.index')
                              ->with('error', "Please select options." );
+
+        $request->session()->forget('selection'); 
 
         return view('pages.booking.thankyou');
     }

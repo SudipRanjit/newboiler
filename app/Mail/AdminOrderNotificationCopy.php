@@ -18,7 +18,7 @@ use App\Webifi\Repositories\Booking\BookingRepository;
 use App\Webifi\Repositories\Booking\OrderRepository;
 use Illuminate\Support\Facades\Session;
 
-class OrderNotificationToCustomer extends Mailable
+class AdminOrderNotificationCopy extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -50,6 +50,8 @@ class OrderNotificationToCustomer extends Mailable
 
         $Booking = new BookingRepository(app());
         $this->booking = $Booking->findBy('order_id', $order->id);
+
+        $this->order = $order;
     }
 
     /**
@@ -122,6 +124,6 @@ class OrderNotificationToCustomer extends Mailable
         if(isset($selection["total_price"]))
             $extras['totalPrice'] = $selection["total_price"];
 
-        return $this->subject('- Booking confirmation from Gasking')->markdown('email.booking_confirmation')->with('booking', $this->booking->toArray())->with('billing', $this->billing->toArray())->with('boiler',$this->boiler->toArray())->with('extras', $extras);
+        return $this->subject('- Booking confirmation from Gasking')->markdown('email.admin_booking_copy')->with('order', $this->order->toArray())->with('booking', $this->booking->toArray())->with('billing', $this->billing->toArray())->with('boiler',$this->boiler->toArray())->with('extras', $extras);
     }
 }
