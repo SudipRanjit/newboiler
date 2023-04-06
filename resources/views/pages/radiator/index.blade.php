@@ -189,10 +189,13 @@
                                 <a href="{!! route('page.smart-devices') !!}" id="next-smart-devices" class="btn btn-secondary d-block mb-4">Next</a>
                                 <a href="#" class="text-secondary d-flex align-items-center justify-content-center save_this_quote" data-boiler={{$boiler->id}} data-bs-toggle="modal" data-bs-target="#save-quote"><i class="fa-solid fa-envelope me-2"></i> Save Quote</a>
                             </div>
+
+                            <div id="radiator-selected-list">
+                            @if ($cart_count)
                             <div class="card-light p-4 mb-4">
                                 <p class="f-18 font-medium side-card-title text-primary">Radiator</p>
                                 <ul class="side-card-list list-unstyled">
-                                    <li id="radiator-selected-list">
+                                    <li>
                                         <p class="f-15 font-medium mb-0"><span class="basket_count">{{$cart_count}}</span>x {{$radiator->radiator_name}}</p>
                                         <p class="m-0">£<span class="total_price">{{$cart_price}}</span></p>
                                         @if(!empty($Selection['radiator_type']))
@@ -207,13 +210,13 @@
                                         @if(!empty($radiator_price->btu))
                                         <p class="m-0">BTU: {{ $radiator_price->btu }}</p>
                                         @endif
-
-                                        @if ($cart_count)
                                         <a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>
-                                        @endif
                                     </li>
                                 </ul>
                             </div>
+                            @endif
+                            </div>
+
                             <div class="card-light p-4 mb-4">
                                 <p class="f-18 font-medium side-card-title text-primary">Control</p>
                                 <ul class="side-card-list list-unstyled">
@@ -382,18 +385,25 @@
                 },
                 complete: function () {
                     $('.loader').hide();
-                    var content = '<p class="f-15 font-medium mb-0"><span class="basket_count">count_radiator</span>x radiator_name</p>'+
-                                  '<p class="m-0">£<span class="total_price">total_price</span></p>' + 
-                                  '<p class="m-0">Type: type</p>' +
-                                  '<p class="m-0">Height: height mm</p>' +
-                                  '<p class="m-0">Length: length mm</p>' +
-                                  '<p class="m-0">BTU: btu</p>'+
-                                  '<a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a>';
+                    console.log(result);
+                    var content = '<div class="card-light p-4 mb-4"><p class="f-18 font-medium side-card-title text-primary">Radiator</p>' +
+                                    '<ul class="side-card-list list-unstyled">' +
+                                    '<p class="f-15 font-medium mb-0"><span class="basket_count">'+result.radiator.quantity+'</span>x '+result.radiator_info.radiator_name+'</p>'+
+                                    '<p class="m-0">£<span class="total_price">'+result.radiator_total_price+'</span></p>' + 
+                                    '<p class="m-0">Type: '+result.radiator_type_text+'</p>' +
+                                    '<p class="m-0">Height: '+result.radiator_height_text+' mm</p>' +
+                                    '<p class="m-0">Length: '+result.radiator_length_text+' mm</p>' +
+                                    '<p class="m-0">BTU: '+result.radiator_btu+'</p>'+
+                                    '<a href="javascript:void(0)" class="text-danger btn-remove-radiator" >Remove</a></ul></div>';
                     $("#radiator-selected-list").html(content);
-
+                    $('.btn-remove-radiator').click(function(){
+                        add_to_cart(0,0);
+                        $("#radiator-selected-list").html("");
+                    });
                 },     
                 success:function(data)
                 {
+                    result = data.selection;
                     var radiator_name = "";
                     if(data.selection.hasOwnProperty('radiator_info'))
                     {
@@ -418,7 +428,6 @@
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     //window.location.href = $("#next-radiators").attr("href");
-                                    location.reload(true);
                                 }
                                 });
                         }

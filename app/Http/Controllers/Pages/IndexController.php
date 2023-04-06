@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Webifi\Repositories\Addon\AddonRepository;
 use App\Webifi\Repositories\Boiler\BoilerRepository;
 use App\Webifi\Repositories\Device\DeviceRepository;
+use App\Webifi\Repositories\Radiator\RadiatorHeightRepository;
+use App\Webifi\Repositories\Radiator\RadiatorLengthRepository;
 use App\Webifi\Repositories\Radiator\RadiatorPriceRepository;
 use App\Webifi\Repositories\Radiator\RadiatorRepository;
+use App\Webifi\Repositories\Radiator\RadiatorTypeRepository;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -191,19 +194,44 @@ class IndexController extends Controller
                         unset($selection['completed_wizard'][$key]);
                     }
                 }
+
+                if (isset($input['radiator_type'])) {
+                    $selection['radiator_type'] = $input['radiator_type'];
+                    $RadiatorType = new RadiatorTypeRepository(app());
+
+                    $rType = $RadiatorType->find($input['radiator_type']);
+                    $selection['radiator_type_text'] = $rType->type;
+                }
+    
+                if (isset($input['radiator_height'])) {
+                    $selection['radiator_height'] = $input['radiator_height'];
+                    $RadiatorHeight = new RadiatorHeightRepository(app());
+
+                    $rType = $RadiatorHeight->find($input['radiator_height']);
+                    $selection['radiator_height_text'] = $rType->height;
+                }
+    
+                if (isset($input['radiator_length'])) {
+                    $selection['radiator_length'] = $input['radiator_length'];
+                    $RadiatorLength = new RadiatorLengthRepository(app());
+
+                    $rType = $RadiatorLength->find($input['radiator_length']);
+                    $selection['radiator_length_text'] = $rType->length;
+
+                }
+
+                if(isset($input['radiator_type']) && isset($input['radiator_height']) && isset($input['radiator_length'])){
+                    $RadiatorPrice = new RadiatorPriceRepository(app());
+
+                    $record = $RadiatorPrice->findWithCondition(['radiator_type_id' => $input['radiator_type'], 'radiator_height_id' => $input['radiator_height'], 'radiator_length_id' => $input['radiator_length']], ['price', 'btu']);
+
+                    $selection['radiator_unit_price'] = $record->price;
+                    $selection['radiator_btu'] = $record->btu;
+                    $selection['radiator_total_price'] = round($record->price * $input['quantity'], 2);
+                }
             }
 
-            if (isset($input['radiator_type'])) {
-                $selection['radiator_type'] = $input['radiator_type'];
-            }
-
-            if (isset($input['radiator_height'])) {
-                $selection['radiator_height'] = $input['radiator_height'];
-            }
-
-            if (isset($input['radiator_length'])) {
-                $selection['radiator_length'] = $input['radiator_length'];
-            }
+            
 
             //calculate total_price
             if (!empty($selection['conversion_charge'])) {
@@ -258,6 +286,7 @@ class IndexController extends Controller
                 }
 
                 if ($record) {
+                   
                     $total_price += round($record->price * $selection['radiator']['quantity'], 2);
                 }
             }
