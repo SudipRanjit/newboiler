@@ -108,108 +108,179 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordian">
                                     <div class="accordion-body pb-4">
-                                        We'll install your new boiler and won't leave until it's working and tested. We know every job is different so we include all pipework alterations to accommodate your new boiler within your fixed price. We will also install your condensate pipe, and upgrade the pipe from your gas meter to boiler, if required.
+                                      We'll set up your new boiler and ensure its functioning correctly before we leave. Since each project is unique, we cover all necessary pipework adjustments within your fixed price to accommodate your new boiler. We'll also install the condensate pipe and upgrade the pipe connecting your gas meter to the boiler if needed.
                                     </div>
                                 </div>
                             </div>
+
                             <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  New Flue Installation and any required brickwork
-                                </button>
+                              <h2 class="accordion-header" id="headingTwo">
+                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    Removal and eco-friendly disposal of your old boiler</button>
                               </h2>
+                              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordian">
+                                  <div class="accordion-body pb-4">
+                                    Our service includes removing and recycling your old boiler, as well as clearing any debris generated during the installation. Packaging materials can be disposed of in your regular household recycling bin.
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                  MagnaCleanse® system flush</button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  A MagnaCleanse® system flush eliminates system debris using specialized chemicals and a powerful twin magnet filter. This process removes stubborn debris and reduces the need to take off radiators for cleaning.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Electrical work
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                  Magnetic Filter and Chemical Inhibitor</button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We'll install a new magnetic filter that captures and retains particles from the water circulating in your heating system and boiler. After replacing your boiler and refilling the system with fresh, clean water, we'll add a chemical inhibitor designed to prevent corrosion within your radiators and pipework.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Removal and disposal of existing boiler
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                  New flue and necessary brickwork</button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We'll supply and install a brand-new flue for your boiler, up to 3 meters in length. If your flue exceeds 3 meters, please contact us at 0800 368 8543 before ordering.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Removal of existing tanks and cylinder
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                  New Thermostat</button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  Our service includes a new thermostat and installation. Once you've chosen your boiler, you can select from a variety of compatible thermostats on our website, including the option to a upgrade to a free smart thermostat.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Gasking register the warranty & Building Control Certificate
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                                  Electrical work</button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  Our comprehensive installation package includes all necessary electrical work, ensuring that your new boiler and any connected devices are safely and properly wired.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+                                  Removal of existing tanks and cylinder</button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We handle the removal of any existing tanks and cylinders in your home, making space for your new boiler system and disposing of the old components responsibly.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Magnetic central heating Filter
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNine">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
+                                  Gasking registers the warranty & Building Control Certificate</button>
+                            </h2>
+                            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We take care of registering your boiler's warranty and obtaining the Building Control Certificate, ensuring that all necessary paperwork is completed on your behalf.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Fernox Magnetic Scale Remover
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTen">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen">
+                                  Free Nest Learning Thermostat (3rd Generation) & Stand or Hive Active Heating Thermostat</button>
+                            </h2>
+                            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  Choose between a complimentary Nest Learning Thermostat or Hive Active Heating Thermostat to enhance your heating system's efficiency and provide you with convenient, smart control.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Carbon Monoxide Detector
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEleven">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven">
+                                  Free Fernox Magnetic Scale Remover</button>
+                            </h2>
+                            <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We include a free Fernox Magnetic Scale Remover to prevent the build-up of limescale in your heating system, extending the life of your boiler and improving efficiency.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free MagnaCleanse system flush
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwelve">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
+                                  Free Carbon Monoxide Detector</button>
+                            </h2>
+                            <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  For your safety and the well-being of your family, we provide a free carbon monoxide detector with every installation. Carbon monoxide is an odourless, tasteless, and colourless gas that can pose a serious threat to your family's health. By installing a carbon monoxide detector, you can rest assured that you and your loved ones are protected from this dangerous gas. Early detection can make all the difference, ensuring that your home remains a safe and healthy environment for everyone.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Fernox F3 Central Heating Cleaner
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThirteen">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="true" aria-controls="collapseThirteen">
+                                  Free Fernox F3 Central Heating Cleaner</button>
+                            </h2>
+                            <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  We supply a complimentary Fernox F3 Central Heating Cleaner to remove debris and sludge from your heating system, improving its efficiency and longevity.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Fernox F1 central heating protector
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFourteen">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
+                                  Free Fernox F1 central heating protector</button>
+                            </h2>
+                            <div id="collapseFourteen" class="accordion-collapse collapse" aria-labelledby="headingFourteen" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  To prevent future corrosion and system breakdowns, we include a free Fernox F1 central heating protector, which maintains the optimal condition of your radiators and pipework.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free Pipework installation, alterations, and upgrades
-                                </button>
-                              </h2>
+                          </div>
+
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFifteen">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="true" aria-controls="collapseFifteen">
+                                  Free extended Boiler Aftercare warranty (Warranty must be reactive)</button>
+                            </h2>
+                            <div id="collapseFifteen" class="accordion-collapse collapse" aria-labelledby="headingFifteen" data-bs-parent="#faqAccordian">
+                                <div class="accordion-body pb-4">
+                                  As approved expert installers, Gasking offers a free extended Boiler Aftercare warranty, providing you with additional peace of mind and ensuring that your boiler is well-maintained for years to come.
+                                </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="heading__2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseX" aria-expanded="false" aria-controls="collapseX">
-                                  Free extended Boiler Aftercare warranty ( Warranty must be reactive)
-                                </button>
-                              </h2>
-                            </div>
+                          </div>
+                            
                         </div>
                     </div>
                 </div>
