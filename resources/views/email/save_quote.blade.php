@@ -574,7 +574,7 @@
                                                   style="font-family:'Roboto', sans-serif;font-size:24px;line-height:30px;font-weight:400;font-style:normal;color:#f08f12;text-decoration:none;letter-spacing:0px;">
 
                                                   <div>
-                                                    {{$boiler['boiler_name']}} - £{{$quote['offered_price']}}
+                                                    {{$boiler['boiler_name']}} - £{{$extras['totalPrice']}} {{-- £{{$quote['offered_price']}} --}}
                                                   </div>
 
                                                 </td>
