@@ -13,6 +13,7 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Support\Facades\Mail;
 use App\Webifi\Services\SMSService;
 use App\Webifi\Repositories\Booking\OrderRepository;
+use Illuminate\Support\Facades\Session;
 
 class QuoteController extends Controller
 {
@@ -104,6 +105,8 @@ class QuoteController extends Controller
             $id = $this->quote->store($input);
             $this->db->commit();
 
+            $booking_link = route('saved.quote', ['id' => $id, 'token' => $input['token']]);
+
             $input['boiler_name'] = $boiler->boiler_name;
 
             // $this->mailer->send('email.save_quote', $input, function ($message) use ($input, $boiler) {
@@ -112,9 +115,18 @@ class QuoteController extends Controller
             //     $message->subject("Your fixed price for ".$boiler->boiler_name);
             // });
             Mail::to($input['email'])->send(new SaveQuote($id));
+
+            $selection = Session::get('selection');
+
+            $totalPrice = $input['offered_price'];
+
+            if(isset($selection["total_price"]))
+                $totalPrice = $selection["total_price"];
+
             $link = route('call.request.quote', ['id' => $id, 'token' => $input['token']]);
 
-            $smsMessage = "Your GasKing fixed price of £".$input['offered_price']." is locked in for 7 days. Go to the following link if you would like us to call you to discussion about your quote. ".$link;
+            $smsMessage = "Your GasKing fixed price of £".$totalPrice." is locked in for 7 days. Go to the following link if you would like us to call you to discussion about your quote. ".$link
+            . "To continue your booking click here ".$booking_link;
             $this->sms->sendSMS($request->contact, $smsMessage);
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
