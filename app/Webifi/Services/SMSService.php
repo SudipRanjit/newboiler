@@ -65,6 +65,12 @@ class SMSService
     {
         $countryCode = '+44'; // Country code for UK
 
+        if(substr($number, 0, 1) === '+')
+            return $number;
+        
+        if(substr($number, 0, 1) === '4')
+            return '+'.$number;
+
         // Check if the phone number starts with '0'
         if (substr($number, 0, 1) === '0') {
             // Add the country code prefix
