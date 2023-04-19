@@ -125,8 +125,9 @@ class QuoteController extends Controller
 
             $link = route('call.request.quote', ['id' => $id, 'token' => $input['token']]);
 
-            $smsMessage = "Your GasKing fixed price of £".$totalPrice." is locked in for 7 days.\n Go to the following link if you would like us to call you to discussion about your quote. ".$link
-            . "\nTo continue your booking click here ".$booking_link;
+            $smsMessage = "Your GasKing fixed price of £".$totalPrice." is locked in for 7 days.\n\n".
+            "Go to the following link if you would like us to call you to discussion about your quote. ".$link."\n\n".
+            "To continue your booking click here ".$booking_link;
             $this->sms->sendSMS($request->contact, $smsMessage);
             return ['message' => 'Your quote has been saved! We\'ll email you shortly!'];
 
