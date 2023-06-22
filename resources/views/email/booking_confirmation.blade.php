@@ -865,6 +865,16 @@
                             <tr>
                               <td height="50" style="font-size:50px;line-height:50px;">&nbsp;</td>
                             </tr>
+                            <tr>
+                              <td><img style="width:100%;"
+                                src="https://boiler.gasking.co.uk/assets/img/accreditations.jpg" alt="accreditations"></td>
+                            </tr>
+                            <tr>
+                              <td height="50" style="font-size:50px;line-height:50px;">&nbsp;</td>
+                            </tr>
+
+
+
                           </table>
                           <!-- Content -->
 

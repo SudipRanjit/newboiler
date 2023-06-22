@@ -17,6 +17,7 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\View\View;
 use Psr\Log\LoggerInterface;
 use \Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Session;
 
 class BoilerController extends Controller
 {
@@ -123,8 +124,9 @@ class BoilerController extends Controller
       $sort_by = 'b.price - ifnull(b.discount,0)';
 
     $powerRange = explode("-",$power);
+    $selection = Session::has('selection') ? Session::get('selection') : [];
     $boilers = $this->boiler->paginateAndSortWithConditionBetween($condition, $powerRange, $sort_by, $sort, ["b.*"], $limit);
-    return ["boiler" => $boilers];
+    return ["boiler" => $boilers, 'selection' => $selection];
   }
   
 }
