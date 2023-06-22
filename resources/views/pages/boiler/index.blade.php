@@ -619,17 +619,20 @@ function create_list_item(data, append=false)
               item.find(".boiler-pro").append("<span class='boiler-tags'><img src='{!! asset('assets/img/boiler-icons/tick.jpg') !!}'>"+val.tag+"</span>");
             });
 
-            // var price = parseFloat(value.price);
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
-            var price = parseFloat(data.selection.total_price);
-            var aPrice = price + discount;
-            var dPrice = price - discount;
-            dPrice = dPrice.toFixed(2);
-            aPrice = aPrice.toFixed(2);
+            // var price = parseFloat(data.selection.total_price);
+            
+            var conversionCharge = parseFloat(data.selection.conversion_charge);
+            var movingBoilerCharge = parseFloat(data.selection.moving_boiler.price);
+            var scaffoldingCharge = parseFloat(data.selection.scaffolding.price);
+            var price = parseFloat(value.price) + conversionCharge + movingBoilerCharge + scaffoldingCharge;
 
-            item.find('.boiler-net-price').html("£"+price);
+            var dPrice = price  - discount;
+            dPrice = dPrice.toFixed(2);
+
+            item.find('.boiler-net-price').html("£"+dPrice);
             if (discount)
-                item.find('.boiler-actual-price').html("<s>£"+aPrice+"</s>");
+                item.find('.boiler-actual-price').html("<s>£"+price+"</s>");
             else        
                 item.find('.boiler-actual-price').remove();
 
