@@ -623,7 +623,6 @@ function create_list_item(data, append=false)
             });
 
             $.each(features, function(key, val){
-              console.log(val);
               item.find(".boiler-icon-features").append("<img src='"+val.image+"' title='"+val.name+"'>")
             });
 
