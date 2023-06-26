@@ -637,6 +637,7 @@ function create_list_item(data, append=false)
 
             var dPrice = price  - discount;
             dPrice = dPrice.toFixed(2);
+            price = price.toFixed(2);
 
             item.find('.boiler-net-price').html("£"+dPrice);
             if (discount)
