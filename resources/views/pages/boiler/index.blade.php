@@ -88,7 +88,9 @@ $Selection = Session()->get('selection');
                 <div class="boiler-item" id="boiler-item-0" style="display:none">
                     <div class="boiler-img order-md-1 order-xl-1">
                         <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler" class="boiler-pic">
+                        <div class="boiler-icon-features"></div>
                     </div>
+                    
                     <div class="boiler-detail order-md-3 order-xl-2">
                         <div class="boiler-pro mb-3">
                             <span class="boiler-latest">
@@ -593,6 +595,7 @@ function create_list_item(data, append=false)
   $.each(data.boiler.data, function(key, value)
         {
             var tags = value.tags;
+            var features = value.features;
             var item = $('#boiler-item-0').clone();
             item.show();
             item.removeAttr('id');
@@ -617,6 +620,11 @@ function create_list_item(data, append=false)
 
             $.each(tags, function(key, val) {
               item.find(".boiler-pro").append("<span class='boiler-tags'><img src='{!! asset('assets/img/boiler-icons/tick.jpg') !!}'>"+val.tag+"</span>");
+            });
+
+            $.each(features, function(key, val){
+              console.log(val);
+              item.find(".boiler-icon-features").append("<img src='"+val.image+"' title='"+val.name+"'>")
             });
 
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
@@ -843,7 +851,6 @@ function filter(url = "", append = false)
                    create_list_item(data, append);
                    if (data.boiler)
                       next_page_url = data.boiler.next_page_url;
-                   
                    choose_boiler_click(); 
                 }
 

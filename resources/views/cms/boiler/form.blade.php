@@ -323,6 +323,21 @@
           </select>
         </div>
     </div>
+
+    <div class="card-body">
+      <div class="form-group">
+      {!! Form::label('features_id',"Boiler Features") !!}
+        <select name="features[]" id="features_id" multiple="multiple" class="select2 form-control">
+          @foreach($features as $feature)
+          <option value="{{$feature->id}}"
+          @if(isset($boiler) && in_array($feature->id, $boiler->features()->pluck('boiler_feature_id')->toArray()))
+            selected="selected"
+          @endif  
+          >{{ $feature->name }}</option>
+          @endforeach
+        </select>
+      </div>
+  </div>
     <!-- /.box-body -->
   </div>
 

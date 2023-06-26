@@ -38,6 +38,30 @@ class BoilerPermission
                 'name' => 'Delete Boiler',
                 'slug' => 'cms::boilers.delete',
                 'description' => 'Allow to delete category.'
+            ],
+            [
+                'name' => 'View all Features',
+                'slug' => 'cms::boiler.features.index',
+                'description' => 'Allow to view all features.',
+                'view_on_sidebar' => true,
+                'menu_name' => "All Boiler Features"
+            ],
+            [
+                'name' => 'Create Feature',
+                'slug' => 'cms::boiler.features.create',
+                'description' => 'Allow to create new feature.',
+                'view_on_sidebar' => true,
+                'menu_name' => "Add Feature"
+            ],
+            [
+                'name' => 'Update Feature',
+                'slug' => 'cms::boiler.features.update',
+                'description' => 'Allow to update feature.'
+            ],
+            [
+                'name' => 'Delete Feature',
+                'slug' => 'cms::boiler.features.delete',
+                'description' => 'Allow to delete feature.'
             ]
         ]
     ];

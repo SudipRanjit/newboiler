@@ -181,6 +181,42 @@
   display:none;
 }
 
+/* .boiler-icon-features {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+} */
+
+.boiler-icon-features img {
+  width: 31.33%;
+  display: inline-block;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.boiler-icon-features {
+    /* scrollbar-width: auto;
+  scrollbar-color: #ffffffff #ffffffff; */
+    scrollbar-color: #FFFEEE #FFFEEE;
+    scrollbar-width: thin;
+}
+
+/* Chrome, Edge, and Safari */
+.boiler-icon-features::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+
+.boiler-icon-features::-webkit-scrollbar-track {
+    background: #FFFEEE;
+}
+
+.boiler-icon-features::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 1px;
+    border: 1px none #000000;
+}
+
 @media only screen and (max-width: 768px) {
 .extras{
   width:100%;

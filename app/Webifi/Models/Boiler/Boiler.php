@@ -79,4 +79,12 @@ class Boiler extends Model
     {
         return $this->belongsToMany(Tag::class, 'boiler_tags')->withTimestamps();
     }
+
+    /**
+     * The features that belong to the boiler.
+     */
+    public function features()
+    {
+        return $this->belongsToMany(BoilerFeature::class, 'boiler_features_pivot')->withTimestamps();
+    }
 }

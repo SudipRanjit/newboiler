@@ -8,6 +8,7 @@ use App\Webifi\Models\Boiler\Boiler;
 use App\Webifi\Models\Boiler\Tag;
 use App\Webifi\Repositories\Addon\AddonRepository;
 use App\Webifi\Repositories\Boiler\BoilerRepository;
+use App\Webifi\Repositories\Boiler\BoilerFeatureRepository;
 use App\Webifi\Repositories\Brand\BrandRepository;
 use App\Webifi\Repositories\Category\CategoryRepository;
 use App\Webifi\Repositories\Media\MediaRepository;
@@ -24,6 +25,11 @@ class BoilerController extends Controller
      * BoilerRepository $boiler
      */
     private $boiler;
+
+    /**
+     * BoilerFeatureRepository $feature
+     */
+    private $feature;
 
     /**
      * BrandRepository $brand
@@ -68,6 +74,7 @@ class BoilerController extends Controller
     /**
      * BoilerController constructor.
      * @param BoilerRepository $boiler
+     * @param BoilerFeatureRepository $feature
      * @param AddonRepository $addon
      * @param MediaRepository $media
      * @param TagRepository $tag
@@ -76,6 +83,7 @@ class BoilerController extends Controller
      */
     public function __construct(
         BoilerRepository $boiler,
+        BoilerFeatureRepository $feature,
         BrandRepository $brand,
         AddonRepository $addon,
         CategoryRepository $category,
@@ -86,6 +94,7 @@ class BoilerController extends Controller
         LoggerInterface $log
     ) {
         $this->boiler = $boiler;
+        $this->feature = $feature;
         $this->addon = $addon;
         $this->brand = $brand;
         $this->category = $category;
@@ -132,6 +141,7 @@ class BoilerController extends Controller
 
         $medias = $this->media->paginate(40, "created_at");
 
+        $features = $this->feature->getAll();
         $categories = $this->category->getWithCondition(['publish' => 1, 'type' => 'Category']);
         $brands = $this->brand->getWithCondition(['publish' => 1, 'type' => 'Brand']);
         $powers = $this->power->getWithCondition(['publish' => 1, 'type' => 'Power']);
@@ -139,6 +149,7 @@ class BoilerController extends Controller
         $tags = $this->tag->all();
 
         return view('cms.boiler.create')
+            ->with('features', $features)
             ->with('categories', $categories)
             ->with('brands', $brands)
             ->with('powers', $powers)
@@ -173,6 +184,7 @@ class BoilerController extends Controller
                 'hot_water_output',
                 'effiency_rating',
                 'multiple_addons',
+                'features'
             ]);
 
             $input['image'] = $request->featured_image;
@@ -225,6 +237,10 @@ class BoilerController extends Controller
             }
             $boiler->tags()->sync($fTags);
 
+            if (!empty($input['features'])) {
+                $boiler->features()->attach($input['features']);
+            }
+
             $this->db->commit();
 
             return redirect()->route('cms::boilers.index')
@@ -255,9 +271,11 @@ class BoilerController extends Controller
         $powers = $this->power->getWithCondition(['publish' => 1, 'type' => 'Power']);
         $addons = $this->addon->getWithCondition(['publish' => 1]);
         $tags = $this->tag->all();
+        $features = $this->feature->getAll();
 
         return view('cms.boiler.edit')
             ->with('boiler', $boiler)
+            ->with('features', $features)
             ->with('categories', $categories)
             ->with('brands', $brands)
             ->with('addons', $addons)
@@ -276,7 +294,6 @@ class BoilerController extends Controller
     public function update(BoilerRequest $request, $id)
     {
         $this->authorize('update', Boiler::class);
-
         $boiler = $this->boiler->find($id);
         try {
             $this->db->beginTransaction();
@@ -295,6 +312,7 @@ class BoilerController extends Controller
                 'hot_water_output',
                 'effiency_rating',
                 'multiple_addons',
+                'features'
             ]);
 
             $input['image'] = $request->featured_image;
@@ -348,6 +366,12 @@ class BoilerController extends Controller
               }
             }
             $boiler->tags()->sync($fTags);
+
+            if (!empty($input['features'])) {
+                $boiler->features()->sync($input['features']);
+            } else {
+                $boiler->features()->detach();
+            }
 
             $this->boiler->update($id, $input);
             $this->db->commit();
