@@ -149,7 +149,6 @@ class BookingController extends Controller
             }
         }
         $block_dates = json_encode($block_dates);
-        dd($block_dates);
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);
         return view('pages.booking.booking',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
