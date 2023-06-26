@@ -476,11 +476,13 @@
            var year = parseInt(date_split[0]);
            var month = parseInt(date_split[1]);
            var day = parseInt(date_split[2]);
+           var hour = "{{date('H')}}";
           
            if (month==current_month && year == current_year)
            {
                //console.log(month);
                 //add disable class
+                console.log(day + "TODAY");
                 const headings = document.evaluate(
                 "//time[contains(., "+day+")]",
                 document,

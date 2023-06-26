@@ -127,7 +127,11 @@ class BookingController extends Controller
                 $radiator_price = $RadiatorPrice->findWithCondition(['radiator_type_id'=>$selection['radiator_type'],'radiator_height_id'=>$selection['radiator_height'],'radiator_length_id'=>$selection['radiator_length']]);
      
         }
-        $block_dates = [date("Y-m-d").":00"];
+        $block_dates = [date("Y-m-d")];
+
+        if(date("H") < 14)
+            $block_dates = [];
+        
         $BlockDate = new BlockDateRepository(app()) ;
         $b_dates = $BlockDate->getWithCondition(['publish'=>1],'date','asc',array('date', 'time'),1000);
         $time = date("H");
@@ -145,7 +149,7 @@ class BookingController extends Controller
             }
         }
         $block_dates = json_encode($block_dates);
-
+        dd($block_dates);
         $item_list_json_for_paypal = $this->make_item_list_json_for_paypal();
         //dd($item_list_json_for_paypal);
         return view('pages.booking.booking',compact('devices','boiler','addon','radiator','radiator_type','radiator_height','radiator_length','item_list_json_for_paypal','block_dates','radiator_price'));
