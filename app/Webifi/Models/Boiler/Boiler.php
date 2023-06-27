@@ -85,6 +85,6 @@ class Boiler extends Model
      */
     public function features()
     {
-        return $this->belongsToMany(BoilerFeature::class, 'boiler_features_pivot')->withTimestamps();
+        return $this->belongsToMany(BoilerFeature::class, 'boiler_features_pivot')->orderBy('boiler_features.s_order')->withTimestamps();
     }
 }
