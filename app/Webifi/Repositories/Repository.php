@@ -203,7 +203,7 @@ abstract class Repository implements RepositoryInterface
         $orderBy='id', 
         $orderType = 'desc', 
         $columns = array('*'),
-        $limit = 10
+        $limit = 10000
     )
     {
         return $this->model->where($conditions)->orderBy($orderBy, $orderType)->limit($limit)->get($columns);
