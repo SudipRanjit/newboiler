@@ -54,7 +54,19 @@
             <div class="boiler-detail-container">
                 <div class="row">
                     <div class="col-md-4 col-lg-4 offset-md-1">
+                      <div class="_relative">
+                        @if($boiler->extra_icon != NULL)  
+                          <div class="boiler-extra-icon"><img class="w-100" src="{{asset('uploads/icons/'.$boiler->extra_icon)}}" /></div>
+                        @endif
+                      </div>
                         <img src="{!! $boiler->image !!}" alt="Boiler" class="img-fluid w-100">
+                        @if($boiler->features != NULL)
+                        <div class="boiler-icon-features">
+                        @foreach($boiler->features as $feature)
+                        <img src="{{$feature->image}}" title="{{$feature->name}}" />
+                        @endforeach
+                        </div>
+                        @endif
                     </div>
                     <div class="col-md-7 col-lg-6">
                         <div class="boiler-detail pt-md-4">

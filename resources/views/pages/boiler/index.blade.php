@@ -87,6 +87,7 @@ $Selection = Session()->get('selection');
             </div> --}}
                 <div class="boiler-item" id="boiler-item-0" style="display:none">
                     <div class="boiler-img order-md-1 order-xl-1">
+                        <div class="boiler-extra-icon"></div>
                         <img src="{!! asset('assets/img/boiler-select.jpg') !!}" alt="Boiler" class="boiler-pic">
                         <div class="boiler-icon-features"></div>
                     </div>
@@ -625,6 +626,9 @@ function create_list_item(data, append=false)
             $.each(features, function(key, val){
               item.find(".boiler-icon-features").append("<img src='"+val.image+"' title='"+val.name+"'>")
             });
+            console.log(value);
+            if(value.extra_icon != null)
+              item.find(".boiler-extra-icon").append("<img src='uploads/icons/"+ value.extra_icon +"' />")
 
             var discount = parseFloat(value.discount)?parseFloat(value.discount):0;
             // var price = parseFloat(data.selection.total_price);

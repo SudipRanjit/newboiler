@@ -472,7 +472,7 @@
                                 style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:35px;line-height:45px;font-weight:400;font-style:normal;color:#333333;text-decoration:none;letter-spacing:0px;">
 
                                 <div>
-                                  Your <strong style="color:#f08f12;">fixed price</strong> quote for a<br>
+                                  Your <strong style="color:#1c3157;">fixed price</strong> quote for a<br>
                                   {{$boiler['boiler_name']}}
                                 </div>
 
@@ -499,7 +499,7 @@
           role="presentation" width="800" style="width:800px;max-width:800px;">
           <!-- mars-services -->
           <tr>
-            <td align="center" bgcolor="#f08f12">
+            <td align="center" bgcolor="#1c3157">
 
                   <div>
                     <!-- mars-services-bg-image -->
@@ -571,7 +571,7 @@
                                               </tr>
                                               <tr>
                                                 <td align="center"
-                                                  style="font-family:'Roboto', sans-serif;font-size:24px;line-height:30px;font-weight:400;font-style:normal;color:#f08f12;text-decoration:none;letter-spacing:0px;">
+                                                  style="font-family:'Roboto', sans-serif;font-size:24px;line-height:30px;font-weight:400;font-style:normal;color:#1c3157;text-decoration:none;letter-spacing:0px;">
 
                                                   <div>
                                                     {{$boiler['boiler_name']}} - £{{$extras['totalPrice']}} {{-- £{{$quote['offered_price']}} --}}
@@ -809,7 +809,7 @@
                                                       <td>&nbsp;</td>
                                                     </tr>
                                                     <tr>
-                                                      <td><a href="{{$extras["step_url"]}}">Click here to continue your query</a></td>
+                                                      <td style="text-align: center;"><a href="{{$extras["step_url"]}}">Click here to continue your query</a></td>
                                                     </tr>
                                                     </table>
                                                 </td>
@@ -860,7 +860,7 @@
           role="presentation" width="800" style="width:800px;max-width:800px;">
           <!-- mars-unsubscribe -->
           <tr>
-            <td align="center" bgcolor="#F08F12">
+            <td align="center" bgcolor="#1c3157">
 
               <!-- Content -->
               <table data-inner-table border="0" align="center" cellpadding="0" cellspacing="0"

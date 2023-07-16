@@ -50,20 +50,22 @@
 
       <!-- radio -->
       <div class="form-group">
-      <div class="switch-box">
-        <span class="switch-label">Active</span>
+        <div class="switch-box">
+          <span class="switch-label">Active</span>
 
-            <label class="switch">
-                {{ Form::hidden('publish', false) }}
+              <label class="switch">
+                  {{ Form::hidden('publish', false) }}
 
-                @if(isset($addon) && $addon->publish == '1' || old('publish'))
-                    <input type="checkbox" name="publish" checked>
-                @else
-                    <input type="checkbox" name="publish">
-                @endif
-                <span class="slider round"></span>
-            </label>
+                  @if(isset($addon) && $addon->publish == '1' || old('publish'))
+                      <input type="checkbox" name="publish" checked>
+                  @else
+                      <input type="checkbox" name="publish">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
         </div>
+
+        
       </div>
       <div class="form-group">
         {!! Form::label('s_order','Sort Order [Lowest number will be displayed first]') !!}
@@ -72,6 +74,70 @@
     </div>
     <!-- /.box-body -->
   </div>
+
+
+  <!-- Addons -->
+  <div class="card card-default addons-box mt-30">
+    <div class="card-header">
+      <h3 class="card-title">Boiler Type (Multiple Allowed)</h3>
+    </div>
+    <div class="card-body">
+      <!-- Minimal style -->
+
+      <!-- radio -->
+      <div class="form-group">
+        <div class="switch-box">
+          <span class="switch-label">Combi Boiler</span>
+              <label class="switch">
+                  {{ Form::hidden('combi_boiler', false) }}
+
+                  @if(isset($addon) && $addon->combi_boiler == '1' || old('combi_boiler'))
+                      <input type="checkbox" name="combi_boiler" checked>
+                  @else
+                      <input type="checkbox" name="combi_boiler">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-box">
+          <span class="switch-label">Standard Boiler</span>
+              <label class="switch">
+                  {{ Form::hidden('standard_boiler', false) }}
+
+                  @if(isset($addon) && $addon->standard_boiler == '1' || old('standard_boiler'))
+                      <input type="checkbox" name="standard_boiler" checked>
+                  @else
+                      <input type="checkbox" name="standard_boiler">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-box">
+          <span class="switch-label">System Boiler</span>
+              <label class="switch">
+                  {{ Form::hidden('system_boiler', false) }}
+
+                  @if(isset($addon) && $addon->system_boiler == '1' || old('system_boiler'))
+                      <input type="checkbox" name="system_boiler" checked>
+                  @else
+                      <input type="checkbox" name="system_boiler">
+                  @endif
+                  <span class="slider round"></span>
+              </label>
+        </div>
+      </div>
+     
+    </div>
+    <!-- /.box-body -->
+  </div>
+
+
 
   <div class="card addons-box mt-30">
     <div class="card-header">

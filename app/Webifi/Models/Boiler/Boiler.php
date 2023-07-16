@@ -53,6 +53,7 @@ class Boiler extends Model
     'central_heating_output',
     'hot_water_output',
     'effiency_rating',
+    'extra_icon'
   ];
 
     /**

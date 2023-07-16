@@ -210,6 +210,11 @@ class BoilerController extends Controller
                 $input['popular'] = 1;
             }
 
+            
+            if ($request->hasFile('extra_icon')) {
+                $input['extra_icon'] = uploadImage($request, 'extra_icon', 'uploads/icons');
+              }
+
             $boiler = $this->boiler->store($input);
 
             if (!empty($input['multiple_addons'])) {
@@ -240,6 +245,7 @@ class BoilerController extends Controller
             if (!empty($input['features'])) {
                 $boiler->features()->attach($input['features']);
             }
+
 
             $this->db->commit();
 
@@ -372,6 +378,10 @@ class BoilerController extends Controller
             } else {
                 $boiler->features()->detach();
             }
+
+            if ($request->hasFile('extra_icon')) {
+                $input['extra_icon'] = uploadImage($request, 'extra_icon', 'uploads/icons');
+              }
 
             $this->boiler->update($id, $input);
             $this->db->commit();

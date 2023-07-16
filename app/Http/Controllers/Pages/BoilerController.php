@@ -55,7 +55,7 @@ class BoilerController extends Controller
     {
       $Boiler = new BoilerRepository(app()) ;        
       $boiler = $Boiler->find($id);
-      
+
       if (!$boiler)
         abort(404);
 

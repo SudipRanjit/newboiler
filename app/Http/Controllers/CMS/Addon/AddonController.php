@@ -149,6 +149,18 @@ class AddonController extends Controller
       if (isset($request->publish))
         $input['publish'] = 1;
 
+      $input['system_boiler'] = 0;
+      if (isset($request->system_boiler))
+        $input['system_boiler'] = 1;
+
+      $input['standard_boiler'] = 0;
+      if (isset($request->standard_boiler))
+        $input['standard_boiler'] = 1;
+
+      $input['combi_boiler'] = 0;
+      if (isset($request->combi_boiler))
+        $input['combi_boiler'] = 1;
+
       $this->addon->store($input);
 
       $this->db->commit();
@@ -217,6 +229,18 @@ class AddonController extends Controller
 
       if (isset($request->publish))
         $input['publish'] = 1;
+
+      $input['system_boiler'] = 0;
+      if (isset($request->system_boiler))
+        $input['system_boiler'] = 1;
+
+      $input['standard_boiler'] = 0;
+      if (isset($request->standard_boiler))
+        $input['standard_boiler'] = 1;
+
+      $input['combi_boiler'] = 0;
+      if (isset($request->combi_boiler))
+        $input['combi_boiler'] = 1;
 
       $this->addon->update($id, $input);
       $this->db->commit();

@@ -28,6 +28,9 @@ class Addon extends Model
     'summary',
     'description',
     'image',
+    'system_boiler',
+    'standard_boiler',
+    'combi_boiler',
     'publish',
     's_order'
   ];

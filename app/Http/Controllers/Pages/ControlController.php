@@ -49,31 +49,48 @@ class ControlController extends Controller
         }
 
         //add default addon/control if present, to session
-        if ($boiler->addon_id && empty($selection['control']))
-            {
-                $selection['control'] = $boiler->addon_id;
-                $Addon = new AddonRepository(app()) ;
-                $default_addon = $Addon->find($selection['control']);
-                if ($default_addon)
-                    $selection['total_price']+= $default_addon->price;
 
-                if (!in_array('page.controls',$selection['completed_wizard']))
-                    $selection['completed_wizard'][] = 'page.controls';     
+        $type = "";
+
+        switch($boiler->boiler_type)
+        {
+            case "Combi":
+                $type = "combi_boiler";
+                break;
+            case "System":
+                $type = "system_boiler";
+                break;
+            case "Standard":
+                $type = "standard_boiler";
+                break;
+        }
+
+        // if ($boiler->addon_id && empty($selection['control']))
+        //     {
+        //         $selection['control'] = $boiler->addon_id;
+        //         $Addon = new AddonRepository(app()) ;
+        //         $default_addon = $Addon->find($selection['control']);
+        //         if ($default_addon)
+        //             $selection['total_price']+= $default_addon->price;
+
+        //         if (!in_array('page.controls',$selection['completed_wizard']))
+        //             $selection['completed_wizard'][] = 'page.controls';     
                 
-                $request->session()->put('selection', $selection);
-            }   
+        //         $request->session()->put('selection', $selection);
+        //     }   
         
         $Addon = new AddonRepository(app()) ;
         $addon = null;
-        if (isset($selection['control']))        
-            $addon = $Addon->find($selection['control']);
+        // if (isset($selection['control']))        
+        //     $addon = $Addon->find($selection['control']);
              
-        $boiler_addon_ids = $boiler->addons->pluck('id')->toArray();    
+        // $boiler_addon_ids = $boiler->addons->pluck('id')->toArray();    
+        $boiler_addon_ids = $Addon->getWithCondition(['publish' => 1, $type => 1])->pluck('id')->toArray();    
         $boiler_addon_ids_string = '';
 
         if ($boiler_addon_ids)
             $boiler_addon_ids_string = implode(',',$boiler_addon_ids);        
-       
+
         return view('pages.control.index',compact('boiler','addon','boiler_addon_ids_string'));
     }
 }

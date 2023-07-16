@@ -290,9 +290,9 @@
 
   <div class="card card-default boilers-box mt-30">
     <div class="card-header">
-      <h3 class="card-title">Controls</h3>
+      <h3 class="card-title">Boiler Features</h3>
     </div>
-    <div class="card-body">
+    {{--<div class="card-body">
       <!-- Minimal style -->
       {!! Form::label('addon_id',"Default Control") !!}
         <select name="addon_id" id="addon_id" class="select2 form-control">
@@ -322,7 +322,7 @@
             @endforeach
           </select>
         </div>
-    </div>
+    </div> --}}
 
     <div class="card-body">
       <div class="form-group">
@@ -362,6 +362,41 @@
         </span>
 
       </div>
+  </div>
+
+  <div class="card card-default brands-box mt-30">
+    <div class="card-header">
+      <h3 class="card-title">Extra Icon</h3>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        {!! Form::label('icon','Brand Logo') !!}
+        <div class="row">
+          <div class="col-md-12">
+            @if(isset($boiler) && $boiler->extra_icon)
+            <div class="widget-image-brand">
+              <img id="icon-dark-img" src="{!! asset('uploads/icons/'.$boiler->extra_icon) !!}" >
+            </div>
+            @else
+            <div class="widget-image-brand">
+              <img id="icon-dark-img" src="{!! asset('uploads/default.png') !!}">
+            </div>
+            @endif
+            <div class="form-group">
+              <div class="custom-file">
+               
+                <fieldset class="form-group mt-30">
+                  <label class="custom-file center-block block">
+                    <input type="file" name="extra_icon" id="icon-dark" class="custom-file-input">
+                    <span class="custom-file-control"></span> </label>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <!--</right side bar>-->

@@ -387,7 +387,7 @@
                           <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-card" value="stripe">
                           <label class="form-check-label" for="pay-card">
                               <span class="f-20 font-semibold">Pay by card</span>
-                              <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
+                              {{-- <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p> --}}
                           </label>
                            @include('pages.booking.stripe_future.form')
                       </div>
@@ -397,7 +397,7 @@
                           <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-paypal" value="paypal">
                           <label class="form-check-label" for="pay-paypal">
                               <span class="f-20 font-semibold">Pay using Paypal</span>
-                              <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
+                              {{-- <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p> --}}
                           </label>
                           <div id="paypal-button-container" class="mt-4" style="display:none"></div>
                       </div>
@@ -407,7 +407,7 @@
                           <input class="form-check-input payment-option" type="radio" name="payment_option" id="pay-with-finance" value="pay_with_finance">
                           <label class="form-check-label" for="pay-with-finance">
                               <span class="f-20 font-semibold">Pay with Finance</span>
-                              <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p>
+                              {{-- <p class="m-0"><small>Morbi condimentum odio sed ex cursus euismod. Ut iaculis, leo placerat efficitur facilisis, tortor turpis dapibus</small></p> --}}
                           </label>
                           <div id="div-pay-with-finance" class="mt-4" style="display:none">
                               <button class="btn btn-secondary" type="submit" id="btn-submit-pay-with-finance">Complete Booking</button>
