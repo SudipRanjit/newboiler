@@ -79,6 +79,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row py-4 mt-4 border-top-1">
+                <p class="text-secondary mb-4 text-left text-white">Gasking Engineers Ltd is an Introducer Appointed Representative and provides a pure client Introduction through Improveasy Ltd., a company registered in England and Wales (Co. Reg. number 7807352). Registered Office: Station House, Stamford New Road, Altrincham, Cheshire, WA14 1EP. The firm is authorised and regulated by the Financial Conduct Authority (FRN 708623). The firm is authorised as a Broker, not a Lender and offers credit facilities from a panel of lenders. The credit is subject to application and status.</p>
+                
+            </div>
         </div>
     </div>
     <div class="footer-bottom">
@@ -91,7 +96,7 @@
                     <li><a href="#" class="m-2 text-secondary"><i class="fa-brands fa-youtube"></i></a></li>
                 </ul>
                 <p class="text-center m-0 footer-link-hover">
-                    <small class="text-white-50">© 2022 Gasking, all rights reserved. <a href="#" class="text-white-50 p-0">Privacy Policy</a>, <a href="#" class="text-white-50 p-0">Complaints Handling Procedure</a></small>
+                    <small class="text-white-50">© 2022 Gasking, all rights reserved. <a href="https://gasking.co.uk/privacy-policy/" class="text-white-50 p-0">Privacy Policy</a>, <a href="https://gasking.co.uk/complaints-handling-procedure/" class="text-white-50 p-0">Complaints Handling Procedure</a></small>
                 </p>
             </div>
         </div>
