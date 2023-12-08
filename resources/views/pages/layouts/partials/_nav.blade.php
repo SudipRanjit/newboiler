@@ -7,19 +7,19 @@
                         <a class="nav-link active" aria-current="page" href="{!! route('page.index') !!}">New Boiler</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Boiler Repairs</a>
+                        <a class="nav-link" href="https://gasking.co.uk/boiler-repairs/">Boiler Repairs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Boiler Service</a>
+                        <a class="nav-link" href="https://gasking.co.uk/boiler-service/">Boiler Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Powerflush</a>
+                        <a class="nav-link" href="https://gasking.co.uk/powerflush/">Powerflush</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gas Safety Certificate</a>
+                        <a class="nav-link" href="https://gasking.co.uk/gas-safety-certificate/">Gas Safety Certificate</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Plumbing</a>
+                        <a class="nav-link" href="https://gasking.co.uk/plumbing/">Plumbing</a>
                     </li>
                 </ul>
              </div>
