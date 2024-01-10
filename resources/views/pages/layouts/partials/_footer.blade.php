@@ -55,7 +55,7 @@
                     </p>
                     <p>
                         <a href="tel:08003688543" class="d-block text-white link-hover">
-                            <strong>0800 368 8543</strong>
+                            <strong>0800 368 9457</strong>
                         </a>
                         <a href="mailto:info@gasking.co.uk" class="d-block text-white link-hover">
                             <strong>info@gasking.co.uk</strong>

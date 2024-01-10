@@ -417,7 +417,7 @@
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordian">
                             <div class="accordion-body pb-4">
-                              We'll supply and install a brand-new flue for your boiler, up to 3 meters in length. If your flue exceeds 3 meters, please contact us at 0800 368 8543 before ordering.
+                              We'll supply and install a brand-new flue for your boiler, up to 3 meters in length. If your flue exceeds 3 meters, please contact us at 0800 368 9457 before ordering.
                             </div>
                         </div>
                       </div>
